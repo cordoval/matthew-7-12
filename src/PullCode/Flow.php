@@ -2,6 +2,11 @@
 
 namespace Grace\PullCode;
 
+use Grace\Domain\Branch;
+use Grace\Domain\MailList;
+use Grace\Domain\Notification;
+use Grace\Domain\Repo;
+
 class PullWorkflow
 {
     protected $notifier;
@@ -28,7 +33,7 @@ class PullWorkflow
         $repo = $puller(Repo::from($notification));
         $patchSet = $differ(Branch::from($notification));
         $payloadSet = $zipper($patchSet);
-        $list = $subscriber(List::from($repo));
-        $mailer(Mails::from(List::withPayload($list, $payloadSet));
+        $list = $subscriber(MailList::from($repo));
+        $mailer(Mails::from(MailList::withPayload($list, $payloadSet));
     }
 }
