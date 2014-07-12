@@ -39,7 +39,7 @@ class ZipperZippy implements Zipper
 
     public function unzipAndJoin()
     {
-        foreach(array('archive.zip', 'archive2.zip', 'archive3.zip') as $path) {
+        foreach (array('archive.zip', 'archive2.zip', 'archive3.zip') as $path) {
             $archive = $zipAdapter->open($path);
         }
 
