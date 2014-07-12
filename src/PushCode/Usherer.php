@@ -1,8 +1,11 @@
 <?php
 
-namespace Grace;
+namespace Grace\PushCode;
 
-interface Usherer
+class Usherer
 {
-    public function __invoke($patchedBranch);
+    public function __invoke($patchedBranch)
+    {
+
+    }
 }

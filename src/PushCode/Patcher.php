@@ -1,8 +1,11 @@
 <?php
 
-namespace Grace;
+namespace Grace\PushCode;
 
-interface Patcher
+class Patcher
 {
-    public function __invoke($patch);
+    public function __invoke($patch)
+    {
+
+    }
 }

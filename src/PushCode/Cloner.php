@@ -1,8 +1,11 @@
 <?php
 
-namespace Grace;
+namespace Grace\PushCode;
 
-interface Cloner
+class Cloner
 {
-    public function __invoke($repo);
+    public function __invoke($repo)
+    {
+
+    }
 }

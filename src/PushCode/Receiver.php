@@ -1,8 +1,11 @@
 <?php
 
-namespace Grace;
+namespace Grace\PushCode;
 
-interface Receiver
+class Receiver
 {
-    public function __invoke($request);
+    public function __invoke($request)
+    {
+
+    }
 }

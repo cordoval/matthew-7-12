@@ -2,14 +2,10 @@
 
 namespace Grace\PushCode;
 
-use Grace\Cloner;
 use Grace\Domain\Branch;
 use Grace\Domain\Change;
 use Grace\Domain\PullRequest;
 use Grace\Domain\Repo;
-use Grace\Patcher;
-use Grace\Receiver;
-use Grace\Usherer;
 
 class PushWorkflow
 {

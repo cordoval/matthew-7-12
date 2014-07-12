@@ -9,6 +9,5 @@
 /app/phpunit.xml
 /build/
 /vendor/
-/bin/
 /composer.phar
 /composer.lock
