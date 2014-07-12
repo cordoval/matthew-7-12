@@ -13,25 +13,23 @@
     "require": {
         "symfony/symfony": "2.6.x-dev",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "~1.2",
-        "twig/extensions": "~1.0",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~3.0",
-        "incenteev/composer-parameter-handler": "~2.0",
+        "doctrine/doctrine-bundle": "~1.2.0",
+        "twig/extensions": "~1.0.0",
+        "symfony/assetic-bundle": "~2.3.0",
+        "symfony/swiftmailer-bundle": "~2.3.0",
+        "symfony/monolog-bundle": "~2.4.0",
+        "sensio/distribution-bundle": "~3.0.0",
+        "incenteev/composer-parameter-handler": "~2.0.0",
         "alchemy/zippy": " ~0.2.0"
     },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ]
