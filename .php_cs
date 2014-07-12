@@ -4,17 +4,11 @@ require_once __DIR__.'/src/Cordoval/Fixer/ShortArraySyntaxFixer.php';
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('README.md')
-    ->notName('CHANGELOG.md')
     ->notName('.php_cs')
     ->notName('composer.*')
-    ->notName('phpunit.xml*')
-    ->notName('*.txt')
+    ->notName('phpunit.xml')
     ->exclude('app')
-    ->exclude('bin')
     ->exclude('build')
-    ->exclude('jmeter')
-    ->exclude('nginx')
-    ->exclude('vendor')
     ->exclude('web/bundles')
     ->in(__DIR__)
 ;
