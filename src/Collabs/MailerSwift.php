@@ -2,9 +2,15 @@
 
 namespace Grace\Collabs;
 
-interface Zipper
+class ZipperSwift implements Zipper
 {
-    public function zipAndBreak();
+    public function zipAndBreak()
+    {
 
-    public function unzipAndJoin();
+    }
+
+    public function unzipAndJoin()
+    {
+
+    }
 }

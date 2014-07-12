@@ -1,1 +1,9 @@
 services:
+    grace.differ:
+        class: Grace\PullCode\Differ
+    grace.notifier:
+        class: Grace\PullCode\Notifier
+    grace.puller:
+        class: Grace\PullCode\Puller
+    grace.subscriber:
+        class: Grace\PullCode\Subscriber
