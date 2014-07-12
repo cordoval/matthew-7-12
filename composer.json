@@ -17,7 +17,7 @@
         "twig/extensions": "~1.0.0",
         "symfony/assetic-bundle": "~2.3.0",
         "symfony/swiftmailer-bundle": "~2.3.0",
-        "symfony/monolog-bundle": "~2.4.0",
+        "symfony/monolog-bundle": "~2.6.0",
         "sensio/distribution-bundle": "~3.0.0",
         "incenteev/composer-parameter-handler": "~2.0.0",
         "alchemy/zippy": " ~0.2.0"
