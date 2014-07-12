@@ -12,6 +12,11 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(__DIR__)
 ;
 
+// Load a local config-file when existing
+if (file_exists('local.php_cs')) {
+    require 'local.php_cs';
+}
+
 return Symfony\CS\Config\Config::create()
     ->addCustomFixer(new Decoupling\Fixer\ShortArraySyntaxFixer)
     ->fixers(
