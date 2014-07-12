@@ -1,0 +1,3 @@
+services:
+    grace.zipper:
+        class: Grace\Zipper
