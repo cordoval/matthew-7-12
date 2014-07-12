@@ -1,6 +1,6 @@
 <?php
 
-namespace Grace\PushCode;
+namespace Grace\PullCode;
 
 class Differ
 {

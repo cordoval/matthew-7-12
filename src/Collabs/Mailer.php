@@ -2,7 +2,7 @@
 
 namespace Grace\Collabs;
 
-interface Zipper
+interface Mailer
 {
     public function zipAndBreak();
 
