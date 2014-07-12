@@ -12,7 +12,7 @@ class PullWorkflow
 
     public function pull($request)
     {
-        // web hook notification arrives
+        $notification = $notifier(Notification::fromWebhook($request));
         // merge/commit puller pulls git objects
         // patch creator creates patch
         // zipper zips patch
