@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/src/Cordoval/Fixer/ShortArraySyntaxFixer.php';
+require_once __DIR__.'/src/Decoupling/Fixer/ShortArraySyntaxFixer.php';
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('README.md')
@@ -14,7 +14,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
 ;
 
 return Symfony\CS\Config\Config::create()
-    ->set
+    ->addCustomFixer(new Decoupling\Fixer\ShortArraySyntaxFixer)
     ->fixers(
         array(
             'encoding',
