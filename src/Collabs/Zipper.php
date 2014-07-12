@@ -1,6 +1,6 @@
 <?php
 
-namespace Grace;
+namespace Grace\Collabs;
 
 interface Zipper
 {

@@ -4,4 +4,4 @@ imports:
 
 services:
     grace.zipper:
-        class: Grace\Zipper
+        class: Grace\Collabs\Zipper
