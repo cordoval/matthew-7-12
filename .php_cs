@@ -4,7 +4,6 @@ require_once __DIR__.'/src/Decoupling/Fixer/ShortArraySyntaxFixer.php';
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('README.md')
-    ->notName('.php_cs')
     ->notName('composer.*')
     ->notName('phpunit.xml')
     ->exclude('app')
@@ -16,7 +15,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
 return Symfony\CS\Config\Config::create()
     ->addCustomFixer(new Decoupling\Fixer\ShortArraySyntaxFixer)
     ->fixers(
-        array(
+        [
             'encoding',
             'linefeed',
             'indentation',
@@ -39,7 +38,8 @@ return Symfony\CS\Config\Config::create()
             'eof_ending',
             'one_class_per_file',
             'unused_use',
-        )
+            'short_array_syntax'
+        ]
     )
     ->finder($finder)
 ;
