@@ -1,13 +1,16 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "cordoval/matthew-7-12",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Golden Rule Project",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-4": { "Grace\\": "src/" },
+        "files": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
     },
     "require": {
-        "php": ">=5.3.3",
         "symfony/symfony": "2.6.x-dev",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
@@ -20,28 +23,18 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "alchemy/zippy": " ~0.2.0"
     },
-    "require-dev": {
-        "sensio/generator-bundle": "~2.3"
-    },
     "scripts": {
-        "post-root-package-install": [
-            "SymfonyStandard\\Composer::hookRootPackageInstall"
-        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
         ]
     },
     "config": {
@@ -52,9 +45,6 @@
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.6-dev"
         }
     }
 }
