@@ -21,13 +21,6 @@ bldr:
             description: Docker setup
             tasks:
                 - bootstrap
-        jenkins:
-            description: Jenkins profile
-            tasks:
-                - setup_jenkins
-                - lint
-                - phpcs
-                - test
         cs:
             description: fix cs for once
             tasks:
@@ -60,42 +53,6 @@ bldr:
                     failOnError: true
                     executable: php
                     arguments: [app/console, cache:clear, --env=dev]
-        setup_jenkins:
-            calls:
-                -
-                    type: exec
-                    failOnError: true
-                    executable: cp
-                    arguments: [app/config/parameters.yml.jenkins, app/config/parameters.yml]
-                -
-                    type: exec
-                    failOnError: true
-                    executable: composer
-                    arguments: [-q, install, --prefer-dist]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, doctrine:database:drop, --force, --env=test]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, doctrine:database:create, --env=test]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, doctrine:schema:create, --env=test]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, doctrine:schema:update, --force, --env=test]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, doctrine:mongodb:schema:update, --env=test]
-                -
-                    type: exec
-                    executable: php
-                    arguments: [app/console, cache:clear, --env=test]
         prepare:
             calls:
                 -
@@ -198,105 +155,6 @@ bldr:
                     src:
                         - { path: [src], files: *.php, recursive: true }
                     task: testLocal
-        open:
-            description: Opens ticket from list by number and add label WIP
-            calls:
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - i:take
-                        - $CURRENT_TICKET
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:assign
-                        - $CURRENT_TICKET
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:label:assign
-                        - WIP
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:assign
-                        - $CURRENT_TICKET
-                        - $NEXT_USER
-        autopush:
-            description: Autocommit with the ticket name being the branch name
-            calls:
-                -
-                    type: exec
-                    executable: git
-                    arguments:
-                        - ca
-                        - $BRANCH_NAME
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - b:p
-        ready:
-            description: Makes the current branch and ticket ready by labeling it RFR
-            calls:
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:label:assign
-                        - RFR
-        close:
-            description: Closes current PR ticket labeling it with OK and merging it
-            calls:
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:label:assign
-                        - OK
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - p:merge
-                        - $CURRENT_TICKET
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - b:d
-                -
-                    type: exec
-                    executable: git
-                    arguments:
-                        - checkout
-                        - master
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - b:s
-                -
-                    type: exec
-                    executable: git
-                    arguments:
-                        - branch
-                        - -d
-                        - -
-        bounce:
-            description: Bounces the ticket to be responsibility of the reviewer set
-            calls:
-                -
-                    type: exec
-                    executable: gush
-                    arguments:
-                        - issue:assign
-                        - $CURRENT_TICKET
-                        - $NEXT_USER
         runFixer:
             description: Installs if not already and runs php-cs-fixer with custom .php_cs
             calls:
