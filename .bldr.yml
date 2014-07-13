@@ -1,3 +1,9 @@
+blocks:
+    - Bldr\Block\Gush\GushBlock
+
+gush:
+    some_setting: some_value
+
 bldr:
     name: cordoval/matthew-7-12
     description: Matthew 7:12 project
