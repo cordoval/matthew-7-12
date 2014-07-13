@@ -1,5 +1,5 @@
 {
     "require": {
-        "bldr/gush-block": "dev-master@dev"
+        "bldr-io/gush-block": "dev-master@dev"
     }
 }

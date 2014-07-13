@@ -1,8 +1,8 @@
-blocks:
-    - Bldr\Block\Gush\GushBlock
+#blocks:
+#    - Bldr\Block\Gush\GushBlock
 
-gush:
-    some_setting: some_value
+#gush:
+#    some_setting: some_value
 
 bldr:
     name: cordoval/matthew-7-12
