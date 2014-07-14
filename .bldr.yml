@@ -131,7 +131,7 @@ bldr:
                     failOnError: true
                     executable: php
                     arguments:
-                        - vendor/phpunit
+                        - vendor/bin/phpunit
                         #- --exclude-group=travis
                         #- --coverage-text=php://stdout
         testLocal:
@@ -144,9 +144,9 @@ bldr:
                     type: exec
                     executable: php
                     arguments:
-                        - vendor/phpunit
+                        - vendor/bin/phpunit
                         - --stop-on-failure
-                        - --group=now
+                        #- --group=now
         watch:
             description: Watch Task for Local Development
             calls:
