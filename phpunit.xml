@@ -9,7 +9,7 @@
 >
     <testsuites>
         <testsuite name="Matthew 7:12 Test Suite">
-            <directory>src/*/*/Tests</directory>
+            <directory>src/UseCases</directory>
         </testsuite>
     </testsuites>
 
@@ -19,10 +19,9 @@
 
     <filter>
         <whitelist>
-            <directory>src</directory>
+            <directory>src/UseCases</directory>
             <exclude>
-                <directory>src/*/*/Resources</directory>
-                <directory>src/*/*/Tests</directory>
+                <directory>src/UseCases</directory>
             </exclude>
         </whitelist>
     </filter>
