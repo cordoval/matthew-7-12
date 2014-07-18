@@ -20,39 +20,36 @@ class PullCodeTest extends BaseProphecy
      */
     public function it_goes_through_the_whole_pull_flow()
     {
-        $request = $this->prophesy('Symfony\Component\HttpFoundation\Request');
-        $notifier = new Notifier();
-        $notification = $notifier(Notification::fromWebhook($request->reveal()));
-
-        $this->assertInstanceOf('Grace\Domain\Notification', $notification);
-
         $puller = new Puller();
-        $repo = $puller(Repo::fromNotification($notification));
-
-        $this->assertInstanceOf('Grace\Domain\Repo', $repo);
-
         $differ = new Differ();
-        $patchSet = $differ(Branch::fromNotification($notification));
+        $subscriber = new Subscriber();
+        $mailer = function () {
+            (new MailerSwift())->send();
 
-        $this->assertInstanceOf('Grace\Domain\PatchSet', $patchSet);
-
+            return true;
+        };
         $zipper = function ($patchSet) {
             (new ZipperZippy())->unzipAndJoin($patchSet);
 
             return true;
         };
 
+        $request = $this->prophesy('Symfony\Component\HttpFoundation\Request');
+        $notifier = new Notifier();
+        $notification = $notifier(Notification::fromWebhook($request->reveal()));
+
+        $this->assertInstanceOf('Grace\Domain\Notification', $notification);
+
+        $repo = $puller(Repo::fromNotification($notification));
+
+        $this->assertInstanceOf('Grace\Domain\Repo', $repo);
+
+        $patchSet = $differ(Branch::fromNotification($notification));
+
+        $this->assertInstanceOf('Grace\Domain\PatchSet', $patchSet);
+
         $payloadSet = $zipper($patchSet);
-
-        $subscriber = new Subscriber();
         $list = $subscriber(MailList::from($repo));
-
-        $mailer = function () {
-            (new MailerSwift())->send();
-
-            return true;
-        };
-
         $mailer(MailList::withPayload($list, $payloadSet));
     }
 }
