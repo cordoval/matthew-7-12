@@ -2,7 +2,7 @@
 
 namespace Grace\Collabs;
 
-class ZipperSwift implements Zipper
+class MailerSwift implements Mailer
 {
     public function zipAndBreak()
     {

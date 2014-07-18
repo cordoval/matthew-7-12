@@ -1,6 +1,6 @@
 <?php
 
-namespace UseCases;
+namespace Grace\UseCases;
 
 use Prophecy\Prophet;
 
