@@ -5,6 +5,7 @@ namespace Grace\UseCases;
 use Grace\Collabs\MailerSwift;
 use Grace\Collabs\ZipperZippy;
 use Grace\Domain\Branch;
+use Grace\Domain\GithubPost;
 use Grace\Domain\MailList;
 use Grace\Domain\Notification;
 use Grace\Domain\Repo;
@@ -12,6 +13,7 @@ use Grace\PullCode\Differ;
 use Grace\PullCode\Notifier;
 use Grace\PullCode\Puller;
 use Grace\PullCode\Subscriber;
+use Symfony\Component\HttpFoundation\Request;
 
 class PullCodeTest extends BaseProphecy
 {
@@ -34,9 +36,11 @@ class PullCodeTest extends BaseProphecy
             return true;
         };
 
-        $request = $this->prophesy('Symfony\Component\HttpFoundation\Request');
+        $request = new Request();
+        $hookPost = GithubPost::fromRequest($request);
+
         $notifier = new Notifier();
-        $notification = $notifier(Notification::fromWebhook($request->reveal()));
+        $notification = $notifier(Notification::fromWebhook($hookPost));
 
         $this->assertInstanceOf('Grace\Domain\Notification', $notification);
 

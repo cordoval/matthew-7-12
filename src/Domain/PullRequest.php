@@ -2,14 +2,10 @@
 
 namespace Grace\Domain;
 
-class PullRequest
+class PullRequest extends BaseDomain
 {
     public static function from($patchedBranch)
     {
 
-    }
-
-    private function __construct()
-    {
     }
 }

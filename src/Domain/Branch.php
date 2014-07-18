@@ -2,7 +2,7 @@
 
 namespace Grace\Domain;
 
-class Branch
+class Branch extends BaseDomain
 {
     public static function toPatch($changeSet, $repo)
     {
@@ -15,9 +15,5 @@ class Branch
         $branch->metadata = fn($notification);
 
         return $branch;
-    }
-
-    private function __construct()
-    {
     }
 }

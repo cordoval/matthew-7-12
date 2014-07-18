@@ -2,7 +2,7 @@
 
 namespace Grace\Domain;
 
-class MailList
+class MailList extends BaseDomain
 {
     public static function from($repo)
     {
@@ -18,8 +18,5 @@ class MailList
         $mailList->metadata = fn($list, $payloadSet);
 
         return $mailList;
-    }
-    private function __construct()
-    {
     }
 }

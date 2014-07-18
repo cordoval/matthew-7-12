@@ -2,26 +2,15 @@
 
 namespace Grace\Domain;
 
-use Symfony\Component\HttpFoundation\Request;
-
-class Notification
+class Notification extends BaseDomain
 {
-    protected $metadata;
+    protected $post;
 
-    public static function from($request)
-    {
-
-    }
-
-    public static function fromWebhook(Request $request)
+    public static function fromWebhook(HookPost $hookPost)
     {
         $notification = new self;
-        $notification->metadata = fn($request);
+        $notification->post = $hookPost;
 
         return $notification;
-    }
-
-    private function __construct()
-    {
     }
 }

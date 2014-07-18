@@ -2,14 +2,10 @@
 
 namespace Grace\Domain;
 
-class PatchSet
+class PatchSet extends BaseDomain
 {
     public static function from($request)
     {
 
-    }
-
-    private function __construct()
-    {
     }
 }

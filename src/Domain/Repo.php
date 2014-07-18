@@ -2,7 +2,7 @@
 
 namespace Grace\Domain;
 
-class Repo
+class Repo extends BaseDomain
 {
     public static function from($changeSet)
     {
@@ -15,9 +15,5 @@ class Repo
         $repo->metadata = fn($notification);
 
         return $repo;
-    }
-
-    private function __construct()
-    {
     }
 }

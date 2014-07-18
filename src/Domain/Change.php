@@ -2,14 +2,10 @@
 
 namespace Grace\Domain;
 
-class Change
+class Change extends BaseDomain
 {
     public static function from($request)
     {
 
-    }
-
-    private function __construct()
-    {
     }
 }
