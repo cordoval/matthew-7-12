@@ -4,7 +4,7 @@ namespace Grace\Collabs;
 
 interface Mailer
 {
-    public function zipAndBreak();
+    public function send();
 
-    public function unzipAndJoin();
+    public function receive();
 }

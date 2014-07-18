@@ -9,6 +9,14 @@ class Branch
 
     }
 
+    public static function fromNotification(Notification $notification)
+    {
+        $branch = new self;
+        $branch->metadata = fn($notification);
+
+        return $branch;
+    }
+
     private function __construct()
     {
     }
