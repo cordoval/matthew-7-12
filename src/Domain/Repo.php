@@ -18,4 +18,12 @@ class Repo extends BaseDomain
 
         return $repo;
     }
+
+    /**
+     * @return HookPost
+     */
+    public function getHookPost()
+    {
+        return $this->hookPost;
+    }
 }

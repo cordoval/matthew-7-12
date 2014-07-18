@@ -7,6 +7,8 @@ use Grace\Domain\Repo;
 
 class Puller
 {
+    protected $container;
+
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -14,8 +16,8 @@ class Puller
 
     public function __invoke(Repo $repo)
     {
-        $this->clone($repo, $this->container);
-        $this->checkout($repo, $this->container, 'to');
+        $this->container->gitClone($repo);
+        $this->container->checkout($repo, $repo->getHookPost()->getTo());
 
         return $repo;
     }
