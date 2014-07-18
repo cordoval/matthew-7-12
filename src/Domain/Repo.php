@@ -4,15 +4,17 @@ namespace Grace\Domain;
 
 class Repo extends BaseDomain
 {
+    protected $hookPost;
+
     public static function from($changeSet)
     {
 
     }
 
-    public static function fromNotification($notification)
+    public static function fromHook(HookPost $hookPost)
     {
         $repo = new self;
-        $repo->metadata = fn($notification);
+        $repo->hookPost = $hookPost;
 
         return $repo;
     }

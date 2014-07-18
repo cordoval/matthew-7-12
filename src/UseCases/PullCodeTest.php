@@ -4,10 +4,9 @@ namespace Grace\UseCases;
 
 use Grace\Collabs\MailerSwift;
 use Grace\Collabs\ZipperZippy;
-use Grace\Domain\Branch;
+use Grace\Domain\Container;
 use Grace\Domain\GithubPost;
 use Grace\Domain\MailList;
-use Grace\Domain\Notification;
 use Grace\Domain\Repo;
 use Grace\PullCode\Differ;
 use Grace\PullCode\Notifier;
@@ -22,8 +21,9 @@ class PullCodeTest extends BaseProphecy
      */
     public function it_goes_through_the_whole_pull_flow()
     {
-        $puller = new Puller();
-        $differ = new Differ();
+        $container = new Container();
+        $puller = new Puller($container);
+        $differ = new Differ($container);
         $subscriber = new Subscriber();
         $mailer = function () {
             (new MailerSwift())->send();
@@ -39,16 +39,11 @@ class PullCodeTest extends BaseProphecy
         $request = new Request();
         $hookPost = GithubPost::fromRequest($request);
 
-        $notifier = new Notifier();
-        $notification = $notifier(Notification::fromWebhook($hookPost));
-
-        $this->assertInstanceOf('Grace\Domain\Notification', $notification);
-
-        $repo = $puller(Repo::fromNotification($notification));
+        $repo = $puller(Repo::fromHook($hookPost));
 
         $this->assertInstanceOf('Grace\Domain\Repo', $repo);
 
-        $patchSet = $differ(Branch::fromNotification($notification));
+        $patchSet = $differ($repo);
 
         $this->assertInstanceOf('Grace\Domain\PatchSet', $patchSet);
 

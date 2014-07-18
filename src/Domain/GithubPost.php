@@ -23,6 +23,26 @@ class GithubPost extends BaseDomain implements HookPost
 
         return $hook;
     }
+
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    public function getTo()
+    {
+        return $this->to;
+    }
+
+    public function getVendor()
+    {
+        return $this->vendor;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
 }
 
 //{

@@ -6,7 +6,7 @@ class Notification extends BaseDomain
 {
     protected $post;
 
-    public static function fromWebhook(HookPost $hookPost)
+    public static function fromHook(HookPost $hookPost)
     {
         $notification = new self;
         $notification->post = $hookPost;
