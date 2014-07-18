@@ -18,7 +18,7 @@ class PullCodeTest extends BaseProphecy
     /**
      * @test
      */
-    public function it_receives_request_turning_it_into_a_notification()
+    public function it_goes_through_the_whole_pull_flow()
     {
         $request = $this->prophesy('Symfony\Component\HttpFoundation\Request');
         $notifier = new Notifier();
