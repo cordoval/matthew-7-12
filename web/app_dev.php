@@ -3,7 +3,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
-$loader = require_once __DIR__.'/../vendor/autoload.php';
+$loader = require_once __DIR__.'/../deps/autoload.php';
 
 Debug::enable();
 $kernel = new AppKernel('dev', true);

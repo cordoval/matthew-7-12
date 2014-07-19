@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-$loader = require_once __DIR__.'/../vendor/autoload.php';
+$loader = require_once __DIR__.'/../deps/autoload.php';
 
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
