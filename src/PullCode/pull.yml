@@ -3,8 +3,6 @@ services:
         class: Grace\PullCode\Differ
         arguments:
             - @grace.container
-    grace.notifier:
-        class: Grace\PullCode\Notifier
     grace.puller:
         class: Grace\PullCode\Puller
         arguments:

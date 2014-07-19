@@ -9,9 +9,8 @@ use Grace\Domain\MailList;
 use Grace\Domain\Notification;
 use Grace\Domain\Repo;
 
-class PullWorkflow
+class Flow
 {
-    protected $notifier;
     protected $puller;
     protected $differ;
     protected $zipper;
@@ -19,14 +18,12 @@ class PullWorkflow
     protected $mailer;
 
     public function __construct(
-        Notifier $notifier,
         Puller $puller,
         Differ $differ,
         Zipper $zipper,
         Subscriber $subscriber,
         Mailer $mailer
     ) {
-        $this->notifier = $notifier;
         $this->puller = $puller;
         $this->differ = $differ;
         $this->zipper = $zipper;
@@ -36,7 +33,6 @@ class PullWorkflow
 
     public function pull($request)
     {
-        $notices = $this->notifier;
         $pulls = $this->puller;
         $diffs = $this->differ;
         $zips = $this->zipper;

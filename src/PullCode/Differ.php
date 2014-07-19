@@ -12,7 +12,10 @@ class Differ
 
     public function __invoke(Repo $repo)
     {
-        $filename = $this->container->formatPatch($repo, $repo->getHookPost()->getFrom());
+        $filename = $this->container->formatPatch(
+            $repo,
+            $repo->getHookPost()->getFrom()
+        );
 
         return Patch::from($filename);
     }
