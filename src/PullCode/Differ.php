@@ -2,6 +2,8 @@
 
 namespace Grace\PullCode;
 
+use Grace\Domain\Container;
+use Grace\Domain\Patch;
 use Grace\Domain\Repo;
 
 class Differ
@@ -15,6 +17,8 @@ class Differ
 
     public function __invoke(Repo $repo)
     {
-        $this->container->formatPatch($repo, $repo->getHookPost()->getFrom());
+        $filename = $this->container->formatPatch($repo, $repo->getHookPost()->getFrom());
+
+        return Patch::from($filename);
     }
 }

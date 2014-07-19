@@ -9,7 +9,6 @@ use Grace\Domain\GithubPost;
 use Grace\Domain\MailList;
 use Grace\Domain\Repo;
 use Grace\PullCode\Differ;
-use Grace\PullCode\Notifier;
 use Grace\PullCode\Puller;
 use Grace\PullCode\Subscriber;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,17 +37,12 @@ class PullCodeTest extends BaseProphecy
 
         $request = new Request();
         $hookPost = GithubPost::fromRequest($request);
-
         $repo = $puller(Repo::fromHook($hookPost));
-
         $this->assertInstanceOf('Grace\Domain\Repo', $repo);
-
-        $patchSet = $differ($repo);
-
-        $this->assertInstanceOf('Grace\Domain\PatchSet', $patchSet);
-
-        $payloadSet = $zipper($patchSet);
-        $list = $subscriber(MailList::from($repo));
-        $mailer(MailList::withPayload($list, $payloadSet));
+        $patch = $differ($repo);
+        $this->assertInstanceOf('Grace\Domain\Patch', $patch);
+        $compressedSet = $zipper($patch);
+        $list = $subscriber($repo);
+        $mailer($list, $compressedSet);
     }
 }

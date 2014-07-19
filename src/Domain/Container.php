@@ -18,4 +18,9 @@ class Container
     {
 
     }
+
+    public function formatPatch(Repo $repo, $from)
+    {
+        return 'filename';
+    }
 }
