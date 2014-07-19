@@ -15,7 +15,8 @@
         "doctrine/doctrine-bundle": "~1.2.0",
         "symfony/assetic-bundle": "~2.3.0",
         "symfony/swiftmailer-bundle": "~2.3.0",
-        "symfony/monolog-bundle": "~2.6.0"
+        "symfony/monolog-bundle": "~2.6.0",
+        "aequasi/environment": "~0.4.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-service-definition-validator": "~1.1.0",
