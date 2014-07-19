@@ -1,6 +1,11 @@
 Matthew 7:12
 ============
 
+<img src="https://cloud.githubusercontent.com/assets/328359/3635595/1eaf757a-0f7f-11e4-901d-162a80c74e9b.png" alt=""  width="200px"/>
+
+<img src="https://cloud.githubusercontent.com/assets/328359/3635599/2ff796aa-0f7f-11e4-87c2-1bff977ec573.png" alt=""  width="200px"/>
+
+
 So we started Matthew 7:12. It is an open source project. It aims to solve the following situation:
 
 In some countries, the internet is very controlled or minimum. The only way to contribute to an open source project is via email. I have heard that the linux kernel group also work using email and attaching patches. However I don’t think their approach solves this situation in a way that is acceptable for this other people.
