@@ -54,4 +54,9 @@ class PullCodeTest extends WebTestCase
     {
         return new Request([], [], [], [], [], [], json_decode($content, true));
     }
+
+    protected static function getKernelClass()
+    {
+        return 'Grace\\AppKernel';
+    }
 }

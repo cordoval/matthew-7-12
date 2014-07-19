@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="deps/autoload.php"
 >
     <testsuites>
         <testsuite name="Matthew 7:12 Test Suite">
@@ -14,7 +14,7 @@
     </testsuites>
 
     <php>
-        <server name="KERNEL_DIR" value="app" />
+        <server name="KERNEL_DIR" value="." />
     </php>
 
     <filter>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Code\Fixer;
+namespace Grace\Code\Fixer;
 
 use Symfony\CS\FixerInterface;
 use Symfony\CS\Tokens;

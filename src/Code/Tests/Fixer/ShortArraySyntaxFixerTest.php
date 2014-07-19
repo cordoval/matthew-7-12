@@ -1,8 +1,8 @@
 <?php
 
-namespace Code\Tests\Fixer;
+namespace Grace\Code\Tests\Fixer;
 
-use Code\Fixer\ShortArraySyntaxFixer;
+use Grace\Code\Fixer\ShortArraySyntaxFixer;
 
 class ShortArraySyntaxFixerTest extends \PHPUnit_Framework_TestCase
 {

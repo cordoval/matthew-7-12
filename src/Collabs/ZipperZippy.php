@@ -47,7 +47,7 @@ class ZipperZippy implements Zipper
             $manyCompressed[] = $file->getName();
         }
 
-        return $manyCompressed[];
+        return $manyCompressed;
     }
 
     public function unzipAndJoin()
