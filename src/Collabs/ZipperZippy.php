@@ -2,6 +2,8 @@
 
 namespace Grace\Collabs;
 
+use Alchemy\Zippy\Zippy;
+
 class ZipperZippy implements Zipper
 {
     public function __construct()
@@ -34,7 +36,7 @@ class ZipperZippy implements Zipper
 
     public function zipAndBreak()
     {
-
+        return [];
     }
 
     public function unzipAndJoin()
