@@ -3,19 +3,25 @@
 namespace Grace\Collabs;
 
 use Grace\Domain\Repo;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Container
 {
     protected $helper;
+    protected $basePath;
+    protected $fs;
 
     public function __construct(Helper $helper)
     {
         $this->helper = $helper;
+        $this->basePath = '/tmp/grace/';
+        $this->fs = new FileSystem();
+        $this->fs->mkdir($this->basePath);
     }
 
     public function gitClone(Repo $repo)
     {
-        
+        $this->fs->mkdir($this->basePath.$repo->getCwd());
         $this->helper->run(
             sprintf(
                 'git clone git@%s:%s/%s.git .',
@@ -23,7 +29,7 @@ class Container
                 $repo->getHookPost()->getVendor(),
                 $repo->getHookPost()->getName()
             ),
-            $repo->getCwd()
+            $this->basePath.$repo->getCwd()
         );
 
         $repo->wasCloned();
@@ -36,7 +42,7 @@ class Container
                 'git checkout -b %s -f',
                 $reference
             ),
-            $repo->getCwd()
+            $this->basePath.$repo->getCwd()
         );
     }
 
@@ -45,8 +51,8 @@ class Container
         return 'filename';
     }
 
-    public function destroy()
+    public function destroy(Repo $repo)
     {
-
+        $this->fs->remove($this->basePath.$repo->getCwd());
     }
 }
