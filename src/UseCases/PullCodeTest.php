@@ -2,14 +2,8 @@
 
 namespace Grace\UseCases;
 
-use Grace\Collabs\MailerSwift;
-use Grace\Collabs\ZipperZippy;
-use Grace\Domain\Container;
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
-use Grace\PullCode\Differ;
-use Grace\PullCode\Puller;
-use Grace\PullCode\Subscriber;
 use Symfony\Component\HttpFoundation\Request;
 
 class PullCodeTest extends BaseProphecy
@@ -21,36 +15,17 @@ class PullCodeTest extends BaseProphecy
     protected $mailer;
     protected $zipper;
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->mailer = function (array $list, $manyCompressed) {
-            foreach ($manyCompressed as $zipFile) {
-                (new MailerSwift())
-                    ->create($list)
-                    ->attach($zipFile)
-                    ->send()
-                ;
-            }
-
-            return true;
-        };
-        $this->zipper = function ($patch) {
-            return (new ZipperZippy())->zipAndBreak($patch);
-        };
-    }
-
     /**
      * @test
-     * @getRequestExamples
+     * @dataProvider getRequestExamples
      */
     public function it_goes_through_the_whole_pull_flow(Request $request)
     {
-        $pull = $this->puller;
-        $diff = $this->differ;
-        $zip = $this->zipper;
-        $subscribe = $this->subscriber;
-        $mail = $this->mailer;
+        $pull = $this->prophesy('Grace\PullCode\Puller');
+        $diff = $this->prophesy('Grace\Collabs\ZipperZippy');
+        $zip = $this->prophesy('Grace\PullCode\Differ');
+        $subscribe = $this->prophesy('Grace\PullCode\Subscriber');
+        $mail = $this->prophesy('Grace\Collabs\MailerSwift');
 
         $hookPost = GithubPost::fromRequest($request);
         $repo = $pull(Repo::fromHook($hookPost));
