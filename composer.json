@@ -30,19 +30,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ]
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
