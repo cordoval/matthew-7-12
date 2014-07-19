@@ -1,6 +1,6 @@
 imports:
-    - { resource: PullCode/pull.yml }
-    - { resource: PushCode/push.yml }
+    - { resource: ../PullCode/pull.yml }
+    - { resource: ../PushCode/push.yml }
 
 services:
     grace.container:

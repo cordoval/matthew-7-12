@@ -1,2 +1,2 @@
 delegate:
-    resource: "%kernel.root_dir%/routing.yml"
+    resource: "routes.yml"
