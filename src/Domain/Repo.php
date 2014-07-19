@@ -18,7 +18,7 @@ class Repo extends BaseDomain
         $repo = new self;
         $repo->hookPost = $hookPost;
         $repo->cloned = false;
-        $repo->cwd = null;
+        $repo->cwd = uniqid('container_folder_');
 
         return $repo;
     }
@@ -41,9 +41,13 @@ class Repo extends BaseDomain
         return $this->cloned;
     }
 
-    public function wasClonedIn($cwd)
+    public function wasCloned()
     {
         $this->cloned = true;
-        $this->cwd = $cwd;
+    }
+
+    public function getCwd()
+    {
+        return $this->cwd;
     }
 }
