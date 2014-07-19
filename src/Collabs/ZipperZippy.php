@@ -3,6 +3,7 @@
 namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
+use Grace\Domain\Patch;
 
 class ZipperZippy implements Zipper
 {
@@ -47,5 +48,10 @@ class ZipperZippy implements Zipper
 
         // extracts
         $archiveZip->extract('/to/directory');
+    }
+
+    public static function callback(Patch $patch)
+    {
+        return (new self)->zipAndBreak($patch);
     }
 }

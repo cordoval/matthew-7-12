@@ -3,5 +3,24 @@ imports:
     - { resource: PushCode/push.yml }
 
 services:
+    grace.container:
+        class: Grace\Domain\Container
+    grace.mailer:
+        class: Grace\Collabs\Collab
+        calls:
+            -
+                - setCallback
+                -
+                    -
+                        class: Grace\Collabs\MailerSwift
+                        method: callback
+
     grace.zipper:
-        class: Grace\Collabs\Zipper
+        class: Grace\Collabs\Collab
+        calls:
+            -
+                - setCallback
+                -
+                    -
+                        class: Grace\Domain\ZipperZippy
+                        method: callback
