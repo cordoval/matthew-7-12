@@ -9,6 +9,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->exclude('app')
     ->exclude('build')
     ->exclude('web/bundles')
+    ->exclude('deps')
     ->in(__DIR__)
 ;
 
