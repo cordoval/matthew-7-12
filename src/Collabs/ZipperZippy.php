@@ -3,11 +3,15 @@
 namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
+use Grace\Domain\Patch;
 
 class ZipperZippy implements Zipper
 {
-    public function __construct()
+    protected $fs;
+
+    public function __construct(FileSystem $fs)
     {
+        $this->fs = $fs;
         $zippy = Zippy::load();
 
         $zipAdapter = $zippy->getAdapterFor('zip');
@@ -34,9 +38,16 @@ class ZipperZippy implements Zipper
         }
     }
 
-    public function zipAndBreak()
+    public function zipAndBreak(Patch $patch)
     {
-        return [];
+        // zip
+        // zip -s 2 --output split_zip_
+        $files = $finder->file()->in()->expr();
+        foreach ($files as $file) {
+            $manyCompressed[] = $file->getName();
+        }
+
+        return $manyCompressed[];
     }
 
     public function unzipAndJoin()

@@ -45,7 +45,8 @@ class PullCodeTest extends WebTestCase
     public function getRequestExamples()
     {
         return [
-            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))]
+            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
+            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
         ];
     }
 
