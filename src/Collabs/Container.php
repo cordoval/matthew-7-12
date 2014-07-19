@@ -7,21 +7,27 @@ use Grace\Domain\Repo;
 class Container
 {
     protected $gitHelper;
+    protected $cwd;
 
     public function __construct($gitHelper)
     {
         $this->gitHelper = $gitHelper;
+        $this->cwd = uniqid('container_folder_');
     }
 
     public function gitClone(Repo $repo)
     {
-        $vendor = $repo->getHookPost()->getVendor();
-        $name = $repo->getHookPost()->getName();
-        $baseUrl = $repo->getBaseUrl();
-        $command = sprintf('git clone git@%s:%s/%s.git', $baseUrl, $vendor, $name);
-        $cwd = uniqid('container_folder_');
-        $this->gitHelper->run($command, $cwd);
-        $repo->wasClonedIn($cwd);
+        $this->gitHelper->run(
+            sprintf(
+                'git clone git@%s:%s/%s.git',
+                $repo->getBaseUrl(),
+                $repo->getHookPost()->getVendor(),
+                $repo->getHookPost()->getName()
+            ),
+            $this->cwd
+        );
+
+        $repo->wasClonedIn($this->cwd);
     }
 
     public function checkout(Repo $repo, $reference)
