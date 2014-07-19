@@ -30,7 +30,7 @@ services:
                         method: callback
 
     grace.filesystem:
-        class: Grace\Collabs\FileSystem
+        class: Grace\Collabs\FileSystemSymfony
 
     grace.helper:
         class: Grace\Collabs\Helper
