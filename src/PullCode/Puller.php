@@ -2,17 +2,12 @@
 
 namespace Grace\PullCode;
 
-use Grace\Domain\Container;
+use Grace\Collabs\ContainerAwareTrait;
 use Grace\Domain\Repo;
 
 class Puller
 {
-    protected $container;
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+    use ContainerAwareTrait;
 
     public function __invoke(Repo $repo)
     {

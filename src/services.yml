@@ -4,7 +4,11 @@ imports:
 
 services:
     grace.container:
-        class: Grace\Domain\Container
+        class: Grace\Collabs\Container
+        arguments:
+            - @grace.helper
+            - @grace.filesystem
+
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:
@@ -22,5 +26,8 @@ services:
                 - setCallback
                 -
                     -
-                        class: Grace\Domain\ZipperZippy
+                        class: Grace\Collabs\ZipperZippy
                         method: callback
+
+    grace.filesystem:
+        class: Grace\Collabs\FileSystem
