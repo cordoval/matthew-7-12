@@ -6,6 +6,7 @@ require_once __DIR__.'/deps/autoload.php';
 
 use Aequasi\Environment\SymfonyEnvironment;
 use Grace\AppKernel;
+use Grace\CliApplication;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 
