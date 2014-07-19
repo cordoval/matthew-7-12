@@ -31,3 +31,6 @@ services:
 
     grace.filesystem:
         class: Grace\Collabs\FileSystem
+
+    grace.helper:
+        class: Grace\Collabs\Helper
