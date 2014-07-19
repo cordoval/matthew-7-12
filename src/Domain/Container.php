@@ -23,4 +23,9 @@ class Container
     {
         return 'filename';
     }
+
+    public function destroy()
+    {
+
+    }
 }

@@ -15,20 +15,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PullCodeTest extends BaseProphecy
 {
-    /**
-     * @test
-     */
-    public function it_goes_through_the_whole_pull_flow()
+    public function setUp()
     {
         $container = new Container();
         $puller = new Puller($container);
         $differ = new Differ($container);
         $subscriber = new Subscriber();
         $mailer = function ($list, $manyCompressed) {
-            foreach ($list as $account) {
-                foreach ($manyCompressed as $zipFile) {
-                    (new MailerSwift())->send();
-                }
+            foreach ($manyCompressed as $zipFile) {
+                (new MailerSwift())
+                    ->create($list)
+                    ->attach($zipFile)
+                    ->send()
+                ;
             }
 
             return true;
@@ -36,7 +35,12 @@ class PullCodeTest extends BaseProphecy
         $zipper = function ($patch) {
             return (new ZipperZippy())->zipAndBreak($patch);
         };
-
+    }
+    /**
+     * @test
+     */
+    public function it_goes_through_the_whole_pull_flow()
+    {
         $request = new Request();
         $hookPost = GithubPost::fromRequest($request);
         $repo = $puller(Repo::fromHook($hookPost));
@@ -46,5 +50,6 @@ class PullCodeTest extends BaseProphecy
         $manyCompressed = $zipper($patch);
         $list = $subscriber($repo);
         $mailer($list, $manyCompressed);
+        $container->destroy();
     }
 }
