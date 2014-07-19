@@ -4,7 +4,7 @@ imports:
 
 services:
     grace.container:
-        class: Grace\Domain\Container
+        class: Grace\Collabs\Container
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:
