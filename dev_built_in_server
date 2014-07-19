@@ -1,2 +1,2 @@
 #!/bin/bash
-php app/console server:run --env=test 127.0.0.1:8000 --docroot=web --router=$(pwd)/app/config/router.php
+php console server:run --env=test 127.0.0.1:8000 --docroot=web --router=$(pwd)/app/config/router.php

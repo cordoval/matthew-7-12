@@ -41,11 +41,11 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return __DIR__.'/../app/cache/'.$this->environment;
+        return __DIR__.'/../app/cache';
     }
 
     public function getLogDir()
     {
-        return __DIR__.'/../app/logs/'.$this->environment;
+        return __DIR__.'/../app/logs';
     }
 }

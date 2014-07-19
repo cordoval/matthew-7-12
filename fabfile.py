@@ -68,7 +68,7 @@ def update():
         sudo('chown -R www-data:www-data .*')
         sudo('rm -rf app/cache/*')
         sudo('rm -rf app/logs/*')
-        run('php app/console cache:clear --env=prod')
+        run('php console cache:clear --env=prod')
 #        tag = run('git tag -l prod/* | sort | tail -n1')
 #        run('git checkout ' + tag)
 
@@ -81,9 +81,9 @@ def install():
         params_file = open('app/config/parameters.yml')
         params = yaml.safe_load(params_file)['parameters']
         params_file.close()
-        run('php app/console doctrine:mongodb:schema:create')
-        run('php app/console doctrine:database:create')
-        run('php app/console doctrine:schema:create')
+        run('php console doctrine:mongodb:schema:create')
+        run('php console doctrine:database:create')
+        run('php console doctrine:schema:create')
         run('mongo -u {0} -p {1} --eval {3}'.format(
             params['mongodb_user'],
             params['mongodb_pass'],
@@ -124,28 +124,28 @@ def test_prod_local():
         local('rm -rf app/cache/*')
         local('rm -rf app/logs/*')
         local('composer install -o')
-        local('php app/console --env=prod cache:clear')
-        local('php app/console --env=prod cache:warm')
-        #local('php app/console doctrine:migrations --no-interaction')
+        local('php console --env=prod cache:clear')
+        local('php console --env=prod cache:warm')
+        #local('php console doctrine:migrations --no-interaction')
         local('rm -rf app/cache/*')
         local('rm -rf app/logs/*')
-        local('php app/console --env=prod cache:clear')
-        local('php app/console --env=prod cache:warm')
+        local('php console --env=prod cache:clear')
+        local('php console --env=prod cache:warm')
 
 #def emulate_cronjobs():
 #    with cd(env.install_path):
-        #local('php app/console x')
-        #local('php app/console swiftmailer:spool:send --env=prod')
-        #local('php app/console y')
+        #local('php console x')
+        #local('php console swiftmailer:spool:send --env=prod')
+        #local('php console y')
         #local('./bam.sh')
 
 def schema_mongohq():
     with cd(env.install_path):
-        run('php app/console doctrine:mongodb:schema:update')
+        run('php console doctrine:mongodb:schema:update')
 
 def schema_warehouse():
     with cd(env.install_path):
-        run('php app/console doctrine:schema:update --force')
+        run('php console doctrine:schema:update --force')
 
 def run_tests():
     with cd(env.install_path):
@@ -153,4 +153,4 @@ def run_tests():
 
 def run_cache_clear():
     with cd(env.install_path):
-        run('php app/console cache:clear --env=prod')
+        run('php console cache:clear --env=prod')

@@ -48,17 +48,17 @@ bldr:
                     type: exec
                     failOnError: true
                     executable: php
-                    arguments: [app/console, doctrine:schema:update, --force, --env=dev]
+                    arguments: [console, doctrine:schema:update, --force, --env=dev]
                 -
                     type: exec
                     failOnError: true
                     executable: php
-                    arguments: [app/console, doctrine:mongodb:schema:update, --env=dev]
+                    arguments: [console, doctrine:mongodb:schema:update, --env=dev]
                 -
                     type: exec
                     failOnError: true
                     executable: php
-                    arguments: [app/console, cache:clear, --env=dev]
+                    arguments: [console, cache:clear, --env=dev]
         prepare:
             calls:
                 -
@@ -74,23 +74,23 @@ bldr:
                 -
                     type: exec
                     executable: php
-                    arguments: [app/console, doctrine:database:create, --env=test]
+                    arguments: [console, doctrine:database:create, --env=test]
                 -
                     type: exec
                     executable: php
-                    arguments: [app/console, doctrine:schema:create, --env=test]
+                    arguments: [console, doctrine:schema:create, --env=test]
                 -
                     type: exec
                     executable: php
-                    arguments: [app/console, doctrine:schema:update, --force, --env=test]
+                    arguments: [console, doctrine:schema:update, --force, --env=test]
                 -
                     type: exec
                     executable: php
-                    arguments: [app/console, doctrine:mongodb:schema:update, --env=test]
+                    arguments: [console, doctrine:mongodb:schema:update, --env=test]
                 -
                     type: exec
                     executable: php
-                    arguments: [app/console, cache:clear, --env=test]
+                    arguments: [console, cache:clear, --env=test]
         lint:
             description: Lints the files of the project
             calls:
