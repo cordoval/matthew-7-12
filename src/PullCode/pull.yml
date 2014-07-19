@@ -11,5 +11,3 @@ services:
             - @grace.container
     grace.subscriber:
         class: Grace\PullCode\Subscriber
-    grace.mailer:
-        class: G

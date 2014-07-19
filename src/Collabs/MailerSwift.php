@@ -25,4 +25,17 @@ class MailerSwift implements Mailer
     {
         return $this->mail;
     }
+
+    public static function callback(array $list, $manyCompressed)
+    {
+        foreach ($manyCompressed as $zipFile) {
+            (new self)
+                ->create($list)
+                ->attach($zipFile)
+                ->send()
+            ;
+        }
+
+        return true;
+    }
 }
