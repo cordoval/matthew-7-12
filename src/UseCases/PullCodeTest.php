@@ -24,15 +24,17 @@ class PullCodeTest extends BaseProphecy
         $puller = new Puller($container);
         $differ = new Differ($container);
         $subscriber = new Subscriber();
-        $mailer = function () {
-            (new MailerSwift())->send();
+        $mailer = function ($list, $manyCompressed) {
+            foreach ($list as $account) {
+                foreach ($manyCompressed as $zipFile) {
+                    (new MailerSwift())->send();
+                }
+            }
 
             return true;
         };
-        $zipper = function ($patchSet) {
-            (new ZipperZippy())->unzipAndJoin($patchSet);
-
-            return true;
+        $zipper = function ($patch) {
+            return (new ZipperZippy())->zipAndBreak($patch);
         };
 
         $request = new Request();
@@ -41,8 +43,8 @@ class PullCodeTest extends BaseProphecy
         $this->assertInstanceOf('Grace\Domain\Repo', $repo);
         $patch = $differ($repo);
         $this->assertInstanceOf('Grace\Domain\Patch', $patch);
-        $compressedSet = $zipper($patch);
+        $manyCompressed = $zipper($patch);
         $list = $subscriber($repo);
-        $mailer($list, $compressedSet);
+        $mailer($list, $manyCompressed);
     }
 }
