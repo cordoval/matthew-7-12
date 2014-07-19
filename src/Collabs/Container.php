@@ -3,7 +3,6 @@
 namespace Grace\Collabs;
 
 use Grace\Domain\Repo;
-use Symfony\Component\Filesystem\Filesystem;
 
 class Container
 {
@@ -11,11 +10,11 @@ class Container
     protected $basePath;
     protected $fs;
 
-    public function __construct(Helper $helper)
+    public function __construct(Helper $helper, FileSystem $fs)
     {
         $this->helper = $helper;
         $this->basePath = '/tmp/grace/';
-        $this->fs = new FileSystem();
+        $this->fs = $fs;
         $this->fs->mkdir($this->basePath);
     }
 
@@ -48,6 +47,14 @@ class Container
 
     public function formatPatch(Repo $repo, $from)
     {
+        $this->helper->run(
+            sprintf(
+                'git format-patch %s -f',
+                $from
+            ),
+            $this->basePath.$repo->getCwd()
+        );
+
         return 'filename';
     }
 

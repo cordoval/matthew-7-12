@@ -5,6 +5,10 @@ imports:
 services:
     grace.container:
         class: Grace\Collabs\Container
+        arguments:
+            - @grace.helper
+            - @grace.filesystem
+
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:
@@ -24,3 +28,6 @@ services:
                     -
                         class: Grace\Collabs\ZipperZippy
                         method: callback
+
+    grace.filesystem:
+        class: Grace\Collabs\FileSystem
