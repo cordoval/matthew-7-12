@@ -1,6 +1,6 @@
 <?php
 
-namespace Grace\Domain;
+namespace Grace\Collabs;
 
 class Container
 {

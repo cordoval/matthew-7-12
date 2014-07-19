@@ -15,12 +15,10 @@ class PushWorkflow
     protected $usherer;
 
     public function __construct(
-        Cloner $cloner,
         Patcher $patcher,
         Receiver $receiver,
         Usherer $usherer
     ) {
-        $this->cloner = $cloner;
         $this->patcher = $patcher;
         $this->receiver = $receiver;
         $this->usherer = $usherer;
@@ -28,13 +26,12 @@ class PushWorkflow
 
     public function push($request)
     {
-        $cloner = $this->cloner;
         $patcher = $this->patcher;
         $receiver = $this->receiver;
         $usherer = $this->usherer;
 
         $changeSet = $receiver(Change::from($request));
-        $clonedRepo = $cloner(Repo::from($changeSet));
+        $clonedRepo = $container(Repo::from($changeSet));
         $patchedBranch = $patcher(Branch::toPatch($changeSet, $clonedRepo));
         $usherer(PullRequest::from($patchedBranch));
     }

@@ -3,7 +3,6 @@
 namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
-use Grace\Domain\Patch;
 
 class ZipperZippy implements Zipper
 {
