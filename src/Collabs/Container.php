@@ -6,18 +6,18 @@ use Grace\Domain\Repo;
 
 class Container
 {
-    protected $gitHelper;
+    protected $helper;
     protected $cwd;
 
-    public function __construct($gitHelper)
+    public function __construct(Helper $helper)
     {
-        $this->gitHelper = $gitHelper;
+        $this->helper = $helper;
         $this->cwd = uniqid('container_folder_');
     }
 
     public function gitClone(Repo $repo)
     {
-        $this->gitHelper->run(
+        $this->helper->run(
             sprintf(
                 'git clone git@%s:%s/%s.git',
                 $repo->getBaseUrl(),
@@ -32,9 +32,10 @@ class Container
 
     public function checkout(Repo $repo, $reference)
     {
-        $command = sprintf('git checkout -b %s -f', $reference);
-        $this->gitHelper->run($command, $cwd);
-
+        $this->helper->run(
+            sprintf('git checkout -b %s -f', $reference),
+            $cwd
+        );
     }
 
     public function formatPatch(Repo $repo, $from)

@@ -5,6 +5,8 @@ namespace Grace\Domain;
 class Repo extends BaseDomain
 {
     protected $hookPost;
+    protected $cloned;
+    protected $cwd;
 
     public static function from($changeSet)
     {
@@ -15,6 +17,8 @@ class Repo extends BaseDomain
     {
         $repo = new self;
         $repo->hookPost = $hookPost;
+        $repo->cloned = false;
+        $repo->cwd = null;
 
         return $repo;
     }
@@ -30,5 +34,16 @@ class Repo extends BaseDomain
     public function getBaseUrl()
     {
         return 'github.com';
+    }
+
+    public function isCloned()
+    {
+        return $this->cloned;
+    }
+
+    public function wasClonedIn($cwd)
+    {
+        $this->cloned = true;
+        $this->cwd = $cwd;
     }
 }
