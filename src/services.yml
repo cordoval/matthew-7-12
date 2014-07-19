@@ -5,3 +5,5 @@ imports:
 services:
     grace.zipper:
         class: Grace\Collabs\Zipper
+    grace.container:
+        class: Grace\Domain\Container

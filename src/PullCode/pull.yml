@@ -1,9 +1,15 @@
 services:
     grace.differ:
         class: Grace\PullCode\Differ
+        arguments:
+            - @grace.container
     grace.notifier:
         class: Grace\PullCode\Notifier
     grace.puller:
         class: Grace\PullCode\Puller
+        arguments:
+            - @grace.container
     grace.subscriber:
         class: Grace\PullCode\Subscriber
+    grace.mailer:
+        class: G
