@@ -1,8 +1,8 @@
 <?php
 
-namespace Decoupling\Tests\Fixer;
+namespace Code\Tests\Fixer;
 
-use Decoupling\Fixer\ShortArraySyntaxFixer;
+use Code\Fixer\ShortArraySyntaxFixer;
 
 class ShortArraySyntaxFixerTest extends \PHPUnit_Framework_TestCase
 {

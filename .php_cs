@@ -1,14 +1,15 @@
 <?php
 
-require_once __DIR__.'/src/Decoupling/Fixer/ShortArraySyntaxFixer.php';
+require_once __DIR__.'/src/Code/Fixer/ShortArraySyntaxFixer.php';
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('README.md')
     ->notName('composer.*')
     ->notName('phpunit.xml')
-    ->exclude('app')
+    ->exclude('app/cache')
     ->exclude('build')
     ->exclude('web/bundles')
+    ->exclude('deps')
     ->in(__DIR__)
 ;
 
@@ -18,7 +19,7 @@ if (file_exists('local.php_cs')) {
 }
 
 return Symfony\CS\Config\Config::create()
-    ->addCustomFixer(new Decoupling\Fixer\ShortArraySyntaxFixer)
+    ->addCustomFixer(new Code\Fixer\ShortArraySyntaxFixer)
     ->fixers(
         [
             'encoding',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Decoupling\Fixer;
+namespace Code\Fixer;
 
 use Symfony\CS\FixerInterface;
 use Symfony\CS\Tokens;
