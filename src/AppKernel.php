@@ -4,12 +4,12 @@ namespace Grace;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\AsseticBundle\AsseticBundle;
+use Symfony\Bundle\FrameworkBundle\Command as SymfonyCommand;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -17,7 +17,7 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = [
+        return [
             new FrameworkBundle(),
             new SecurityBundle(),
             new TwigBundle(),
@@ -26,12 +26,6 @@ class AppKernel extends Kernel
             new AsseticBundle(),
             new DoctrineBundle(),
         ];
-
-        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
-            $bundles[] = new WebProfilerBundle();
-        }
-
-        return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -47,5 +41,26 @@ class AppKernel extends Kernel
     public function getLogDir()
     {
         return __DIR__.'/../app/logs';
+    }
+
+    public function getCommands()
+    {
+        $commands = [
+            new SymfonyCommand\CacheClearCommand(),
+            new SymfonyCommand\CacheWarmupCommand(),
+            new SymfonyCommand\ConfigDumpReferenceCommand(),
+            new SymfonyCommand\ContainerDebugCommand(),
+            new SymfonyCommand\RouterDebugCommand(),
+            new SymfonyCommand\RouterMatchCommand(),
+            new SymfonyCommand\ServerRunCommand(),
+        ];
+
+        foreach ($commands as $command) {
+            if ($command instanceof SymfonyCommand\ContainerAwareCommand) {
+                $command->setContainer($this->getContainer());
+            }
+        }
+
+        return $commands;
     }
 }

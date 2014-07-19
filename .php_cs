@@ -19,7 +19,7 @@ if (file_exists('local.php_cs')) {
 }
 
 return Symfony\CS\Config\Config::create()
-    ->addCustomFixer(new Code\Fixer\ShortArraySyntaxFixer)
+    ->addCustomFixer(new Grace\Code\Fixer\ShortArraySyntaxFixer)
     ->fixers(
         [
             'encoding',
