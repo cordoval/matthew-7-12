@@ -7,7 +7,7 @@ use Grace\Domain\Change;
 use Grace\Domain\PullRequest;
 use Grace\Domain\Repo;
 
-class PushWorkflow
+class Flow
 {
     protected $cloner;
     protected $patcher;

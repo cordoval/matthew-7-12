@@ -30,3 +30,15 @@ services:
         class: Grace\Collabs\FileSystemSymfony
     grace.helper:
         class: Grace\Collabs\Helper
+    grace.pull_flow:
+        class: Grace\PullCode\Flow
+    grace.pull_endpoint:
+        class: Grace\Endpoints\Pull
+        arguments:
+            - @grace.pull_flow
+    grace.push_flow:
+        class: Grace\PushCode\Flow
+    grace.push_endpoint:
+        class: Grace\Endpoints\Push
+        arguments:
+            - @grace.push_flow
