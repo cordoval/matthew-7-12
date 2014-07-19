@@ -26,4 +26,9 @@ class Repo extends BaseDomain
     {
         return $this->hookPost;
     }
+
+    public function getBaseUrl()
+    {
+        return 'github.com';
+    }
 }

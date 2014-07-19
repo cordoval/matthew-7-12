@@ -17,7 +17,7 @@ class Container
     {
         $vendor = $repo->getHookPost()->getVendor();
         $name = $repo->getHookPost()->getName();
-        $baseUrl = 'github.com';
+        $baseUrl = $repo->getBaseUrl();
         $command = sprintf('git clone git@%s:%s/%s.git', $baseUrl, $vendor, $name);
         $cwd = uniqid('container_folder_');
         $this->gitHelper->run($command, $cwd);
