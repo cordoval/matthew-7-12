@@ -5,6 +5,7 @@ Matthew 7:12
 
 <img src="https://cloud.githubusercontent.com/assets/328359/3635599/2ff796aa-0f7f-11e4-87c2-1bff977ec573.png" alt=""  width="200px"/>
 
+<img src="https://cloud.githubusercontent.com/assets/328359/3635600/4ca02ccc-0f7f-11e4-9afa-19e777a9536b.png" alt=""  width="200px"/>
 
 So we started Matthew 7:12. It is an open source project. It aims to solve the following situation:
 
