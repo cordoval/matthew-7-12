@@ -137,7 +137,7 @@ bldr:
                     failOnError: true
                     executable: php
                     arguments:
-                        - vendor/bin/phpunit
+                        - deps/bin/phpunit
                         #- --exclude-group=travis
                         #- --coverage-text=php://stdout
         testLocal:
@@ -150,7 +150,7 @@ bldr:
                     type: exec
                     executable: php
                     arguments:
-                        - vendor/bin/phpunit
+                        - deps/bin/phpunit
                         - --stop-on-failure
                         #- --group=now
         watch:

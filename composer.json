@@ -4,11 +4,7 @@
     "type": "project",
     "description": "Golden Rule Project",
     "autoload": {
-        "psr-4": { "Grace\\": "src/" },
-        "files": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+        "psr-4": { "Grace\\": "src/" }
     },
     "require": {
         "symfony/symfony": "~2.5.1",
