@@ -50,8 +50,8 @@ class ZipperZippy implements Zipper
         $archiveZip->extract('/to/directory');
     }
 
-    public static function callback(Patch $patch)
+    public static function callback(array $args)
     {
-        return (new self)->zipAndBreak($patch);
+        return (new self)->zipAndBreak($args[0]);
     }
 }

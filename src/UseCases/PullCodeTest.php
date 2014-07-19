@@ -4,9 +4,10 @@ namespace Grace\UseCases;
 
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class PullCodeTest extends BaseProphecy
+class PullCodeTest extends WebTestCase
 {
     protected $container;
     protected $puller;
@@ -15,24 +16,29 @@ class PullCodeTest extends BaseProphecy
     protected $mailer;
     protected $zipper;
 
+    public function setUp()
+    {
+        $this->createClient();
+        $container = static::$kernel->getContainer();
+        $this->puller = $container->get('grace.puller');
+        $this->differ = $container->get('grace.differ');
+        $this->subscriber = $container->get('grace.subscriber');
+        $this->mailer = $container->get('grace.mailer');
+        $this->zipper = $container->get('grace.zipper');
+    }
+
     /**
      * @test
      * @dataProvider getRequestExamples
      */
     public function it_goes_through_the_whole_pull_flow(Request $request)
     {
-        $pull = $this->prophesy('Grace\PullCode\Puller');
-        $diff = $this->prophesy('Grace\Collabs\ZipperZippy');
-        $zip = $this->prophesy('Grace\PullCode\Differ');
-        $subscribe = $this->prophesy('Grace\PullCode\Subscriber');
-        $mail = $this->prophesy('Grace\Collabs\MailerSwift');
-
         $hookPost = GithubPost::fromRequest($request);
-        $repo = $pull->__invoke(Repo::fromHook($hookPost));
-        $patch = $diff->__invoke($repo);
-        $manyCompressed = $zip->__invoke($patch);
-        $list = $subscribe->__invoke($repo);
-        $mail->__invoke($list, $manyCompressed);
+        $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
+        $patch = $this->differ->__invoke($repo);
+        $manyCompressed = $this->zipper->__invoke($patch);
+        $list = $this->subscriber->__invoke($repo);
+        $this->mailer->__invoke($list, $manyCompressed);
         $this->container->destroy();
     }
 

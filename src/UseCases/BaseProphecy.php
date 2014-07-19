@@ -16,7 +16,7 @@ class BaseProphecy extends \PHPUnit_Framework_TestCase
         return $this->prophet->prophesize($classOrInterface);
     }
 
-    protected function setup()
+    protected function setUp()
     {
         $this->prophet = new Prophet;
     }

@@ -22,5 +22,5 @@ services:
                 - setCallback
                 -
                     -
-                        class: Grace\Domain\ZipperZippy
+                        class: Grace\Collabs\ZipperZippy
                         method: callback
