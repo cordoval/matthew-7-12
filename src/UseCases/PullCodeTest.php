@@ -28,18 +28,23 @@ class PullCodeTest extends BaseProphecy
         $mail = $this->prophesy('Grace\Collabs\MailerSwift');
 
         $hookPost = GithubPost::fromRequest($request);
-        $repo = $pull(Repo::fromHook($hookPost));
-        $patch = $diff($repo);
-        $manyCompressed = $zip($patch);
-        $list = $subscribe($repo);
-        $mail($list, $manyCompressed);
+        $repo = $pull->__invoke(Repo::fromHook($hookPost));
+        $patch = $diff->__invoke($repo);
+        $manyCompressed = $zip->__invoke($patch);
+        $list = $subscribe->__invoke($repo);
+        $mail->__invoke($list, $manyCompressed);
         $this->container->destroy();
     }
 
     public function getRequestExamples()
     {
         return [
-            [new Request()]
+            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))]
         ];
+    }
+
+    private function getRequest($content)
+    {
+        return new Request([], [], [], [], [], [], json_decode($content, true));
     }
 }
