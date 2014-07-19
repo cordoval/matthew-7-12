@@ -8,7 +8,6 @@ services:
         arguments:
             - @grace.helper
             - @grace.filesystem
-
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:
@@ -18,7 +17,6 @@ services:
                     -
                         class: Grace\Collabs\MailerSwift
                         method: callback
-
     grace.zipper:
         class: Grace\Collabs\Collab
         calls:
@@ -28,9 +26,7 @@ services:
                     -
                         class: Grace\Collabs\ZipperZippy
                         method: callback
-
     grace.filesystem:
         class: Grace\Collabs\FileSystemSymfony
-
     grace.helper:
         class: Grace\Collabs\Helper
