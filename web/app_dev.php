@@ -9,6 +9,5 @@ Debug::enable();
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
+$response = $kernel->handle($request)->send();
 $kernel->terminate($request, $response);

@@ -8,6 +8,5 @@ $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
 Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
+$response = $kernel->handle($request)->send();
 $kernel->terminate($request, $response);
