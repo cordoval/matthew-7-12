@@ -19,6 +19,8 @@ services:
                         method: callback
     grace.zipper:
         class: Grace\Collabs\Collab
+        arguments:
+            - @grace.filesystem
         calls:
             -
                 - setCallback

@@ -62,6 +62,6 @@ class ZipperZippy implements Zipper
 
     public static function callback(array $args)
     {
-        return (new self)->zipAndBreak($args[0]);
+        return (new self(new FileSystemSymfony()))->zipAndBreak($args[0]);
     }
 }
