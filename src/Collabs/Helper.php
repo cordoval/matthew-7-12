@@ -6,7 +6,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 class Helper
 {
-    public function run($command, $allowFailures = false)
+    public function run($command, $cwd = '.', $allowFailures = false)
     {
         if (is_string($command)) {
             $command = $this->parseProcessArguments($command);
@@ -14,7 +14,7 @@ class Helper
 
         $builder = new ProcessBuilder($command);
         $builder
-            ->setWorkingDirectory(getcwd())
+            ->setWorkingDirectory($cwd)
             ->setTimeout(3600)
         ;
         $process = $builder->getProcess();

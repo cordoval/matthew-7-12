@@ -21,6 +21,7 @@ class Container
     public function gitClone(Repo $repo)
     {
         $this->fs->mkdir($this->basePath.$repo->getCwd());
+
         $this->helper->run(
             sprintf(
                 'git clone git@%s:%s/%s.git .',
