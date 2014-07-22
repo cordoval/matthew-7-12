@@ -50,7 +50,7 @@ class Container
     {
         $this->helper->run(
             sprintf(
-                'git format-patch %s -f',
+                'git format-patch %s',
                 $from
             ),
             $this->basePath.$repo->getCwd()
