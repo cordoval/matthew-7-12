@@ -6,7 +6,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 class Helper
 {
-    public function run($command, $allowFailures = true)
+    public function run($command, $allowFailures = false)
     {
         if (is_string($command)) {
             $command = $this->parseProcessArguments($command);
