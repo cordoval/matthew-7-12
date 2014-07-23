@@ -20,6 +20,7 @@ class ZipperZippy implements Zipper
 
     public function zipAndBreak(array $patches)
     {
+        $cwd = pathinfo($patches[0])['dirname'];
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip')
             ->addMembers($patches, $recursive = false)
@@ -31,7 +32,7 @@ class ZipperZippy implements Zipper
             ->getProcess()
             ->run()
         ;
-
+die('reached here');
         $finder = (new Finder())
             ->files()
             ->in($cwd.'/splitzips')
@@ -50,11 +51,11 @@ class ZipperZippy implements Zipper
     public function unzipAndJoin()
     {
         foreach (['archive.zip', 'archive2.zip', 'archive3.zip'] as $path) {
-            $archive = $zipAdapter->open($path);
+            $archive = $this->zipAdapter->open($path);
         }
 
         // extracts
-        $archiveZip->extract('/to/directory');
+        $archive->extract('/to/directory');
     }
 
     public static function callback(array $args)
