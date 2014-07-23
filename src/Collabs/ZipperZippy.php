@@ -3,19 +3,21 @@
 namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
-use Grace\Domain\Patch;
 
 class ZipperZippy implements Zipper
 {
     protected $fs;
+    protected $zipAdapter;
 
     public function __construct(FileSystem $fs)
     {
         $this->fs = $fs;
         $zippy = Zippy::load();
+        $this->zipAdapter = $zippy->getAdapterFor('zip');
+    }
 
-        $zipAdapter = $zippy->getAdapterFor('zip');
-
+    public function zipAndBreak(array $patches)
+    {
         // creates
         $archiveZip = $zippy->create('archive.zip');
 
@@ -36,10 +38,7 @@ class ZipperZippy implements Zipper
 
             echo $member->getLocation(); // outputs /path/to/file
         }
-    }
 
-    public function zipAndBreak(Patch $patch)
-    {
         // zip
         // zip -s 2 --output split_zip_
         $files = $finder->file()->in()->expr();

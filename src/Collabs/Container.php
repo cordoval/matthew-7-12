@@ -3,6 +3,7 @@
 namespace Grace\Collabs;
 
 use Grace\Domain\Repo;
+use Symfony\Component\Finder\Finder;
 
 class Container
 {
@@ -56,7 +57,18 @@ class Container
             $this->basePath.$repo->getCwd()
         );
 
-        return 'filename';
+        $fileNames = [];
+        $finder = (new Finder())
+            ->files()
+            ->in($this->basePath.$repo->getCwd())
+            ->name('*.patch')
+        ;
+        /** @var \SplFileInfo $file */
+        foreach ($finder as $file) {
+            $fileNames[] = $file->getFileName();
+        }
+
+        return $fileNames;
     }
 
     public function destroy(Repo $repo)

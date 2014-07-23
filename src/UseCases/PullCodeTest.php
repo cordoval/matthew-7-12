@@ -35,8 +35,8 @@ class PullCodeTest extends WebTestCase
     {
         $hookPost = GithubPost::fromRequest($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
-        $patch = $this->differ->__invoke($repo);
-        $manyCompressed = $this->zipper->__invoke($patch);
+        $patches = $this->differ->__invoke($repo);
+        $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed);
         $this->container->destroy();
