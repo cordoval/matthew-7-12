@@ -20,19 +20,20 @@ class ZipperZippy implements Zipper
 
     public function zipAndBreak(array $patches)
     {
+        ladybug_dump_die($patches);
         $cwd = pathinfo($patches[0])['dirname'];
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip')
             ->addMembers($patches, $recursive = false)
         ;
-
+ladybug_dump_die('here');
         (new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips'))
             ->setWorkingDirectory($cwd)
             ->setTimeout(3600)
             ->getProcess()
             ->run()
         ;
-die('reached here');
+
         $finder = (new Finder())
             ->files()
             ->in($cwd.'/splitzips')
