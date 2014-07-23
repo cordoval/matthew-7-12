@@ -65,7 +65,7 @@ class Container
         ;
         /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
-            $fileNames[] = $file->getFileName();
+            $fileNames[] = $file->getRealPath();
         }
 
         return $fileNames;

@@ -18,28 +18,12 @@ class ZipperZippy implements Zipper
 
     public function zipAndBreak(array $patches)
     {
-        // creates
-        $archiveZip = $zippy->create('archive.zip');
-
-        // updates
-        $archiveZip->addMembers([
-                '/path/to/file',
-                '/path/to/file2',
-                '/path/to/dir'
-            ],
-            $recursive = false
-        );
-
-        // lists
-        foreach ($archiveZip as $member) {
-            if ($member->isDir()) {
-                continue;
-            }
-
-            echo $member->getLocation(); // outputs /path/to/file
-        }
-
-        // zip
+        $archiveZip = $this
+            ->zipAdapter
+            ->create('compressAllFirst.zip')
+            ->addMembers($patches, $recursive = false)
+        ;
+        
         // zip -s 2 --output split_zip_
         $files = $finder->file()->in()->expr();
         foreach ($files as $file) {
