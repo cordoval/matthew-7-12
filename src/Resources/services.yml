@@ -1,37 +1,9 @@
 imports:
     - { resource: ../PullCode/pull.yml }
     - { resource: ../PushCode/push.yml }
+    - { resource: ../Collabs/collabs.yml }
 
 services:
-    grace.container:
-        class: Grace\Collabs\Container
-        arguments:
-            - @grace.helper
-            - @grace.filesystem
-    grace.mailer:
-        class: Grace\Collabs\Collab
-        calls:
-            -
-                - setCallback
-                -
-                    -
-                        class: Grace\Collabs\MailerSwift
-                        method: callback
-    grace.zipper:
-        class: Grace\Collabs\Collab
-        arguments:
-            - @grace.filesystem
-        calls:
-            -
-                - setCallback
-                -
-                    -
-                        class: Grace\Collabs\ZipperZippy
-                        method: callback
-    grace.filesystem:
-        class: Grace\Collabs\FileSystemSymfony
-    grace.helper:
-        class: Grace\Collabs\Helper
     grace.pull_flow:
         class: Grace\PullCode\Flow
     grace.pull_endpoint:

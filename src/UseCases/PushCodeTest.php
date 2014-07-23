@@ -1,35 +1,18 @@
 <?php
 
 namespace Grace\UseCases;
+
 use Symfony\Component\HttpFoundation\Request;
 use Grace\Domain\Change;
 use Grace\Domain\Repo;
 use Grace\Domain\Branch;
 use Grace\Domain\PullRequest;
 
-/**
- *
- */
 class PushCodeTest extends BaseProphecy
 {
-    /**
-     * @var
-     */
     protected $patcher;
-
-    /**
-     * @var
-     */
     protected $receiver;
-
-    /**
-     * @var
-     */
     protected $usherer;
-
-    /**
-     * @var
-     */
     protected $container;
 
     public function setUp()
