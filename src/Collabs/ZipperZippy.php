@@ -3,6 +3,8 @@
 namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\ProcessBuilder;
 
 class ZipperZippy implements Zipper
 {
@@ -23,11 +25,29 @@ class ZipperZippy implements Zipper
             ->create('compressAllFirst.zip')
             ->addMembers($patches, $recursive = false)
         ;
-        
-        // zip -s 2 --output split_zip_
-        $files = $finder->file()->in()->expr();
-        foreach ($files as $file) {
-            $manyCompressed[] = $file->getName();
+
+        $builder = new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips');
+        $builder
+            ->setWorkingDirectory($cwd)
+            ->setTimeout(3600)
+        ;
+        $process = $builder->getProcess();
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException($process->getErrorOutput());
+        }
+
+        $finder = (new Finder())
+            ->files()
+            ->in($this->basePath.$repo->getCwd())
+            ->name('*.zip')
+        ;
+
+        $manyCompressed = [];
+        /** @var \SplFileInfo $file */
+        foreach ($finder as $file) {
+            $manyCompressed[] = $file->getRealPath();
         }
 
         return $manyCompressed;
