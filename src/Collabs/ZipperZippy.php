@@ -24,14 +24,14 @@ class ZipperZippy implements Zipper
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
-ladybug_dump_die('here');
+
         (new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips'))
             ->setWorkingDirectory($cwd)
             ->setTimeout(3600)
             ->getProcess()
             ->run()
         ;
-
+ladybug_dump_die('here');
         $finder = (new Finder())
             ->files()
             ->in($cwd.'/splitzips')
