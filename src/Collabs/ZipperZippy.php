@@ -20,27 +20,21 @@ class ZipperZippy implements Zipper
 
     public function zipAndBreak(array $patches)
     {
-        $archiveZip = $this
-            ->zipAdapter
-            ->create('compressAllFirst.zip')
+        $this->zipAdapter
+            ->create($cwd.'/compressAllFirst.zip')
             ->addMembers($patches, $recursive = false)
         ;
 
-        $builder = new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips');
-        $builder
+        (new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips'))
             ->setWorkingDirectory($cwd)
             ->setTimeout(3600)
+            ->getProcess()
+            ->run()
         ;
-        $process = $builder->getProcess();
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
-        }
 
         $finder = (new Finder())
             ->files()
-            ->in($this->basePath.$repo->getCwd())
+            ->in($cwd.'/splitzips')
             ->name('*.zip')
         ;
 
