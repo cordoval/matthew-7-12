@@ -4,16 +4,17 @@ namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Process\ProcessBuilder;
 
 class ZipperZippy implements Zipper
 {
     protected $fs;
     protected $zipAdapter;
+    protected $helper;
 
-    public function __construct(FileSystem $fs)
+    public function __construct(FileSystem $fs, Helper $helper)
     {
         $this->fs = $fs;
+        $this->helper = $helper;
         $zippy = Zippy::load();
         $this->zipAdapter = $zippy->getAdapterFor('zip');
     }
@@ -25,12 +26,7 @@ class ZipperZippy implements Zipper
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
 
-        (new ProcessBuilder(['zip', '-s', '2', 'compressAllFirst.zip', '--output splitzips']))
-            ->setWorkingDirectory($cwd)
-            ->setTimeout(3600)
-            ->getProcess()
-            ->run()
-        ;
+        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips');
 ladybug_dump_die('here');
         $finder = (new Finder())
             ->files()
