@@ -25,7 +25,7 @@ class ZipperZippy implements Zipper
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
 
-        (new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips'))
+        (new ProcessBuilder(['zip', '-s', '2', 'compressAllFirst.zip', '--output splitzips']))
             ->setWorkingDirectory($cwd)
             ->setTimeout(3600)
             ->getProcess()
