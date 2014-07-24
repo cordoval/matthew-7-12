@@ -38,7 +38,7 @@ class MailerSwift implements Mailer
         // ->attach(Swift_Attachment::fromPath('my-document.pdf'))
     }
 
-    public static function callback(array $list, $manyCompressed)
+    public static function callback(array $list, array $manyCompressed)
     {
         foreach ($manyCompressed as $zipFile) {
             (new self)
