@@ -1,0 +1,28 @@
+services:
+    grace.container:
+        class: Grace\Collabs\Container
+        arguments:
+            - @grace.helper
+            - @grace.filesystem
+    grace.helper:
+        class: Grace\Collabs\Helper
+    grace.filesystem:
+        class: Grace\Collabs\FileSystemSymfony
+    grace.mailer:
+        class: Grace\Collabs\Collab
+        calls:
+            -
+                - setCallback
+                -
+                    -
+                        class: Grace\Collabs\MailerSwift
+                        method: callback
+    grace.zipper:
+        class: Grace\Collabs\Collab
+        calls:
+            -
+                - setCallback
+                -
+                    -
+                        class: Grace\Collabs\ZipperZippy
+                        method: callback

@@ -9,3 +9,5 @@ services:
             - @grace.container
     grace.subscriber:
         class: Grace\PullCode\Subscriber
+        arguments:
+            - %grace.mails%

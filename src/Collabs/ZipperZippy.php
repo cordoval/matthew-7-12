@@ -4,37 +4,34 @@ namespace Grace\Collabs;
 
 use Alchemy\Zippy\Zippy;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Process\ProcessBuilder;
 
 class ZipperZippy implements Zipper
 {
     protected $fs;
     protected $zipAdapter;
+    protected $helper;
 
-    public function __construct(FileSystem $fs)
+    public function __construct(FileSystem $fs, Helper $helper)
     {
         $this->fs = $fs;
+        $this->helper = $helper;
         $zippy = Zippy::load();
         $this->zipAdapter = $zippy->getAdapterFor('zip');
     }
 
     public function zipAndBreak(array $patches)
     {
+        $cwd = pathinfo($patches[0])['dirname'];
         $this->zipAdapter
-            ->create($cwd.'/compressAllFirst.zip')
-            ->addMembers($patches, $recursive = false)
+            ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
 
-        (new ProcessBuilder('zip -s 2 compressAllFirst.zip --output splitzips'))
-            ->setWorkingDirectory($cwd)
-            ->setTimeout(3600)
-            ->getProcess()
-            ->run()
-        ;
+        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips');
+        $this->fs->remove($cwd.'/compressAllFirst.zip');
 
         $finder = (new Finder())
             ->files()
-            ->in($cwd.'/splitzips')
+            ->in($cwd)
             ->name('*.zip')
         ;
 
@@ -50,15 +47,19 @@ class ZipperZippy implements Zipper
     public function unzipAndJoin()
     {
         foreach (['archive.zip', 'archive2.zip', 'archive3.zip'] as $path) {
-            $archive = $zipAdapter->open($path);
+            $archive = $this->zipAdapter->open($path);
         }
 
         // extracts
-        $archiveZip->extract('/to/directory');
+        $archive->extract('/to/directory');
     }
 
     public static function callback(array $args)
     {
-        return (new self(new FileSystemSymfony()))->zipAndBreak($args[0]);
+        return (new self(
+                new FileSystemSymfony(),
+                new Helper()
+            ))->zipAndBreak($args[0])
+        ;
     }
 }

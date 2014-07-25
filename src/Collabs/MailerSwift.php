@@ -16,17 +16,29 @@ class MailerSwift implements Mailer
         return $this->mail;
     }
 
+    /**
+     * @param array $list
+     *
+     * @return \Swift_Message
+     */
     public function create(array $list)
     {
-        return $this->mail;
+        return \Swift_Message::newInstance()
+            ->setSubject('Outgoing email')
+            ->setFrom('matthew-7-12@gushphp.org')
+            ->setTo($list)
+            ->setBody(
+                'Attached are the code updates'
+            )
+        ;
     }
 
     public function attach($zipFile)
     {
-        return $this->mail;
+        // ->attach(Swift_Attachment::fromPath('my-document.pdf'))
     }
 
-    public static function callback(array $list, $manyCompressed)
+    public static function callback(array $list, array $manyCompressed)
     {
         foreach ($manyCompressed as $zipFile) {
             (new self)
