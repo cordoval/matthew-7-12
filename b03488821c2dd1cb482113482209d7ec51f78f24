@@ -1,0 +1,158 @@
+---------------------------------------------------------------------------
+
+by cordoval at 2014-07-29 08:02
+
+```
+~ ./dev                                                                         Luiss-MacBook-Pro-3 [2:59:27]
+
+  ______    __       _______   ______
+ |   _  \\  |  |     |       \\ |   _  \\
+ |  |_)  | |  |     |  .--.  ||  |_)  |
+ |   _  <  |  |     |  |  |  ||      /
+ |  |_)  | |  `----.|  `--`  ||  |\\  \\
+ |______/  |_______||_______/ | _| `._|
+
+ Building the \'cordoval/matthew-7-12\' project
+  - Matthew 7:12 project -
+
+ Using the \'tdd\' profile
+  - Local Development Profile -
+
+Running the testLocal task
+> Runs the PHPUnit Tests
+
+PHPUnit 4.1.4 by Sebastian Bergmann.
+
+Configuration read from /Users/cordoval/Sites/libs/matthew-7-12/phpunit.xml
+
+E
+
+Time: 6.63 seconds, Memory: 20.50Mb
+
+There was 1 error:
+PHP Notice:  Array to string conversion in /Users/cordoval/Sites/libs/matthew-7-12/deps/symfony/symfony/src/Symfony/Component/HttpFoundation/Request.php on line 492
+PHP Stack trace:
+PHP   1. {main}() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/phpunit:0
+PHP   2. PHPUnit_TextUI_Command::main() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/phpunit:55
+PHP   3. PHPUnit_TextUI_Command->run() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/Command.php:132
+PHP   4. PHPUnit_TextUI_TestRunner->doRun() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/Command.php:179
+PHP   5. PHPUnit_TextUI_ResultPrinter->printResult() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/TestRunner.php:432
+PHP   6. PHPUnit_TextUI_ResultPrinter->printErrors() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:169
+PHP   7. PHPUnit_TextUI_ResultPrinter->printDefects() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:314
+PHP   8. PHPUnit_TextUI_ResultPrinter->printDefect() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:243
+PHP   9. PHPUnit_TextUI_ResultPrinter->printDefectHeader() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:253
+PHP  10. PHPUnit_Framework_TestCase->toString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:266
+
+Notice: Array to string conversion in /Users/cordoval/Sites/libs/matthew-7-12/deps/symfony/symfony/src/Symfony/Component/HttpFoundation/Request.php on line 492
+
+Call Stack:
+    0.0002     231608   1. {main}() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/phpunit:0
+    0.0170     710064   2. PHPUnit_TextUI_Command::main() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/phpunit:55
+    0.0170     710680   3. PHPUnit_TextUI_Command->run() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/Command.php:132
+    0.0653    3629904   4. PHPUnit_TextUI_TestRunner->doRun() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/Command.php:179
+    6.6349   20892920   5. PHPUnit_TextUI_ResultPrinter->printResult() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/TestRunner.php:432
+    6.6350   20893168   6. PHPUnit_TextUI_ResultPrinter->printErrors() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:169
+    6.6350   20893312   7. PHPUnit_TextUI_ResultPrinter->printDefects() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:314
+    6.6350   20893808   8. PHPUnit_TextUI_ResultPrinter->printDefect() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:243
+    6.6350   20893896   9. PHPUnit_TextUI_ResultPrinter->printDefectHeader() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:253
+    6.6350   20894008  10. PHPUnit_Framework_TestCase->toString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/TextUI/ResultPrinter.php:266
+    6.6351   20894784  11. PHPUnit_Framework_TestCase->getDataSetAsString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:324
+    6.6351   20895104  12. PHPUnit_Framework_TestCase->dataToString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:1745
+    6.6351   20896400  13. Symfony\\Component\\HttpFoundation\\Request->__toString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:1707
+
+1) Grace\\UseCases\\PullCodeTest::it_goes_through_the_whole_pull_flow with data set #0 (GET
+
+Array)
+RuntimeException:
+PHP  11. PHPUnit_Framework_TestCase->getDataSetAsString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:324
+PHP  12. PHPUnit_Framework_TestCase->dataToString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:1745
+PHP  13. Symfony\\Component\\HttpFoundation\\Request->__toString() /Users/cordoval/Sites/libs/matthew-7-12/deps/phpunit/phpunit/src/Framework/TestCase.php:1707
+
+/Users/cordoval/Sites/libs/matthew-7-12/src/Collabs/Helper.php:25
+/Users/cordoval/Sites/libs/matthew-7-12/src/Collabs/ZipperZippy.php:29
+/Users/cordoval/Sites/libs/matthew-7-12/src/Collabs/ZipperZippy.php:62
+/Users/cordoval/Sites/libs/matthew-7-12/src/Collabs/Collab.php:17
+/Users/cordoval/Sites/libs/matthew-7-12/src/UseCases/PullCodeTest.php:39
+
+FAILURES!
+Tests: 1, Assertions: 0, Errors: 1.
+
+```
+
+and this is what is found in /tmp/grace/...
+
+```
+ordoval•/tmp/grace/container_folder_53d75465ccea9(7219b3470a5edf81b53ab977b2f04b1edb1441c5✰)»
+■ ## 7219b3470a5edf81b53ab977b2f04b1edb1441c5
+?? 0001-introduced-a-collabs-layer-to-increase-interactor-sp.patch
+?? 0002-start-hitting-the-alchemy-package.patch
+?? 0003-tweaked-fixture-to-point-to-this-repo-and-also-creat.patch
+?? 0004-start-implementing-clone-and-checkout.patch
+?? 0005-move-base-url-to-repo.patch
+?? 0006-move-things-around-for-better-readability.patch
+?? 0007-added-ancillary-methods-to-repo.patch
+?? 0008-move-cwd-to-Repo.patch
+?? 0009-introduce-the-filesystem.patch
+?? 0010-wow-nice-alien-pattern.patch
+?? 0011-bootstrap-helper-changes.patch
+?? 0012-corrected-the-class-instead-of-the-interface.patch
+?? 0013-some-clean-up.patch
+?? 0014-turning-to-CAS-and-injecting-flows-on-each-controlle.patch
+?? 0015-plug-blog-post-text.patch
+?? 0016-remove-distribution-bundle-since-there-is-nothing-we.patch
+?? 0017-remove-stuff-unneeded.patch
+?? 0018-reduce-.gitignore.patch
+?? 0019-move-vendors-to-deps.patch
+?? 0020-remove-resources-as-it-is-not-needed-in-the-no-bundl.patch
+?? 0021-update-from-vendor-to-deps.patch
+?? 0022-fix-cs.patch
+?? 0023-move-code-classes-to-Code-namespace.patch
+?? 0024-ignore-.bldr-vendor-but-leave-room-for-configuratios.patch
+?? 0025-include-kernel.patch
+?? 0026-Update-README.md.patch
+?? 0027-Update-README.md.patch
+?? 0028-some-updates.patch
+?? 0029-more-updates.patch
+?? 0030-forcing-hands-on-where-is-the-app-cache-and-logs.patch
+?? 0031-change-a-bunch-of-config-setup.patch
+?? 0032-move-things-around.patch
+?? 0033-fix-path-for-routing.patch
+?? 0034-tests-are-so-messed-up-just-to-try-to-find-the-AppKe.patch
+?? 0035-readd-missing-cache-folder.patch
+?? 0036-bootstrap-changes-adding-php-environment-library.patch
+?? 0037-plug-environment-and-refactor-front-controllers.patch
+?? 0038-fix-cs.patch
+?? 0039-hotfixes.patch
+?? 0040-fix-script.patch
+?? 0041-working-on-push-code-test.patch
+?? 0042-injected-filesystem-into-zipper-implementation.patch
+?? 0043-sketch-helper.patch
+?? 0044-plug-process-arguments-method.patch
+?? 0045-set-failure-to-false.patch
+?? 0046-introduced-working-directory-as-argument.patch
+?? 0047-remove-f-i-was-trying-to-force.patch
+?? 0048-some-progress.patch
+?? 0049-changes-from-yesterday.patch
+?? 0050-bootstrap-changes.patch
+?? 0051-we-need-to-get-from-the-array-of-paths-in-or-pass-it.patch
+?? 0052-wip.patch
+?? 0053-troubleshooting.patch
+?? 0054-avoiding-running-into-zippy-limitations-creating-emp.patch
+?? 0055-zipping-total-working.patch
+?? 0056-turning-the-command-into-an-array-to-be-passed-to-th.patch
+?? 0057-troubleshooting.patch
+?? 0058-corroborated-that-it-works.patch
+?? 0059-clean-up-services.patch
+?? 0060-inject-mailing-list.patch
+?? 0061-still-getting-an-exception.patch
+?? 0062-add-typehint-though-not-sure-how-will-i-pass-those-t.patch
+?? compressAllFirst.zip
+```
+
+---------------------------------------------------------------------------
+
+by aik099 at 2014-07-29 08:19
+
+The problematic Request.php:492 line (https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/Request.php#L492) shows that it\'s `$this->getContent()` method call that causes this.
+
+Looking at the method haven\'t revealed any clues, since it clearly should produce a string. I recommend debugging the `Request::__toString` method to see what\'s happening there.
