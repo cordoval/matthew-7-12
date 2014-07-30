@@ -163,4 +163,4 @@ bldr:
                 -
                     type: gush:issue:take
                     id: $ISSUE_ID$
-                    wip: true
+                    wip: false
