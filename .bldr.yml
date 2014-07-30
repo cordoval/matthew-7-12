@@ -27,6 +27,10 @@ bldr:
             description: fix cs for once
             tasks:
                 - runFixer
+        gush:
+            description: dummy profile for running tasks Gush related
+            tasks:
+                - gushTake
     tasks:
         bootstrap:
             calls:
@@ -153,7 +157,7 @@ bldr:
                         - php-cs-fixer.phar
                         - fix
                         - .
-        gush_take:
+        gushTake:
             description: takes an issue
             calls:
                 -
