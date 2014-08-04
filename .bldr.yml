@@ -5,13 +5,13 @@ bldr:
     name: cordoval/matthew-7-12
     description: Matthew 7:12 project
     profiles:
-        travisBeforeScript:
-            description: Travis Profile for running server:run
+        beforeScript:
+            description: Profile for running server:run
             tasks:
                 - prepare
                 - lint
-        travisScript:
-            description: Travis Profile to run test suite
+        afterScript:
+            description: Profile to run test suite
             tasks:
                 - test
         tdd:
@@ -19,10 +19,6 @@ bldr:
             tasks:
                 - testLocal
                 - watch
-        docker:
-            description: Docker setup
-            tasks:
-                - bootstrap
         cs:
             description: fix cs for once
             tasks:
@@ -32,33 +28,6 @@ bldr:
             tasks:
                 - gushTake
     tasks:
-        bootstrap:
-            calls:
-                -
-                    type: exec
-                    failOnError: true
-                    executable: composer
-                    arguments: [-q, install, --prefer-dist]
-                -
-                    type: exec
-                    failOnError: true
-                    executable: cp
-                    arguments: [app/config/parameters.yml.docker, app/config/parameters.yml]
-                -
-                    type: exec
-                    failOnError: true
-                    executable: php
-                    arguments: [console, doctrine:schema:update, --force, --env=dev]
-                -
-                    type: exec
-                    failOnError: true
-                    executable: php
-                    arguments: [console, doctrine:mongodb:schema:update, --env=dev]
-                -
-                    type: exec
-                    failOnError: true
-                    executable: php
-                    arguments: [console, cache:clear, --env=dev]
         prepare:
             calls:
                 -
@@ -121,9 +90,6 @@ bldr:
         testLocal:
             description: Runs the PHPUnit Tests
             calls:
-                -
-                    type: exec
-                    executable: clear
                 -
                     type: exec
                     executable: php
