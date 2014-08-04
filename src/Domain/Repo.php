@@ -8,11 +8,6 @@ class Repo extends BaseDomain
     protected $cloned;
     protected $cwd;
 
-    public static function from($changeSet)
-    {
-
-    }
-
     public static function fromHook(HookPost $hookPost)
     {
         $repo = new self;

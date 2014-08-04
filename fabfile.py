@@ -78,45 +78,19 @@ def install():
     with cd(env.install_path):
         run('cp app/config/parameters.yml.%s app/config/parameters.yml' % env.install_params)
         run('composer install --prefer-dist')
-        params_file = open('app/config/parameters.yml')
-        params = yaml.safe_load(params_file)['parameters']
-        params_file.close()
         run('php console doctrine:mongodb:schema:create')
         run('php console doctrine:database:create')
         run('php console doctrine:schema:create')
-        run('mongo -u {0} -p {1} --eval {3}'.format(
-            params['mongodb_user'],
-            params['mongodb_pass'],
-            'db.object.ensureIndex({{ platform: 1 }})'
-        ))
 
 def deploy():
     if not exists(env.install_path):
         install()
 
-#    tag_prod()
+    #tag_prod()
     update()
-
-def load_prod_db():
-    with cd(env.install_path):
-        local('cp %s/dumpFromServer.sql.gz matthew.sql.gz' % env.dropbox_path)
-        local('gzip -d matthew.sql.gz')
-        local('mysql -uroot -p %s < matthew.sql' % env.local_database_name)
-        local('rm matthew.sql')
 
 def prodlike():
     load_prod_db()
-
-def db():
-    env.user = env.db_database_user
-    env.hosts = ['gushphp']
-
-def pull_backup_to_dropbox():
-    with cd(env.path_db_to_backups):
-        run('cp `ls -Art | tail -n 1` dumpFromServer.sql.gz')
-        get('dumpFromServer.sql.gz')
-        run('rm dumpFromServer.sql.gz')
-        local('mv db/dumpFromServer.sql.gz %s' % env.dropbox_path)
 
 def test_prod_local():
     with cd(env.install_path):
@@ -131,21 +105,6 @@ def test_prod_local():
         local('rm -rf app/logs/*')
         local('php console --env=prod cache:clear')
         local('php console --env=prod cache:warm')
-
-#def emulate_cronjobs():
-#    with cd(env.install_path):
-        #local('php console x')
-        #local('php console swiftmailer:spool:send --env=prod')
-        #local('php console y')
-        #local('./bam.sh')
-
-def schema_mongohq():
-    with cd(env.install_path):
-        run('php console doctrine:mongodb:schema:update')
-
-def schema_warehouse():
-    with cd(env.install_path):
-        run('php console doctrine:schema:update --force')
 
 def run_tests():
     with cd(env.install_path):

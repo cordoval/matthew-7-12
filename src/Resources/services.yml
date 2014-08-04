@@ -6,12 +6,21 @@ imports:
 services:
     grace.pull_flow:
         class: Grace\PullCode\Flow
+        arguments:
+            - @grace.puller
+            - @grace.differ
+            - @grace.zipper
+            - @grace.subscriber
+            - @grace.mailer
+            - @grace.container
     grace.pull_endpoint:
         class: Grace\Endpoints\Pull
         arguments:
             - @grace.pull_flow
     grace.push_flow:
         class: Grace\PushCode\Flow
+        arguments:
+            - @grace.usherer
     grace.push_endpoint:
         class: Grace\Endpoints\Push
         arguments:
