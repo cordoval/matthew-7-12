@@ -3,7 +3,7 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/config/parameters.yml
-/web/bundles
+/app/web/bundles
 /build
 /deps
 *.phar
