@@ -34,10 +34,10 @@ class ZipperZippy implements Zipper
 
         $this->fs->remove($files);
 
-        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips', true);
+        $process = $this->helper->run('zip -v -s 2 compressAllFirst.zip --out splits.zip');
 
         //$this->fs->remove($cwd.'/compressAllFirst.zip');
-ladybug_dump_die('here');
+ladybug_dump_die($process->getOutput());
         $files = (new Finder())
             ->files()
             ->in($cwd)
