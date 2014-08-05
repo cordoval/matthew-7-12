@@ -4,6 +4,7 @@ namespace Grace\Collabs;
 
 use Grace\Domain\Repo;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Container
 {
@@ -16,7 +17,7 @@ class Container
         $this->helper = $helper;
         $this->basePath = $basePath;
         $this->fs = $fs;
-
+        $this->fs->mkdir($this->basePath);
     }
 
     public function gitClone(Repo $repo)
