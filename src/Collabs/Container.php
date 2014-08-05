@@ -14,7 +14,7 @@ class Container
     public function __construct(Helper $helper, FileSystem $fs, $basePath = '/tmp/grace')
     {
         $this->helper = $helper;
-        $this->basePath = __DIR__.$basePath;
+        $this->basePath = $basePath;
         $this->fs = $fs;
         $this->fs->mkdir($this->basePath);
     }

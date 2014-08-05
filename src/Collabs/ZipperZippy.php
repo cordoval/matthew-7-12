@@ -19,6 +19,15 @@ class ZipperZippy implements Zipper
         $this->zipAdapter = $zippy->getAdapterFor('zip');
     }
 
+    public static function callback(array $args)
+    {
+        return (new self(
+            new FileSystemSymfony(),
+            new Helper()
+        ))->zipAndBreak($args[0])
+            ;
+    }
+
     public function zipAndBreak(array $patches)
     {
         $cwd = pathinfo($patches[0])['dirname'];
@@ -63,12 +72,5 @@ ladybug_dump_die($process->getOutput());
         $archive->extract('/to/directory');
     }
 
-    public static function callback(array $args)
-    {
-        return (new self(
-                new FileSystemSymfony(),
-                new Helper()
-            ))->zipAndBreak($args[0])
-        ;
-    }
+
 }
