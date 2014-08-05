@@ -4,7 +4,6 @@ namespace Grace\Collabs;
 
 use Grace\Domain\Repo;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Filesystem\Filesystem;
 
 class Container
 {
@@ -15,7 +14,7 @@ class Container
     public function __construct(Helper $helper, FileSystem $fs, $basePath = '/tmp/grace')
     {
         $this->helper = $helper;
-        $this->basePath = $basePath;
+        $this->basePath = __DIR__.$basePath;
         $this->fs = $fs;
         $this->fs->mkdir($this->basePath);
     }
