@@ -25,12 +25,20 @@ class ZipperZippy implements Zipper
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
-        $this->helper->run('rm -rf *.patch');
-ladybug_dump_die('until here is fine');
-        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips', true);
-        $this->fs->remove($cwd.'/compressAllFirst.zip');
 
-        $finder = (new Finder())
+        $files = (new Finder())
+            ->files()
+            ->in($cwd)
+            ->name('*.patch')
+        ;
+
+        $this->fs->remove($files);
+
+        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips', true);
+
+        //$this->fs->remove($cwd.'/compressAllFirst.zip');
+ladybug_dump_die('here');
+        $files = (new Finder())
             ->files()
             ->in($cwd)
             ->name('*.zip')
@@ -38,7 +46,7 @@ ladybug_dump_die('until here is fine');
 
         $manyCompressed = [];
         /** @var \SplFileInfo $file */
-        foreach ($finder as $file) {
+        foreach ($files as $file) {
             $manyCompressed[] = $file->getRealPath();
         }
 

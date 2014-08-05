@@ -4,6 +4,7 @@ services:
         arguments:
             - @grace.helper
             - @grace.filesystem
+            - %builds_base_path%
     grace.helper:
         class: Grace\Collabs\Helper
     grace.filesystem:

@@ -24,6 +24,8 @@ class Helper
         if (!$process->isSuccessful() && !$allowFailures) {
             throw new \RuntimeException($process->getErrorOutput());
         }
+
+        return $process;
     }
 
     /**
