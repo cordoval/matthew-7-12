@@ -16,7 +16,7 @@ class Container
         $this->helper = $helper;
         $this->basePath = $basePath;
         $this->fs = $fs;
-        $this->fs->mkdir($this->basePath);
+
     }
 
     public function gitClone(Repo $repo)
