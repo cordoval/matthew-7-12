@@ -25,8 +25,9 @@ class ZipperZippy implements Zipper
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
-
-        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips');
+        $this->helper->run('rm -rf *.patch');
+ladybug_dump_die('until here is fine');
+        $this->helper->run('zip -s 2 compressAllFirst.zip --output splitzips', true);
         $this->fs->remove($cwd.'/compressAllFirst.zip');
 
         $finder = (new Finder())

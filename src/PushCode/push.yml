@@ -1,9 +1,3 @@
 services:
-    grace.cloner:
-        class: Grace\PushCode\Cloner
-    grace.patcher:
-        class: Grace\PushCode\Patcher
-    grace.receiver:
-        class: Grace\PushCode\Receiver
     grace.usherer:
         class: Grace\PushCode\Usherer
