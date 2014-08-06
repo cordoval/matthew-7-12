@@ -34,7 +34,7 @@ class ZipperZippy implements Zipper
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
-        
+
         $files = (new Finder())
             ->files()
             ->in($cwd)
