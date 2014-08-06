@@ -2,10 +2,7 @@
 
 namespace Grace\PushCode;
 
-use Grace\Domain\Branch;
-use Grace\Domain\Change;
 use Grace\Domain\PullRequest;
-use Grace\Domain\Repo;
 
 class Flow
 {

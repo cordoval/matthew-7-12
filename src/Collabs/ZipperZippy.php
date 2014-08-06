@@ -71,6 +71,4 @@ ladybug_dump_die($process->getOutput());
         $archive->extract('/to/directory');
     }
 
-
 }
-
