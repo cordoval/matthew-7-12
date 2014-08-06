@@ -43,7 +43,7 @@ class ZipperZippy implements Zipper
 
         $this->fs->remove($files);
 
-        $process = $this->helper->run('zip -v -s 2 compressAllFirst.zip --out splits.zip');
+        $process = $this->helper->run('zip -v -s 2 '.$cwd.'compressAllFirst.zip --out '.$cwd.'splits.zip > errorzip.txt');
 
         //$this->fs->remove($cwd.'/compressAllFirst.zip');
 ladybug_dump_die($process->getOutput());
@@ -74,3 +74,4 @@ ladybug_dump_die($process->getOutput());
 
 
 }
+
