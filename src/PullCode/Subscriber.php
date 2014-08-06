@@ -6,7 +6,7 @@ class Subscriber
 {
     protected $emails;
 
-    public function __construct($emails)
+    public function __construct(array $emails)
     {
         $this->emails = $emails;
     }

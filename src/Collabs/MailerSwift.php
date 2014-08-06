@@ -4,22 +4,13 @@ namespace Grace\Collabs;
 
 class MailerSwift implements Mailer
 {
-    protected $mail;
+    protected $baseMailer;
     protected $from;
 
-    public function __construct($from)
+    public function __construct($from, $baseMailer)
     {
         $this->from;
-    }
-
-    public function send()
-    {
-        return $this->mail;
-    }
-
-    public function receive()
-    {
-        return $this->mail;
+        $this->baseMailer;
     }
 
     /**
@@ -27,7 +18,7 @@ class MailerSwift implements Mailer
      *
      * @return \Swift_Message
      */
-    public function create(array $list)
+    public function create(array $list, $zipFile)
     {
         return \Swift_Message::newInstance()
             ->setSubject('Outgoing email')
@@ -36,25 +27,21 @@ class MailerSwift implements Mailer
             ->setBody(
                 'Attached are the code updates'
             )
+            // ->attach(Swift_Attachment::fromPath($zipFile))
         ;
     }
 
-    public function attach($zipFile)
+    public function send($message)
     {
-        // ->attach(Swift_Attachment::fromPath('my-document.pdf'))
+        $this->baseMailer->send($message);
     }
 
-    public static function callback(array $list, array $manyCompressed, $from)
+    public static function callback(array $list, array $manyCompressed, $from, $baseMailer)
     {
         foreach ($manyCompressed as $zipFile) {
-            (new self(
-                    $from
-                )
-            )
-                ->create($list)
-                ->attach($zipFile)
-                ->send()
-            ;
+            $mailer = new self($from, $baseMailer);
+            $message = $mailer->create($list, $zipFile);
+            $mailer->send($message);
         }
 
         return true;
