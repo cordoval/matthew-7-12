@@ -1,5 +1,7 @@
 /app/cache/*
 !app/cache/.gitkeep
+/app/config/*.local.yml
+/app/config/*/*.local.yml
 /app/logs/*
 !app/logs/.gitkeep
 /app/config/parameters.yml
