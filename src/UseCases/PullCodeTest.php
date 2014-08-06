@@ -28,7 +28,7 @@ class PullCodeTest extends WebTestCase
         $this->mailer = $container->get('grace.mailer');
         $this->zipper = $container->get('grace.zipper');
         $this->from = $container->getParameter('from');
-        $this->transport = $container->getParameter('grace.transport.mail');
+        $this->transport = $container->get('grace.transport.mail');
     }
 
     /**
