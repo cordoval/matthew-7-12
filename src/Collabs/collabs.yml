@@ -11,6 +11,12 @@ services:
         class: Grace\Collabs\FileSystemSymfony
     grace.transport.mail:
         class: Grace\Collabs\Tranportmail
+        arguments:
+            - %mailer_transport%
+            - %mailer_host%
+            - %mailer_user%
+            - %mailer_password%
+            - %mailer_port%
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:

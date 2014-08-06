@@ -2,14 +2,12 @@
 
 namespace Grace\Collabs;
 
-
 class TransportSwift {
 
     protected $server;
     protected $port;
     protected $username;
     protected $password;
-
     protected $transport;
 
     public function __construct($server, $username, $password, $port=25){
@@ -27,6 +25,4 @@ class TransportSwift {
     public function getTransport(){
         return $this->transport;
     }
-
-
 } 
