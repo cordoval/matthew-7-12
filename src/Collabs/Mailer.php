@@ -4,8 +4,6 @@ namespace Grace\Collabs;
 
 interface Mailer
 {
-    public function send();
-    public function receive();
-    public function create(array $list);
-    public function attach($zipFile);
+    public function create(array $list, $zipFile);
+    public function send($message);
 }

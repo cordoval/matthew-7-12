@@ -15,6 +15,7 @@ class PullCodeTest extends WebTestCase
     protected $subscriber;
     protected $mailer;
     protected $zipper;
+    protected $from;
 
     public function setUp()
     {
@@ -25,6 +26,7 @@ class PullCodeTest extends WebTestCase
         $this->subscriber = $container->get('grace.subscriber');
         $this->mailer = $container->get('grace.mailer');
         $this->zipper = $container->get('grace.zipper');
+        $this->from = $container->getParameter('from');
     }
 
     /**
@@ -39,7 +41,7 @@ class PullCodeTest extends WebTestCase
         $patches = $this->differ->__invoke($repo);
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
-        $this->mailer->__invoke($list, $manyCompressed);
+        $this->mailer->__invoke($list, $manyCompressed, $this->from);
         $this->container->destroy();
     }
 

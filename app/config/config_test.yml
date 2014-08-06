@@ -13,4 +13,4 @@ framework:
 #    intercept_redirects: false
 
 swiftmailer:
-    disable_delivery: true
+    disable_delivery: false
