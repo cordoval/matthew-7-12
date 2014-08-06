@@ -34,10 +34,16 @@ class ZipperZippy implements Zipper
 
         $this->fs->remove($files);
 
-        $process = $this->helper->run('zip -v -s 2 compressAllFirst.zip --out splits.zip');
+        $this->helper->run(
+            sprintf(
+                'zip -v -s 2 %s/compressAllFirst.zip --out %s/splits.zip',
+                $cwd,
+                $cwd
+            )
+        );
 
-        //$this->fs->remove($cwd.'/compressAllFirst.zip');
-ladybug_dump_die($process->getOutput());
+        $this->fs->remove($cwd.'/compressAllFirst.zip');
+
         $files = (new Finder())
             ->files()
             ->in($cwd)
@@ -68,7 +74,7 @@ ladybug_dump_die($process->getOutput());
         return (new self(
                 new FileSystemSymfony(),
                 new Helper()
-            ))->zipAndBreak($args[0])
-        ;
+            )
+        )->zipAndBreak($args[0]);
     }
 }
