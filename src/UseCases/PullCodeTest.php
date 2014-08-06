@@ -36,12 +36,17 @@ class PullCodeTest extends WebTestCase
      */
     public function it_goes_through_the_whole_pull_flow(Request $request)
     {
+        $transport = \Swift_SmtpTransport::newInstance('gmail', 25)
+            ->setUsername('ysramirez@gmail.com')
+            ->setPassword('Literal123')
+        ;
+
         $hookPost = GithubPost::fromRequest($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
         $patches = $this->differ->__invoke($repo);
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
-        $this->mailer->__invoke($list, $manyCompressed, $this->from);
+        $this->mailer->__invoke($list, $manyCompressed, $this->from, new \Swift_Mailer(\Swift_SmtpTransport::newInstance(,)));
         $this->container->destroy();
     }
 

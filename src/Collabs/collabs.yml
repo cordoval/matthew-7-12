@@ -9,6 +9,8 @@ services:
         class: Grace\Collabs\Helper
     grace.filesystem:
         class: Grace\Collabs\FileSystemSymfony
+    grace.transport.mail:
+        class: Grace\Collabs\Tranportmail
     grace.mailer:
         class: Grace\Collabs\Collab
         calls:
