@@ -11,8 +11,8 @@ class MailerSwift implements Mailer
 
     public function __construct($from, \Swift_Mailer $baseMailer)
     {
-        $this->from;
-        $this->baseMailer;
+        $this->from = $from;
+        $this->baseMailer = $baseMailer;
     }
 
     /**
@@ -38,7 +38,7 @@ class MailerSwift implements Mailer
         $this->baseMailer->send($message);
     }
 
-    public static function callback(array $list, array $manyCompressed, $from, $baseMailer)
+    public static function callback(array $list, array $manyCompressed, $from, \Swift_Mailer $baseMailer)
     {
         $mailer = new self($from, $baseMailer);
         foreach ($manyCompressed as $zipFile) {
@@ -48,4 +48,5 @@ class MailerSwift implements Mailer
 
         return true;
     }
+
 }
