@@ -40,6 +40,7 @@ class MailerSwift implements Mailer
 
     public static function callback(array $list, array $manyCompressed, $from, $baseMailer)
     {
+        ladybug_dump_die($manyCompressed);
         $mailer = new self($from, $baseMailer);
         foreach ($manyCompressed as $zipFile) {
             $message = $mailer->create($list, $zipFile);
@@ -48,4 +49,5 @@ class MailerSwift implements Mailer
 
         return true;
     }
+
 }
