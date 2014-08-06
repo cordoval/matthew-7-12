@@ -18,3 +18,4 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
     grace.mails: ['test@gmail.com']
+    builds_base_path: /Users/path_to_your_user/matthew-7-12/builds

@@ -11,10 +11,10 @@ class Container
     protected $basePath;
     protected $fs;
 
-    public function __construct(Helper $helper, FileSystem $fs)
+    public function __construct(Helper $helper, FileSystem $fs, $basePath = '/tmp/grace')
     {
         $this->helper = $helper;
-        $this->basePath = '/tmp/grace/';
+        $this->basePath = $basePath;
         $this->fs = $fs;
         $this->fs->mkdir($this->basePath);
     }
