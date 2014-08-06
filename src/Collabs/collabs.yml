@@ -10,7 +10,7 @@ services:
     grace.filesystem:
         class: Grace\Collabs\FileSystemSymfony
     grace.transport.mail:
-        class: Grace\Collabs\TransporSwift
+        class: Grace\Collabs\TransportSwift
         arguments:
             - %mailer_transport%
             - %mailer_host%
