@@ -1,0 +1,8 @@
+---------------------------------------------------------------------------
+
+by cordoval at 2014-08-05 06:54
+
+@romainneutron i am having some problems with permissions with process(\'rm -rf *.patch\'); for instance in a /tmp/grace folder where the permissions of the files are cordova:wheel
+by default the system declares these files belonging to wheel for some reason. When the process is run it does not give any output and just does not do anything which is very weird.
+
+Is this symfony related?
