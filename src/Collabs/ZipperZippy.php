@@ -34,7 +34,7 @@ class ZipperZippy implements Zipper
         $this->zipAdapter
             ->create($cwd.'/compressAllFirst.zip', $patches, false)
         ;
-
+        
         $files = (new Finder())
             ->files()
             ->in($cwd)
@@ -42,8 +42,7 @@ class ZipperZippy implements Zipper
         ;
 
         $this->fs->remove($files);
-
-        $process = $this->helper->run('zip -v -s 2 '.$cwd.'compressAllFirst.zip --out '.$cwd.'splits.zip > errorzip.txt');
+        $process = $this->helper->run('zip -v -s 2 '.$cwd.'/compressAllFirst.zip --out '.$cwd.'/splits.zip');
 
         //$this->fs->remove($cwd.'/compressAllFirst.zip');
 ladybug_dump_die($process->getOutput());
