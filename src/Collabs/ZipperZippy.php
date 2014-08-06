@@ -69,12 +69,12 @@ class ZipperZippy implements Zipper
         $archive->extract('/to/directory');
     }
 
-    public static function callback(array $args)
+    public static function callback($args)
     {
         return (new self(
                 new FileSystemSymfony(),
                 new Helper()
             )
-        )->zipAndBreak($args[0]);
+        )->zipAndBreak($args);
     }
 }
