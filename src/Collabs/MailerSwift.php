@@ -36,6 +36,7 @@ class MailerSwift implements Mailer
     public function send($message)
     {
         $this->baseMailer->send($message);
+
     }
 
     public static function callback(array $list, array $manyCompressed, $from, \Swift_Mailer $baseMailer)
