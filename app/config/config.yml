@@ -2,7 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: assets.yml }
-    - { resource: doctrine.yml }
     - { resource: mailer.yml }
     - { resource: persistence.yml }
     - { resource: templating.yml }
