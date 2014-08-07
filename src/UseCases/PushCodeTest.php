@@ -44,12 +44,10 @@ class PushCodeTest extends WebTestCase
     public function it_goes_through_the_whole_push_flow(Request $request)
     {
         $gotEmail = Poller::pollFromNotification($request);
-        $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
-        $patches = $this->differ->__invoke($repo);
-        $manyCompressed = $this->zipper->__invoke($patches);
-        $list = $this->subscriber->__invoke($repo);
-        $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
-        $this->container->destroy($repo);
+        $zipped = $this->downloader->__invoke($gotEmail);
+        $patch = $this->unzipper->__invoke($zipped);
+        $repo = Repo::fromPatch($patch);
+        $this->usherer->__invoke($repo, $repo->to);
     }
 
     public function getRequestExamples()
