@@ -1,0 +1,3 @@
+services:
+    imap.reader:
+        class: Grace\ImapReader\Reader
