@@ -17,10 +17,10 @@ class PushCodeTest extends WebTestCase
     public function setUp()
     {
         $this->container = static::$kernel->getContainer();
-        $this->poller = $this->container->get('grace.poller');
-        $this->downloader = $this->container->get('grace.downloader');
-        $this->unzipper = $this->container->get('grace.unzipper');
-        $this->usherer = $this->container->get('grace.usherer');
+//        $this->poller = $this->container->get('grace.poller');
+//        $this->downloader = $this->container->get('grace.downloader');
+//        $this->unzipper = $this->container->get('grace.unzipper');
+//        $this->usherer = $this->container->get('grace.usherer');
     }
 
     /**
