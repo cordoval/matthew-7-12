@@ -35,14 +35,7 @@ class Reader {
     /**
      * read and email
      */
-    public function mailboxmsginfo(){
-
-    }
-
-    /**
-     * read zipped attach
-     */
-    public function readZippedAttach(){
+    public function readMail($number){
 
     }
 
@@ -51,5 +44,10 @@ class Reader {
         $reader = new self($mailAccount, $user, $password);
         $mailbox = $reader->open();
         $mailboxmsginfo = $reader->mailboxmsginfo();
+
+        if(!($mailboxmsginfo->Unread > 0)) { //tail or stack ???
+            return false;
+        }
+        return = $reader->getLastMessageUID(1);
     }
 } 
