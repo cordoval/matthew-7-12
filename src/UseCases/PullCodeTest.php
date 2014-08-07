@@ -49,7 +49,7 @@ class PullCodeTest extends WebTestCase
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
         $this->container->destroy($repo);
-
+        $this->client->enableProfiler();
         $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
 
         // Check that an e-mail was sent
