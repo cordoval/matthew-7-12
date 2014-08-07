@@ -33,7 +33,6 @@ class PullCodeTest extends WebTestCase
     }
 
     /**
-     * @group now
      * @test
      * @dataProvider getRequestExamples
      */

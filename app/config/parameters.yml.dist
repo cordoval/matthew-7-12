@@ -20,3 +20,4 @@ parameters:
     grace.mails: ['test@gmail.com']
     builds_base_path: /Users/path_to_your_user/matthew-7-12/builds
     from: yours@gmail.com
+    delivery_mail_address: your_email@here.com

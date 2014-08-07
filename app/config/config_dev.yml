@@ -32,5 +32,5 @@ monolog:
 assetic:
     use_controller: %use_assetic_controller%
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: %delivery_mail_address%
