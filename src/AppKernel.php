@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Command as SymfonyCommand;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
+use Symfony\Bundle\SwiftmailerBundle\Command\DebugCommand;
+use Symfony\Bundle\SwiftmailerBundle\Command\NewEmailCommand;
+use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\HttpKernel\Kernel;
@@ -57,6 +60,9 @@ class AppKernel extends Kernel
             new SymfonyCommand\RouterDebugCommand(),
             new SymfonyCommand\RouterMatchCommand(),
             new SymfonyCommand\ServerRunCommand(),
+            new DebugCommand(),
+            new NewEmailCommand(),
+            new SendEmailCommand(),
         ];
 
         foreach ($commands as $command) {

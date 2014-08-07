@@ -29,10 +29,10 @@ class PullCodeTest extends WebTestCase
         $this->zipper = $container->get('grace.zipper');
         $this->from = $container->getParameter('from');
         $this->baseMailer = $container->get('swiftmailer.mailer');
+        $this->container = $container->get('grace.container');
     }
 
     /**
-     * @group now
      * @test
      * @dataProvider getRequestExamples
      */
@@ -44,7 +44,7 @@ class PullCodeTest extends WebTestCase
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
-        $this->container->destroy();
+        $this->container->destroy($repo);
     }
 
     public function getRequestExamples()
