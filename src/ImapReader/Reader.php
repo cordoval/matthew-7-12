@@ -6,18 +6,50 @@ class Reader {
     protected $mailAccount;
     protected $user;
     protected $password;
+    protected $mailboxmsginfo;
 
-    public function __construct()
+    protected $mailbox;
+
+    public function __construct($mailAccount, $user, $password)
     {
-        $this->mailAccount;
-        $this->user;
-        $this->password;
+        $this->mailAccount = $mailAccount;
+        $this->user = $user;
+        $this->password = $password;
     }
 
-    public static function callback()
+    public function open()
     {
-        $mbx = imap_open($mailbox , $user , $password);
-        $ck = imap_check($mbx);
-        $mails = imap_fetch_overview($mbx,"1:5");
+        $this->mailbox = imap_open(
+            $this->$mailAccount,
+            $this->user,
+            $this->password);
+
+        return $this->mailbox;
+    }
+
+    public function mailboxmsginfo()
+    {
+        return imap_mailboxmsginfo($this->mailbox);
+    }
+
+    /**
+     * read and email
+     */
+    public function mailboxmsginfo(){
+
+    }
+
+    /**
+     * read zipped attach
+     */
+    public function readZippedAttach(){
+
+    }
+
+    public static function callback($mailAccount, $user, $password)
+    {
+        $reader = new self($mailAccount, $user, $password);
+        $mailbox = $reader->open();
+        $mailboxmsginfo = $reader->mailboxmsginfo();
     }
 } 
