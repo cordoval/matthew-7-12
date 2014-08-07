@@ -2,6 +2,7 @@
 
 namespace Grace\Domain;
 
+use Symfony\Component\HttpFoundation\Request;
 
 class Poller
 {

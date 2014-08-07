@@ -2,9 +2,12 @@
 
 namespace Grace\UseCases;
 
+use Grace\Domain\GithubPost;
+use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Grace\Domain\Repo;
+
+use Grace\Domain\Poller;
 
 class PushCodeTest extends WebTestCase
 {
@@ -42,6 +45,7 @@ class PushCodeTest extends WebTestCase
     public function it_goes_through_the_whole_pull_flow(Request $request)
     {
         $hookPost = GithubPost::fromRequest($request);
+        $gotEmail = Poller::pollFromNotification($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
         $patches = $this->differ->__invoke($repo);
         $manyCompressed = $this->zipper->__invoke($patches);
