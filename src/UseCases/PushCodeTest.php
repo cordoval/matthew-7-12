@@ -43,6 +43,16 @@ class PushCodeTest extends WebTestCase
      */
     public function it_goes_through_the_whole_push_flow(Request $request)
     {
+        /**
+         * patch via email is sent zipped
+         * check email with php imap specified email account for an attachment
+         * subject resolver : resolves email subject format (for now we assume they are always just one email)
+         * download attachment -> unzip = file.patch
+         * create repo & apply patch file.patch
+         * given appropriate name push to fork
+         * matthew account in github must be used - ssh key to be able to push to its own fork
+         * open PR with library api
+         */
         $gotEmail = Poller::pollFromNotification($request);
         $zipped = $this->downloader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
