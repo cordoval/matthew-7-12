@@ -38,12 +38,6 @@ class PullCodeTest extends WebTestCase
      */
     public function it_goes_through_the_whole_pull_flow(Request $request)
     {
-        $transport = \Swift_SmtpTransport::newInstance('asistenteweb.com', 25)
-            ->setUsername('test@asistenteweb.com')
-            ->setPassword('%hwXZyDwLa9g')
-        ;
-        $this->baseMailer = \Swift_Mailer::newInstance($transport);
-
         $hookPost = GithubPost::fromRequest($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
         $patches = $this->differ->__invoke($repo);
