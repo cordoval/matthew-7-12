@@ -8,7 +8,7 @@ class Collab
 
     public function __invoke()
     {
-        return call_user_func(
+        return call_user_func_array(
             [
                 $this->callback['class'],
                 $this->callback['method'],
