@@ -7,9 +7,9 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
 
-#web_profiler:
-#    toolbar: %debug_toolbar%
-#    intercept_redirects: %debug_redirects%
+web_profiler:
+    toolbar: %debug_toolbar%
+    intercept_redirects: %debug_redirects%
 
 monolog:
     handlers:
@@ -32,5 +32,5 @@ monolog:
 assetic:
     use_controller: %use_assetic_controller%
 
-swiftmailer:
-    delivery_address: %delivery_mail_address%
+#swiftmailer:
+#    delivery_address: %delivery_mail_address%

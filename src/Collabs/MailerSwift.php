@@ -2,8 +2,6 @@
 
 namespace Grace\Collabs;
 
-use Swift_Attachment;
-
 class MailerSwift implements Mailer
 {
     protected $baseMailer;
@@ -26,7 +24,7 @@ class MailerSwift implements Mailer
             ->setSubject('Outgoing email')
             ->setFrom($this->from)
             ->setTo($list)
-            ->attach(Swift_Attachment::fromPath($zipFile))
+            ->attach(\Swift_Attachment::fromPath($zipFile))
             ->setBody(
                 'Attached are the code updates'
             )

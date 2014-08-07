@@ -13,6 +13,7 @@ use Symfony\Bundle\SwiftmailerBundle\Command\NewEmailCommand;
 use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -28,6 +29,7 @@ class AppKernel extends Kernel
             new SwiftmailerBundle(),
             new AsseticBundle(),
             new DoctrineBundle(),
+            new WebProfilerBundle(),
         ];
     }
 
