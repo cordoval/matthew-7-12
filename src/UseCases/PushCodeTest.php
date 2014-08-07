@@ -45,4 +45,21 @@ class PushCodeTest extends WebTestCase
         $repo = Repo::fromPatch($patch);
         $this->usherer->__invoke($repo, $repo->to);
     }
+
+    public function getRequestExamples()
+    {
+        return [
+            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/requestpush.json'))],
+        ];
+    }
+
+    private function getRequest($content)
+    {
+        return new Request([], [], [], [], [], [], json_decode($content, true));
+    }
+
+    protected static function getKernelClass()
+    {
+        return 'Grace\\AppKernel';
+    }
 }
