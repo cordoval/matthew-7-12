@@ -2,7 +2,6 @@
 
 namespace Grace\UseCases;
 
-use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,9 +41,8 @@ class PushCodeTest extends WebTestCase
      * @test
      * @dataProvider getRequestExamples
      */
-    public function it_goes_through_the_whole_pull_flow(Request $request)
+    public function it_goes_through_the_whole_push_flow(Request $request)
     {
-        $hookPost = GithubPost::fromRequest($request);
         $gotEmail = Poller::pollFromNotification($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
         $patches = $this->differ->__invoke($repo);
