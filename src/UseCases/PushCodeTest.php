@@ -49,7 +49,8 @@ class PushCodeTest extends WebTestCase
          * open PR with library api
          */
         $emailClient = Poller::pollFromNotification($this->imapConnection);
-        $results = $emailClient->search('INBOX');
+        $results = $emailClient->searchFirstUnpushed('INBOX');
+ladybug_dump_die($results);
         $zipped = $this->downloader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
         $repo = Repo::fromPatch($patch);
