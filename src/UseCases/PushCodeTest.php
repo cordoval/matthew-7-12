@@ -5,7 +5,9 @@ namespace Grace\UseCases;
 use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-
+use Grace\ImapReader\ImapServer;
+use Ddeboer\Imap\SearchExpression;
+use Grace\Domain\GitHub;
 use Grace\Domain\Poller;
 
 class PushCodeTest extends WebTestCase
@@ -13,7 +15,9 @@ class PushCodeTest extends WebTestCase
     protected $container;
     protected $client;
 
-    protected $imapConnection;
+    protected $server;
+    protected $username;
+    protected $password;
 
     public function setUp()
     {
@@ -22,14 +26,10 @@ class PushCodeTest extends WebTestCase
         $this->client->enableProfiler();
 
         $container = static::$kernel->getContainer();
-        $this->imapConnection = array(
-            'username' => $container->getParameter('incoming_emails_account'),
-            'password' => $container->getParameter('incoming_emails_password'),
-            'hostspec' => $container->getParameter('incoming_emails_server'),
-            'port' => $container->getParameter('incoming_emails_port'),
-            'secure' => $container->getParameter('incoming_emails_secure'),
-            )
-        ;
+
+        $this->username = $container->getParameter('incoming_emails_account');
+        $this->password = $container->getParameter('incoming_emails_password');
+        $this->server = $container->getParameter('incoming_emails_server');
     }
 
     /**
@@ -48,11 +48,18 @@ class PushCodeTest extends WebTestCase
          * matthew account in github must be used - ssh key to be able to push to its own fork
          * open PR with library api
          */
-        $emailClient = Poller::pollFromNotification($this->imapConnection);
+        $server = ImapServer::initServer($this->server);
+        $connection = $server->getConnection($this->username, $this->password);
+        $inbox = $connection->getMailbox('INBOX');
+        $messages = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        $messagesResponses = GitHub::createRepos($messages);
+        $unzippResponses = GitHub::unzippPaches($messagesResponses);
+        $pullRequestResponses = GitHub::pullRequest($unzippResponses);
+        $responseMessages = SMTPServer($pullRequestResponses);
+        GitHub::detroyRepos($pullRequestResponses);
+ladybug_dump_die($messages);
+        $connection = $server->pollFromNotification();
         $mailUID = $emailClient->searchFirstUnpushed('INBOX');
-ladybug_dump_die($mailUID );
-        $zipped = $emailClient->downloader($mailUID);
-
         $zipped = $this->downloader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
         $repo = Repo::fromPatch($patch);
