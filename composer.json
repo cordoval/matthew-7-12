@@ -6,12 +6,6 @@
     "autoload": {
         "psr-4": { "Grace\\": "src/" }
     },
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http://pear.horde.org"
-        }
-    ],
     "require": {
         "symfony/symfony": "~2.5.1",
         "doctrine/orm": "~2.2,>=2.2.3",
@@ -22,8 +16,7 @@
         "symfony/assetic-bundle": "~2.3.0",
         "symfony/swiftmailer-bundle": "~2.3.0",
         "symfony/monolog-bundle": "~2.6.0",
-        "aequasi/environment": "~0.4.0",
-        "pear-pear.horde.org/Horde_Imap_Client": "*"
+        "aequasi/environment": "~0.4.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-service-definition-validator": "~1.1.0",

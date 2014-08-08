@@ -3,26 +3,21 @@
 namespace Grace\Domain;
 
 use Symfony\Component\HttpFoundation\Request;
+use Ddeboer\Imap\Server as ImapServer;
 
-class Poller extends \Horde_Imap_Client_Socket
+class Poller extends ImapServer
 {
     public function searchFirstUnpushed($box)
     {
-        $searchQuery = new \Horde_Imap_Client_Search_Query;
-        $searchQuery->flag('Pushed', false);
-//        $result = $this->search($box, $searchQuery)['match']->__get("ids")[0];
-        $result = $this->search($box, $searchQuery)['match'];
-
+    ladybug_dump_die($result);
         return $result;
     }
 
-    public function searchFirstUnpushed($box)
-    {
+}
 
-    }
 
-    public static function pollFromNotification($imapConnection)
+    public static function pollFromNotification($server)
     {
-        return new self($imapConnection);
+        return new self($server);
     }
 }
