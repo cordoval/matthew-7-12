@@ -30,20 +30,6 @@ class PushCodeTest extends WebTestCase
         $this->secure = $container->getParameter('incoming_emails_secure');
         $this->emailuser = $container->getParameter('incoming_emails_account');
         $this->password = $container->getParameter('incoming_emails_password');
-
-        $this->client = $this->createClient();
-        $this->client->insulate();
-        $this->client->enableProfiler();
-
-
-        $this->puller = $container->get('grace.puller');
-        $this->differ = $container->get('grace.differ');
-        $this->subscriber = $container->get('grace.subscriber');
-        $this->mailer = $container->get('grace.mailer');
-        $this->zipper = $container->get('grace.zipper');
-
-        $this->baseMailer = $container->get('swiftmailer.mailer');
-        $this->container = $container->get('grace.container');
     }
 
     /**
