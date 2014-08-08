@@ -2,7 +2,7 @@
 
 namespace Grace\Domain;
 
-class GitHub
+class GithubPush
 {
 
     public static function createRepos($messages)

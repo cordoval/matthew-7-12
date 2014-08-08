@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Grace\ImapReader\ImapServer;
 use Ddeboer\Imap\SearchExpression;
-use Grace\Domain\GitHub;
+use Grace\Domain\GithubPush;
 use Grace\Domain\Poller;
 
 class PushCodeTest extends WebTestCase
@@ -52,9 +52,9 @@ class PushCodeTest extends WebTestCase
         $connection = $server->getConnection($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
         $messages = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
-        $messagesResponses = GitHub::createRepos($messages);
-        $unzippResponses = GitHub::unzippPaches($messagesResponses);
-        $pullRequestResponses = GitHub::pullRequest($unzippResponses);
+        $messagesResponses = GithubPush::createRepos($messages);
+        $unzippResponses = GithubPush::unzippPaches($messagesResponses);
+        $pullRequestResponses = GithubPush::pullRequest($unzippResponses);
         $responseMessages = SMTPServer($pullRequestResponses);
         GitHub::detroyRepos($pullRequestResponses);
 ladybug_dump_die($messages);
