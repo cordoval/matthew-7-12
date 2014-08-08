@@ -5,9 +5,10 @@ namespace Grace\UseCases;
 use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Grace\ImapReader\ImapServer;
+use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 use Grace\Domain\GithubPush;
+use Grace\MailReader\Reader;
 use Grace\Domain\Poller;
 
 class PushCodeTest extends WebTestCase
@@ -48,16 +49,22 @@ class PushCodeTest extends WebTestCase
          * matthew account in github must be used - ssh key to be able to push to its own fork
          * open PR with library api
          */
-        $server = ImapServer::initServer($this->server);
-        $connection = $server->getConnection($this->username, $this->password);
+        $server = new ImapServer($this->server);
+        $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
         $messages = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        $reader = new Reader($messages);
+        $reposUrl = $reader->readSubjects();
+        $gitHub = new GithubPush();
+        $messagesResponses = $gitHub->createRepos($reposUrl);
+ladybug_dump_die($reader->readSubjects());
+        $gitHub = GithubPush::createRepos($messages);
         $messagesResponses = GithubPush::createRepos($messages);
         $unzippResponses = GithubPush::unzippPaches($messagesResponses);
         $pullRequestResponses = GithubPush::pullRequest($unzippResponses);
         $responseMessages = SMTPServer($pullRequestResponses);
         GitHub::detroyRepos($pullRequestResponses);
-ladybug_dump_die($messages);
+
         $connection = $server->pollFromNotification();
         $mailUID = $emailClient->searchFirstUnpushed('INBOX');
         $zipped = $this->downloader->__invoke($gotEmail);
