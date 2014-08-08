@@ -11,9 +11,8 @@ class Poller extends \Horde_Imap_Client_Socket
     protected $to;
     protected $name;
 
-    public static function pollFromNotification()
+    public static function pollFromNotification($imapConnection)
     {
-
-        return $hook;
+        return new self($imapConnection);
     }
 }
