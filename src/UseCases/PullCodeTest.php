@@ -48,6 +48,7 @@ class PullCodeTest extends WebTestCase
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
+ladybug_dump_die();
         $this->container->destroy($repo);
     }
 
