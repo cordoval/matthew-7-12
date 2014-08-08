@@ -10,9 +10,15 @@ class Poller extends \Horde_Imap_Client_Socket
     {
         $searchQuery = new \Horde_Imap_Client_Search_Query;
         $searchQuery->flag('Pushed', false);
-        $result = $this->search($box, $searchQuery)['match']->__get("ids")[0];
+//        $result = $this->search($box, $searchQuery)['match']->__get("ids")[0];
+        $result = $this->search($box, $searchQuery)['match'];
 
         return $result;
+    }
+
+    public function searchFirstUnpushed($box)
+    {
+
     }
 
     public static function pollFromNotification($imapConnection)

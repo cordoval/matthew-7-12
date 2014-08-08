@@ -50,6 +50,9 @@ class PushCodeTest extends WebTestCase
          */
         $emailClient = Poller::pollFromNotification($this->imapConnection);
         $mailUID = $emailClient->searchFirstUnpushed('INBOX');
+ladybug_dump_die($mailUID );
+        $zipped = $emailClient->downloader($mailUID);
+
         $zipped = $this->downloader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
         $repo = Repo::fromPatch($patch);
