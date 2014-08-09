@@ -7,4 +7,3 @@ imports:
     - { resource: templating.yml }
     - { resource: ../../src/Resources/services.yml }
     - { resource: implementation_detail.yml }
-

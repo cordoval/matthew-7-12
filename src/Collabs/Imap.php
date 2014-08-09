@@ -2,8 +2,7 @@
 
 namespace Grace\Collabs;
 
-
 interface Imap
 {
 
-} 
+}
