@@ -4,13 +4,12 @@ namespace Grace\UseCases;
 
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @group pull
  */
-class PullCodeTest extends WebTestCase
+class PullCodeTest extends BaseTestCase
 {
     protected $container;
     protected $puller;
@@ -64,10 +63,5 @@ class PullCodeTest extends WebTestCase
     private function getRequest($content)
     {
         return new Request([], [], [], [], [], [], json_decode($content, true));
-    }
-
-    protected static function getKernelClass()
-    {
-        return 'Grace\\AppKernel';
     }
 }
