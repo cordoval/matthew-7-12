@@ -12,3 +12,4 @@
 *.lock
 .bldr/vendor
 /builds
+/app/spool
