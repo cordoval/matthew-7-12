@@ -19,6 +19,7 @@ class PushCodeTest extends WebTestCase
     protected $server;
     protected $username;
     protected $password;
+    protected $reader;
 
     public function setUp()
     {
@@ -27,10 +28,11 @@ class PushCodeTest extends WebTestCase
         $this->client->enableProfiler();
 
         $container = static::$kernel->getContainer();
-
+        $this->container = $container->get('grace.container');
         $this->username = $container->getParameter('incoming_emails_account');
         $this->password = $container->getParameter('incoming_emails_password');
         $this->server = $container->getParameter('incoming_emails_server');
+        $this->reader = $container->get('grace.reader');
     }
 
     /**
@@ -52,11 +54,12 @@ class PushCodeTest extends WebTestCase
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
-        $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'))[0];
-        $reader = new Reader($message);
-        $reposUrl = $reader->readSubjects();
+        $message = $this->reader->setMailbox($inbox)->getUnpushedMessage();
+        $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        $this->container->gitClone($message->getSubject());
+        $reposUrl = $reader->readSubject();
         $gitHub = new GithubPush();
-        $messagesResponse = $gitHub->createRepo($reposUrl);
+        $messagesResponse = $gitHub->createRepo($message->getSubject());
         $unzippResponse = GithubPush::unzippPaches($messageResponse);
 ladybug_dump_die($reader->readSubjects());
         $unzippResponse = GithubPush::unzippPaches($messagesResponse);

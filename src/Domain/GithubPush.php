@@ -10,17 +10,4 @@ class GithubPush
     {
 
     }
-
-    public function createRepos($gitReposDir)
-    {
-        foreach($gitReposDir as $repo){
-
-            /*
-             * check if the $repo is a valid git repo
-             * clone the repo
-             * set the response of the repos
-             */
-        }
-    }
-
 } 

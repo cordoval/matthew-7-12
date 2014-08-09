@@ -2,21 +2,29 @@
 
 namespace Grace\MailReader;
 
+use Ddeboer\Imap\Mailbox;
+use Ddeboer\Imap\SearchExpression;
+
 class Reader
 {
-    protected $messages;
+    protected $mailBox;
+    protected $search;
 
 
-    public function __construct($messages)
+    public function __construct(Mailbox $mailBox = null)
     {
-        $this->messages = $messages;
+        $this->mailBox = $mailBox;
     }
 
-    public function readSubjects()
+    public function setMailbox(Mailbox $mailBox)
     {
-        foreach ($this->messages as $message) {
-            $headers[] = $message->getSubject();
-        }
-        return $headers;
+        $this->mailBox = $mailBox;
+        return $this;
     }
-}   
+
+    public function setSearchNoFlagPushed()
+    {
+        $messageIterator = $mailBox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        return $messageIterator->offsetGet(0);
+    }
+}

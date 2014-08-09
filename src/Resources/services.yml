@@ -2,6 +2,7 @@ imports:
     - { resource: ../PullCode/pull.yml }
     - { resource: ../PushCode/push.yml }
     - { resource: ../Collabs/collabs.yml }
+    - { resource: ../MailReader/reader.yml }
 
 services:
     grace.pull_flow:
