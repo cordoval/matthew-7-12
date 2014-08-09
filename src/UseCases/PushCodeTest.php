@@ -19,10 +19,11 @@ class PushCodeTest extends BaseTestCase
     public function setUp()
     {
         self::bootKernel();
-        $this->container = static::$kernel->getContainer();
-        $this->reader = $this->container->get('grace.reader');
-        $this->unzipper = $this->container->get('grace.unzipper');
-        $this->usherer = $this->container->get('grace.usherer');
+        $container = static::$kernel->getContainer();
+        $this->reader = $container->get('grace.reader');
+        $this->container = $container->get('grace.container');
+        $this->unzipper = $container->get('grace.unzipper');
+        $this->usherer = $container->get('grace.usherer');
     }
 
     /**
@@ -33,8 +34,8 @@ class PushCodeTest extends BaseTestCase
         $this->reader->enableConnection();
         $this->reader->selectMailbox('INBOX');
         $message = $this->reader->SearchNoFlagPushed();
-
         $this->container->gitClone($message->getSubject());
+
         $reposUrl = $reader->readSubject();
         $gitHub = new GithubPush();
         $messagesResponse = $gitHub->createRepo($message->getSubject());
