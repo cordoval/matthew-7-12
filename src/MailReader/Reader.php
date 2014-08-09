@@ -24,7 +24,7 @@ class Reader
 
     public function setSearchNoFlagPushed()
     {
-        $messageIterator = $mailBox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
-        return $messageIterator->offsetGet(0);
+        $messages = $this->mailBox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        return $messages->current();
     }
 }

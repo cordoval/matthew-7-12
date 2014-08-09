@@ -54,15 +54,16 @@ class PushCodeTest extends WebTestCase
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
-        $message = $this->reader->setMailbox($inbox)->getUnpushedMessage();
+        $message = $this->reader->setMailbox($inbox)->setSearchNoFlagPushed();
+ladybug_dump_die($message);
         $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
         $this->container->gitClone($message->getSubject());
         $reposUrl = $reader->readSubject();
         $gitHub = new GithubPush();
         $messagesResponse = $gitHub->createRepo($message->getSubject());
-        $unzippResponse = GithubPush::unzippPaches($messageResponse);
-ladybug_dump_die($reader->readSubjects());
-        $unzippResponse = GithubPush::unzippPaches($messagesResponse);
+        $unzippResponse = GithubPush::unzippPach($messageResponse);
+
+        $unzippResponse = GithubPush::unzippPach($messagesResponse);
         $pullRequestResponse = GithubPush::pullRequest($unzippResponse);
         $responseMessage = SMTPServer($pullRequestResponse);
         GitHub::detroyRepos($pullRequestResponse);
