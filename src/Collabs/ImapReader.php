@@ -3,6 +3,7 @@
 namespace Grace\Collabs;
 
 
-class ImapReader {
+class ImapReader implements Imap
+{
 
 } 

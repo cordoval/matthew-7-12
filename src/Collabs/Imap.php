@@ -3,6 +3,7 @@
 namespace Grace\Collabs;
 
 
-interface Imap {
+interface Imap
+{
 
 } 
