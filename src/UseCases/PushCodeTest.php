@@ -18,27 +18,24 @@ class PushCodeTest extends BaseTestCase
 
     public function setUp()
     {
-        $this->container = static::$kernel->getContainer();
-        $this->poller = $this->container->get('grace.poller');
-        $this->reader = $this->container->get('grace.reader');
-        $this->unzipper = $this->container->get('grace.unzipper');
-        $this->usherer = $this->container->get('grace.usherer');
+        self::bootKernel();
+        $container = static::$kernel->getContainer();
+        $this->reader = $container->get('grace.reader');
+        $this->container = $container->get('grace.container');
+        $this->unzipper = $container->get('grace.unzipper');
+        $this->usherer = $container->get('grace.usherer');
     }
 
     /**
      * @test
      */
-    public function it_goes_through_the_whole_push_flow(Request $request)
+    public function it_goes_through_the_whole_push_flow()
     {
-        $gotEmail = Poller::pollFromNotification($request);
-
-        $server = new ImapServer($this->server);
-        $connection = $server->authenticate($this->username, $this->password);
-        $inbox = $connection->getMailbox('INBOX');
-        $message = $this->reader->setMailbox($inbox)->setSearchNoFlagPushed();
-        $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
-
+        $this->reader->enableConnection();
+        $this->reader->selectMailbox('INBOX');
+        $message = $this->reader->SearchNoFlagPushed();
         $this->container->gitClone($message->getSubject());
+
         $reposUrl = $reader->readSubject();
         $gitHub = new GithubPush();
         $messagesResponse = $gitHub->createRepo($message->getSubject());
