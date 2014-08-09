@@ -36,9 +36,3 @@ services:
                     -
                         class: Grace\Collabs\ZipperZippy
                         method: pushCallback
-    grace.imapreader:
-        class: Grace\Collabs\ImapReader
-        arguments:
-            - %incoming_email_account%
-            - %incoming_email_password%
-            - %incoming_email_server%
