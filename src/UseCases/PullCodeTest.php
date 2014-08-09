@@ -7,6 +7,9 @@ use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @group pull
+ */
 class PullCodeTest extends WebTestCase
 {
     protected $container;
@@ -60,7 +63,6 @@ class PullCodeTest extends WebTestCase
     {
         return [
             [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
-//            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
         ];
     }
 
