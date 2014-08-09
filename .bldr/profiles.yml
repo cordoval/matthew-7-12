@@ -1,0 +1,24 @@
+bldr:
+    profiles:
+        beforeScript:
+            description: Profile for running server:run
+            tasks:
+                - prepare
+                - lint
+        afterScript:
+            description: Profile to run test suite
+            tasks:
+                - test
+        tdd:
+            description: Local Development Profile
+            tasks:
+                - testLocal
+                - watch
+        cs:
+            description: fix cs for once
+            tasks:
+                - runFixer
+        gush:
+            description: dummy profile for running tasks Gush related
+            tasks:
+                - gushTake

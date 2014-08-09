@@ -1,5 +1,6 @@
 services:
     grace.usherer:
         class: Grace\PushCode\Usherer
-#    grace.poller:
-#        class: Grace\PushCode\Poller
+    grace.reader:
+        class: Grace\PushCode\Reader
+

@@ -4,10 +4,12 @@ namespace Grace\UseCases;
 
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class PullCodeTest extends WebTestCase
+/**
+ * @group pull
+ */
+class PullCodeTest extends BaseTestCase
 {
     protected $container;
     protected $puller;
@@ -49,28 +51,17 @@ class PullCodeTest extends WebTestCase
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
         $this->container->destroy($repo);
-
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-
-        // Check that an e-mail was sent
-        $this->assertEquals(1, $mailCollector->getMessageCount());
     }
 
     public function getRequestExamples()
     {
         return [
             [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
-//            [$this->getRequest(file_get_contents(__DIR__.'/Fixtures/request.json'))],
         ];
     }
 
     private function getRequest($content)
     {
         return new Request([], [], [], [], [], [], json_decode($content, true));
-    }
-
-    protected static function getKernelClass()
-    {
-        return 'Grace\\AppKernel';
     }
 }
