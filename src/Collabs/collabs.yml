@@ -36,3 +36,5 @@ services:
                     -
                         class: Grace\Collabs\ZipperZippy
                         method: pushCallback
+    grace.mailer:
+        class: Grace\Collabs\ImapReader
