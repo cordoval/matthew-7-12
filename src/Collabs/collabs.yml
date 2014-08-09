@@ -26,4 +26,13 @@ services:
                 -
                     -
                         class: Grace\Collabs\ZipperZippy
-                        method: callback
+                        method: pullCallback
+    grace.unzipper:
+        class: Grace\Collabs\Collab
+        calls:
+            -
+                - setCallback
+                -
+                    -
+                        class: Grace\Collabs\ZipperZippy
+                        method: pushCallback
