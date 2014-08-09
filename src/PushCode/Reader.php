@@ -16,6 +16,11 @@ class Reader extends Server
         parent::__construct($hostname, $port, $flags);
     }
 
+    public function getConnection()
+    {
+        return $this->authenticate($this->username, $this->password);
+    }
+
     public function __invoke(Repo $repo)
     {
         return $repo;
