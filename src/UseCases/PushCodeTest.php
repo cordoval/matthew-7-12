@@ -52,18 +52,17 @@ class PushCodeTest extends WebTestCase
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
-        $messages = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
-        $reader = new Reader($messages);
+        $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'))[0];
+        $reader = new Reader($message);
         $reposUrl = $reader->readSubjects();
         $gitHub = new GithubPush();
-        $messagesResponses = $gitHub->createRepos($reposUrl);
+        $messagesResponse = $gitHub->createRepo($reposUrl);
+        $unzippResponse = GithubPush::unzippPaches($messageResponse);
 ladybug_dump_die($reader->readSubjects());
-        $gitHub = GithubPush::createRepos($messages);
-        $messagesResponses = GithubPush::createRepos($messages);
-        $unzippResponses = GithubPush::unzippPaches($messagesResponses);
-        $pullRequestResponses = GithubPush::pullRequest($unzippResponses);
-        $responseMessages = SMTPServer($pullRequestResponses);
-        GitHub::detroyRepos($pullRequestResponses);
+        $unzippResponse = GithubPush::unzippPaches($messagesResponse);
+        $pullRequestResponse = GithubPush::pullRequest($unzippResponse);
+        $responseMessage = SMTPServer($pullRequestResponse);
+        GitHub::detroyRepos($pullRequestResponse);
 
         $connection = $server->pollFromNotification();
         $mailUID = $emailClient->searchFirstUnpushed('INBOX');
