@@ -31,7 +31,7 @@ class PushCodeTest extends BaseTestCase
     public function it_goes_through_the_whole_push_flow()
     {
         $connection = $this->reader->getConnection();
-        $inbox = $connection->getMailbox('INBOX');
+        $inbox = $this->reader->selectMailbox('INBOX');
         $message = $this->reader->setMailbox($inbox)->setSearchNoFlagPushed();
         $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
 
