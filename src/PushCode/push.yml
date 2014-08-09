@@ -4,7 +4,7 @@ services:
     grace.reader:
         class: Grace\PushCode\Reader
     grace.reader:
-        class: Grace\Collabs\ImapReader
+        class: Grace\PushCode\ImapReader
         arguments:
             - %incoming_email_account%
             - %incoming_email_password%
