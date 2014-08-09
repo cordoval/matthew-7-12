@@ -15,11 +15,12 @@ class PushCodeTest extends BaseTestCase
     protected $unzipper;
     protected $usherer;
     protected $container;
+    protected $client;
 
     public function setUp()
     {
         $this->client = $this->createClient();
-        
+
         $this->container = static::$kernel->getContainer();
         $this->poller = $this->container->get('grace.poller');
         $this->reader = $this->container->get('grace.reader');
