@@ -20,7 +20,6 @@ class PushCodeTest extends BaseTestCase
     {
         self::bootKernel();
         $this->container = static::$kernel->getContainer();
-        $this->poller = $this->container->get('grace.poller');
         $this->reader = $this->container->get('grace.reader');
         $this->unzipper = $this->container->get('grace.unzipper');
         $this->usherer = $this->container->get('grace.usherer');
@@ -29,7 +28,7 @@ class PushCodeTest extends BaseTestCase
     /**
      * @test
      */
-    public function it_goes_through_the_whole_push_flow(Request $request)
+    public function it_goes_through_the_whole_push_flow()
     {
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
