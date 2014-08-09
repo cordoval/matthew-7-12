@@ -31,8 +31,6 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow(Request $request)
     {
-        $gotEmail = Poller::pollFromNotification($request);
-
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
