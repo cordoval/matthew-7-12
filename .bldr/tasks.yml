@@ -69,6 +69,16 @@ bldr:
                         - deps/bin/phpunit
                         - --stop-on-failure
                         #- --group=now
+        testLocalPush:
+            description: Runs the PHPUnit Tests for PushCodeTest
+            calls:
+                -
+                    type: exec
+                    executable: php
+                    arguments:
+                        - deps/bin/phpunit
+                        - --stop-on-failure
+                        - src/UseCases/PushCodeTest.php
         watch:
             description: Watch Task for Local Development
             calls:
