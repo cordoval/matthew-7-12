@@ -15,4 +15,4 @@ class ImapReader extends Server implements Imap
         $this->password = $password;
         parent::__construct($hostname, $port, $flags);
     }
-} 
+}
