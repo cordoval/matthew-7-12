@@ -3,6 +3,7 @@
 namespace Grace\PushCode;
 
 use Ddeboer\Imap\Server;
+use Ddeboer\Imap\SearchExpression;
 
 class Reader extends Server
 {
@@ -28,6 +29,12 @@ class Reader extends Server
     public function selectMailbox($nameMailbox)
     {
         $this->mailbox = $this->serverConnection->getMailbox($nameMailbox);
+    }
+
+    public function SearchNoFlagPushed()
+    {
+        $messages = $this->mailbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        return $messages->current();
     }
 
     public function __invoke(Repo $repo)
