@@ -6,14 +6,13 @@ use Ddeboer\Imap\Server;
 
 class ImapReader extends Server implements Imap
 {
-    protected $imapServer;
     protected $username;
     protected $password;
 
-    public function __construct($imapServer, $username, $password)
+    public function __construct($hostname, $username, $password, $port = 993, $flags = '/imap/ssl/validate-cert')
     {
-        $this->imapServer = $imapServer;
         $this->username = $username;
         $this->password = $password;
+        parent::__construct($hostname, $port, $flags);
     }
 } 
