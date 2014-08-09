@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/src/Code/Fixer/ShortArraySyntaxFixer.php';
-
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('README.md')
     ->notName('composer.*')
@@ -19,7 +17,6 @@ if (file_exists('local.php_cs')) {
 }
 
 return Symfony\CS\Config\Config::create()
-    ->addCustomFixer(new Grace\Code\Fixer\ShortArraySyntaxFixer)
     ->fixers(
         [
             'encoding',
@@ -44,7 +41,11 @@ return Symfony\CS\Config\Config::create()
             'eof_ending',
             'one_class_per_file',
             'unused_use',
-            'short_array_syntax'
+            'short_array_syntax',
+            'standardize_not_equal',
+            'new_with_braces',
+            'ordered_use',
+            'default_values',
         ]
     )
     ->finder($finder)
