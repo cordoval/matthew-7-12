@@ -1,5 +1,7 @@
 <?php
 
+namespace Grace\Endpoints;
+
 use Grace\PushCode\Flow;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

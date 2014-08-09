@@ -2,9 +2,8 @@
 
 namespace Grace\PullCode;
 
+use Grace\Collabs\Collab;
 use Grace\Collabs\Container;
-use Grace\Collabs\Mailer;
-use Grace\Collabs\Zipper;
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
 
@@ -20,9 +19,9 @@ class Flow
     public function __construct(
         Puller $puller,
         Differ $differ,
-        Zipper $zipper,
+        Collab $zipper,
         Subscriber $subscriber,
-        Mailer $mailer,
+        Collab $mailer,
         Container $container
     ) {
         $this->puller = $puller;

@@ -3,6 +3,8 @@
 namespace Grace;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Matthias\SymfonyServiceDefinitionValidator\Compiler\ValidateServiceDefinitionsPass;
+use Matthias\SymfonyServiceDefinitionValidator\Configuration;
 use Symfony\Bundle\AsseticBundle\AsseticBundle;
 use Symfony\Bundle\FrameworkBundle\Command as SymfonyCommand;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -14,6 +16,9 @@ use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -74,5 +79,42 @@ class AppKernel extends Kernel
         }
 
         return $commands;
+    }
+
+    protected function prepareContainer(ContainerBuilder $container)
+    {
+        $extensions = array();
+        foreach ($this->bundles as $bundle) {
+            if ($extension = $bundle->getContainerExtension()) {
+                $container->registerExtension($extension);
+                $extensions[] = $extension->getAlias();
+            }
+
+            if ($this->debug) {
+                $container->addObjectResource($bundle);
+            }
+        }
+        foreach ($this->bundles as $bundle) {
+            $bundle->build($container);
+        }
+
+        $this->buildBundleless($container);
+
+        // ensure these extensions are implicitly loaded
+        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
+    }
+
+    private function buildBundleless(ContainerBuilder $container)
+    {
+        if ($container->getParameter('kernel.debug')) {
+            $container->addCompilerPass(new FixValidatorDefinitionPass());
+
+            $configuration = new Configuration();
+            $configuration->setEvaluateExpressions(true);
+            $container->addCompilerPass(
+                new ValidateServiceDefinitionsPass($configuration),
+                PassConfig::TYPE_AFTER_REMOVING
+            );
+        }
     }
 }
