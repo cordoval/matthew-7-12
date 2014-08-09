@@ -14,6 +14,10 @@ bldr:
             tasks:
                 - testLocal
                 - watch
+        tddpush:
+            description: Local Development Profile for push
+            tasks:
+                - testLocalPush
         cs:
             description: fix cs for once
             tasks:
