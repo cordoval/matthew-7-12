@@ -38,3 +38,7 @@ services:
                         method: pushCallback
     grace.mailer:
         class: Grace\Collabs\ImapReader
+        arguments:
+            - %incoming_emails_account%
+            - %incoming_emails_password%
+            - %incoming_emails_server%
