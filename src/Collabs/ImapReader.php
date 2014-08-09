@@ -4,7 +4,7 @@ namespace Grace\Collabs;
 
 use Ddeboer\Imap\Server;
 
-class ImapReader implements Imap
+class ImapReader extends Server implements Imap
 {
     protected $imapServer;
     protected $username;
