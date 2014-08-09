@@ -31,32 +31,27 @@ class PushCodeTest extends BaseTestCase
     public function it_goes_through_the_whole_push_flow(Request $request)
     {
         $gotEmail = Poller::pollFromNotification($request);
-        $zipped = $this->downloader->__invoke($gotEmail);
-        $patch = $this->unzipper->__invoke($zipped);
-        $repo = Repo::fromPatch($patch);
-        $this->usherer->__invoke($repo, $repo->to);
-
 
         $server = new ImapServer($this->server);
         $connection = $server->authenticate($this->username, $this->password);
         $inbox = $connection->getMailbox('INBOX');
         $message = $this->reader->setMailbox($inbox)->setSearchNoFlagPushed();
-        ladybug_dump_die($message);
         $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+
         $this->container->gitClone($message->getSubject());
         $reposUrl = $reader->readSubject();
         $gitHub = new GithubPush();
         $messagesResponse = $gitHub->createRepo($message->getSubject());
         $unzippResponse = GithubPush::unzippPach($messageResponse);
-
-        $unzippResponse = GithubPush::unzippPach($messagesResponse);
         $pullRequestResponse = GithubPush::pullRequest($unzippResponse);
+
         $responseMessage = SMTPServer($pullRequestResponse);
+
         GitHub::detroyRepos($pullRequestResponse);
 
         $connection = $server->pollFromNotification();
         $mailUID = $emailClient->searchFirstUnpushed('INBOX');
-        $zipped = $this->downloader->__invoke($gotEmail);
+        $zipped = $this->reader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
         $repo = Repo::fromPatch($patch);
         $this->usherer->__invoke($repo, $repo->to);
