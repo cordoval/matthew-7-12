@@ -9,23 +9,25 @@ class Reader extends Server
     protected $username;
     protected $password;
     protected $mailbox;
+    protected $serverConnection;
 
     public function __construct($hostname, $username, $password, $port = 993, $flags = '/imap/ssl/validate-cert')
     {
         $this->username = $username;
         $this->password = $password;
         $this->mailbox = null;
+        $this->serverConnection = null;
         parent::__construct($hostname, $port, $flags);
     }
 
-    public function getConnection()
+    public function enableConnection()
     {
-        return $this->authenticate($this->username, $this->password);
+        return $this->serverConnection = $this->authenticate($this->username, $this->password);
     }
 
     public function selectMailbox($nameMailbox)
     {
-        $this->mailbox = $this->connection->getMailbox($nameMailbox);
+        $this->mailbox = $this->serverConnection->getMailbox($nameMailbox);
     }
 
     public function __invoke(Repo $repo)
