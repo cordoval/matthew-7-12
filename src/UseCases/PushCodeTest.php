@@ -2,33 +2,45 @@
 
 namespace Grace\UseCases;
 
+use Grace\Domain\Repo;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Grace\Domain\Repo;
+use Ddeboer\Imap\Server as ImapServer;
+use Ddeboer\Imap\SearchExpression;
+use Grace\Domain\GithubPush;
+use Grace\MailReader\Reader;
+use Grace\Domain\Poller;
 
 class PushCodeTest extends WebTestCase
 {
-    protected $poller;
-    protected $downloader;
-    protected $unzipper;
-    protected $usherer;
     protected $container;
+    protected $client;
+
+    protected $server;
+    protected $username;
+    protected $password;
+    protected $reader;
 
     public function setUp()
     {
-        $this->container = static::$kernel->getContainer();
-//        $this->poller = $this->container->get('grace.poller');
-//        $this->downloader = $this->container->get('grace.downloader');
-//        $this->unzipper = $this->container->get('grace.unzipper');
-//        $this->usherer = $this->container->get('grace.usherer');
+        $this->client = $this->createClient();
+        $this->client->insulate();
+        $this->client->enableProfiler();
+
+        $container = static::$kernel->getContainer();
+        $this->container = $container->get('grace.container');
+        $this->username = $container->getParameter('incoming_emails_account');
+        $this->password = $container->getParameter('incoming_emails_password');
+        $this->server = $container->getParameter('incoming_emails_server');
+        $this->reader = $container->get('grace.reader');
     }
 
     /**
      * @test
+     * @dataProvider getRequestExamples
      */
-    public function it_goes_through_the_whole_push_flow(Request $request)
+    public function it_goes_through_the_whole_push_flow()
     {
-        $this->markTestIncomplete('it needs finishing up');
         /**
          * patch via email is sent zipped
          * check email with php imap specified email account for an attachment
@@ -39,10 +51,42 @@ class PushCodeTest extends WebTestCase
          * matthew account in github must be used - ssh key to be able to push to its own fork
          * open PR with library api
          */
-        $gotEmail = Poller::pollFromNotification($request);
+        $server = new ImapServer($this->server);
+        $connection = $server->authenticate($this->username, $this->password);
+        $inbox = $connection->getMailbox('INBOX');
+        $message = $this->reader->setMailbox($inbox)->setSearchNoFlagPushed();
+ladybug_dump_die($message);
+        $message = $inbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
+        $this->container->gitClone($message->getSubject());
+        $reposUrl = $reader->readSubject();
+        $gitHub = new GithubPush();
+        $messagesResponse = $gitHub->createRepo($message->getSubject());
+        $unzippResponse = GithubPush::unzippPach($messageResponse);
+
+        $unzippResponse = GithubPush::unzippPach($messagesResponse);
+        $pullRequestResponse = GithubPush::pullRequest($unzippResponse);
+        $responseMessage = SMTPServer($pullRequestResponse);
+        GitHub::detroyRepos($pullRequestResponse);
+
+        $connection = $server->pollFromNotification();
+        $mailUID = $emailClient->searchFirstUnpushed('INBOX');
         $zipped = $this->downloader->__invoke($gotEmail);
         $patch = $this->unzipper->__invoke($zipped);
         $repo = Repo::fromPatch($patch);
         $this->usherer->__invoke($repo, $repo->to);
+    }
+
+    public function getRequestExamples()
+    {
+    }
+
+    private function getRequest($content)
+    {
+        return new Request([], [], [], [], [], [], json_decode($content, true));
+    }
+
+    protected static function getKernelClass()
+    {
+        return 'Grace\\AppKernel';
     }
 }
