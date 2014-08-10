@@ -4,6 +4,7 @@ namespace Grace\PushCode;
 
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
+use Grace\Domain\Repo;
 
 class Reader
 {

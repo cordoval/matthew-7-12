@@ -4,7 +4,6 @@ services:
     grace.reader:
         class: Grace\PushCode\Reader
         arguments:
-            - %incoming_email_server%
-            - %incoming_email_account%
-            - %incoming_email_password%
-
+            - %grace.reader.imap_hostname%
+            - %grace.reader.imap_username%
+            - %grace.reader.imap_password%

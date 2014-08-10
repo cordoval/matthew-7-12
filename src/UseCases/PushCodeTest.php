@@ -2,7 +2,6 @@
 
 namespace Grace\UseCases;
 
-use Symfony\Component\HttpFoundation\Request;
 use Grace\Domain\Repo;
 
 /**
