@@ -14,10 +14,13 @@ class PushCodeTest extends BaseTestCase
     protected $unzipper;
     protected $usherer;
     protected $container;
+    protected $client;
 
     public function setUp()
     {
-        self::bootKernel();
+        $this->client = $this->createClient();
+        $this->client->insulate();
+
         $container = static::$kernel->getContainer();
         $this->reader = $container->get('grace.reader');
         $this->container = $container->get('grace.container');
@@ -30,25 +33,14 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
-        $this->reader->enableConnection();
-        $this->reader->selectMailbox('INBOX');
-        $message = $this->reader->SearchNoFlagPushed();
+        $projectName = 'cordoval/matthew-7-12';
+        $message = $this->reader->__invoke($projectName);
+
+        // operations with container are done in services not here
         $this->container->gitClone($message->getSubject());
 
-        $reposUrl = $reader->readSubject();
-        $gitHub = new GithubPush();
-        $messagesResponse = $gitHub->createRepo($message->getSubject());
-        $unzippResponse = GithubPush::unzippPach($messageResponse);
-        $pullRequestResponse = GithubPush::pullRequest($unzippResponse);
-
-        $responseMessage = SMTPServer($pullRequestResponse);
-
-        GitHub::detroyRepos($pullRequestResponse);
-
-        $connection = $server->pollFromNotification();
-        $mailUID = $emailClient->searchFirstUnpushed('INBOX');
-        $zipped = $this->reader->__invoke($gotEmail);
-        $patch = $this->unzipper->__invoke($zipped);
+        $unzipResponse = GithubPush::unzippPach($messageResponse);
+        $patch = $this->unzipper->__invoke($zippedAttachment);
         $repo = Repo::fromPatch($patch);
         $this->usherer->__invoke($repo, $repo->to);
     }

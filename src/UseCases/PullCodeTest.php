@@ -25,7 +25,6 @@ class PullCodeTest extends BaseTestCase
     {
         $this->client = $this->createClient();
         $this->client->insulate();
-        $this->client->enableProfiler();
 
         $container = static::$kernel->getContainer();
         $this->puller = $container->get('grace.puller');

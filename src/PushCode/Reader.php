@@ -2,6 +2,7 @@
 
 namespace Grace\PushCode;
 
+use Ddeboer\Imap\Exception\MailboxDoesNotExistException;
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 use Grace\Domain\Repo;
@@ -20,16 +21,20 @@ class Reader
         $this->connection = $server->authenticate($username, $password);
     }
 
-    public function createFolder($projectFolder)
+    /**
+     * @param string $projectFolder
+     *
+     * @return \Ddeboer\Imap\Message|bool Even if it is empty we can find out with attachment
+     */
+    public function __invoke($projectFolder)
     {
-        return $this->connection->createMailbox($projectFolder);
-    }
+        try {
+            $mailbox = $this->connection->getMailbox($projectFolder);
+        } catch (MailboxDoesNotExistException $exception) {
+            $mailbox = $this->connection->createMailbox($projectFolder);
+        }
 
-    public function getMessageToPush($projectFolder)
-    {
-        $mailbox = $this->connection->getMailbox($projectFolder);
-
-        return $mailbox
+        $result = $mailbox
             ->getMessages(new SearchExpression(
                     sprintf(
                         ' %s "%s"',
@@ -40,10 +45,11 @@ class Reader
             )
             ->current()
         ;
-    }
 
-    public function __invoke(Repo $repo)
-    {
-        return $repo;
+        if ($result->hasAttachments()) {
+            return $result->getAttachments();
+        }
+
+        return false;
     }
 }
