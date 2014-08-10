@@ -2,39 +2,43 @@
 
 namespace Grace\PushCode;
 
-use Ddeboer\Imap\Server;
+use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 
-class Reader extends Server
+class Reader
 {
-    protected $username;
-    protected $password;
-    protected $mailbox;
-    protected $serverConnection;
+    const IMAP_UNFLAGGED = 'UNFLAGGED';
+    const IMAP_FLAG_PUSH_LABEL = 'PUSHED';
 
-    public function __construct($hostname, $username, $password, $port = 993, $flags = '/imap/ssl/validate-cert')
+    /** @var \Ddeboer\Imap\Connection */
+    protected $connection;
+
+    public function __construct($hostname, $username, $password)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->mailbox = null;
-        $this->serverConnection = null;
-        parent::__construct($hostname, $port, $flags);
+        $server = new ImapServer($hostname, $port = 993, $flags = '/imap/ssl/validate-cert');
+        $this->connection = $server->authenticate($username, $password);
     }
 
-    public function enableConnection()
+    public function createFolder($projectFolder)
     {
-        return $this->serverConnection = $this->authenticate($this->username, $this->password);
+        return $this->connection->createMailbox($projectFolder);
     }
 
-    public function selectMailbox($nameMailbox)
+    public function getMessageToPush($projectFolder)
     {
-        $this->mailbox = $this->serverConnection->getMailbox($nameMailbox);
-    }
+        $mailbox = $this->connection->getMailbox($projectFolder);
 
-    public function SearchNoFlagPushed()
-    {
-        $messages = $this->mailbox->getMessages(new SearchExpression(' UNFLAGGED "PUSHED"'));
-        return $messages->current();
+        return $mailbox
+            ->getMessages(new SearchExpression(
+                    sprintf(
+                        ' %s "%s"',
+                        self::IMAP_UNFLAGGED,
+                        self::IMAP_FLAG_PUSH_LABEL
+                    )
+                )
+            )
+            ->current()
+        ;
     }
 
     public function __invoke(Repo $repo)
