@@ -11,6 +11,7 @@ class Reader
 {
     const IMAP_UNFLAGGED = 'UNFLAGGED';
     const IMAP_FLAG_PUSH_LABEL = 'PUSHED';
+    const NO_EMAIL_FOUND = false;
 
     /** @var \Ddeboer\Imap\Connection */
     protected $connection;
@@ -24,7 +25,7 @@ class Reader
     /**
      * @param string $projectFolder
      *
-     * @return \Ddeboer\Imap\Message|bool Even if it is empty we can find out with attachment
+     * @return \Ddeboer\Imap\Message\Attachment[]|bool Even if it is empty we can find out with attachment
      */
     public function __invoke($projectFolder)
     {
@@ -50,6 +51,6 @@ class Reader
             return $result->getAttachments();
         }
 
-        return false;
+        return self::NO_EMAIL_FOUND;
     }
 }

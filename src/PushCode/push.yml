@@ -11,3 +11,5 @@ services:
         class: Grace\PushCode\ReaderCommand
         arguments:
             - @grace.reader
+        tags:
+            -  { name: console.command }

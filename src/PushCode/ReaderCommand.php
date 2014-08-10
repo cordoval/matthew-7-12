@@ -38,7 +38,8 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $message = $this->reader->__invoke($projectName);
+        $projectName = 'cordoval/matthew-7-12';
+        $messageOrFalse = $this->reader->__invoke($projectName);
 
         ladybug_dump_die($message);
     }
