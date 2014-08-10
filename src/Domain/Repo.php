@@ -10,7 +10,7 @@ class Repo extends BaseDomain
 
     public static function fromHook(HookPost $hookPost)
     {
-        $repo = new self;
+        $repo = new self();
         $repo->hookPost = $hookPost;
         $repo->cloned = false;
         $repo->cwd = uniqid('container_folder_');

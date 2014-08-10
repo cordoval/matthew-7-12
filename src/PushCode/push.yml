@@ -3,4 +3,13 @@ services:
         class: Grace\PushCode\Usherer
     grace.reader:
         class: Grace\PushCode\Reader
-
+        arguments:
+            - %grace.reader.imap_hostname%
+            - %grace.reader.imap_username%
+            - %grace.reader.imap_password%
+    grace.command.reader:
+        class: Grace\PushCode\ReaderCommand
+        arguments:
+            - @grace.reader
+        tags:
+            -  { name: console.command }

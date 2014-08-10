@@ -8,7 +8,7 @@ class MailList extends BaseDomain
 
     public static function from($repo)
     {
-        $list = new self;
+        $list = new self();
         $list->addresses = ['cordoval@gmail.com', 'ysramirez@gmail.com'];
 
         return $list;

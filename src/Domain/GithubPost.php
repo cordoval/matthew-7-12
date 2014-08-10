@@ -15,7 +15,7 @@ class GithubPost extends BaseDomain implements HookPost
     {
         $content = (array) $request->getContent();
 
-        $hook = new self;
+        $hook = new self();
         $hook->from = $content['before'];
         $hook->to = $content['after'];
         $hook->vendor = $content['repository']['owner']['name'];

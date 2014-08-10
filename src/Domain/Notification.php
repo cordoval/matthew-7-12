@@ -8,7 +8,7 @@ class Notification extends BaseDomain
 
     public static function fromHook(HookPost $hookPost)
     {
-        $notification = new self;
+        $notification = new self();
         $notification->post = $hookPost;
 
         return $notification;
