@@ -34,7 +34,7 @@ class PushCodeTest extends BaseTestCase
     public function it_goes_through_the_whole_push_flow()
     {
         $projectName = 'cordoval/matthew-7-12';
-        $message = $this->reader->__invoke($projectName);
+        $message = $this->reader->__invoke('INBOX');
 
         // operations with container are done in services not here
         $this->container->gitClone($message->getSubject());
