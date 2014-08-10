@@ -68,7 +68,7 @@ bldr:
                     arguments:
                         - deps/bin/phpunit
                         - --stop-on-failure
-                        - --group=now
+                        - --group=push
         watch:
             description: Watch Task for Local Development
             calls:
