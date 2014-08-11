@@ -62,7 +62,7 @@ class ZipperZippy implements Zipper
     public function unzipAndJoin(array $repoAndAttachment)
     {
         $archive = $this->zipAdapter->open($repoAndAttachment['attachment']);
-        $archive->extract('/tmp/unzip/patches');
+        return $archive->extract('/tmp/unzip/patches');
     }
 
     public static function pullCallback(array $args)
