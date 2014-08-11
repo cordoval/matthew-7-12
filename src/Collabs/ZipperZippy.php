@@ -78,12 +78,12 @@ class ZipperZippy implements Zipper
         )->zipAndBreak($args);
     }
 
-    public static function pushCallback(array $args)
+    public static function pushCallback(array $repoAndAttachment)
     {
         return (new self(
             new FileSystemSymfony(),
             new Helper()
         )
-        )->zipAndBreak($args);
+        )->unzipAndJoin($repoAndAttachment);
     }
 }
