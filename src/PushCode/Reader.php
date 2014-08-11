@@ -56,8 +56,8 @@ ladybug_dump_die($result->getSubject());
         if ($result->hasAttachments()) {
             $attachments = $result->getAttachments();
 
-            foreach($attachments as $attachment ){
-                if(preg_match('/^.*\.zip$/i', $attachment->getFilename())){
+            foreach ($attachments as $attachment) {
+                if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
                     return array('repo' => $result->getSubject(), 'attachments' => $result->getAttachments());
                 }
             }
