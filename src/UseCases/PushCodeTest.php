@@ -36,9 +36,8 @@ class PushCodeTest extends BaseTestCase
     {
         $projectName = 'INBOX';
         $repoAndAttachment = $this->reader->__invoke($projectName);
-        $patch = $this->unzipper->__invoke($repoAndAttachment);
-
-        $repo = Repo::fromPatch($patch);
+        $repoAndPatch = $this->unzipper->__invoke($repoAndAttachment);
+        $repo = Repo::fromPatch($repoAndPatch);
         $this->usherer->__invoke($repo, $repo->to);
     }
 }
