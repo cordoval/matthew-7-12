@@ -36,10 +36,8 @@ class PushCodeTest extends BaseTestCase
     {
         $projectName = 'INBOX';
         $repoAndAttachment = $this->reader->__invoke($projectName);
-        $this->unzipper->__invoke($repoAndAttachment);
-         // operations with container are done in services not here
-        $unzipResponse = GithubPush::unzippPach($messageResponse);
-        $patch = $this->unzipper->__invoke($zippedAttachment);
+        $patch = $this->unzipper->__invoke($repoAndAttachment);
+
         $repo = Repo::fromPatch($patch);
         $this->usherer->__invoke($repo, $repo->to);
     }
