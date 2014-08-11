@@ -61,7 +61,9 @@ class ZipperZippy implements Zipper
 
     public function unzipAndJoin(array $repoAndAttachment)
     {
-ladybug_dump_die();
+ladybug_dump_die($repoAndAttachment['attachment']->getFilename());
+        $archive->extract($repoAndAttachment['attachment']);
+
         foreach (['archive.zip', 'archive2.zip', 'archive3.zip'] as $path) {
             $archive = $this->zipAdapter->open($path);
         }
