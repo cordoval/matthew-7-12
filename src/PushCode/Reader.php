@@ -16,11 +16,18 @@ class Reader
 
     /** @var \Ddeboer\Imap\Connection */
     protected $connection;
+    protected $rejectFolder;
 
-    public function __construct($hostname, $username, $password)
+    public function __construct($hostname, $username, $password, $rejectFolder)
     {
         $server = new ImapServer($hostname, $port = 993, $flags = '/imap/ssl/validate-cert');
         $this->connection = $server->authenticate($username, $password);
+
+        try {
+            $this->rejectFolder = $this->connection->getMailbox($rejectFolder);
+        } catch (MailboxDoesNotExistException $exception) {
+            $this->rejectFolder = $this->connection->createMailbox($rejectFolder);
+        }
     }
 
     public function getAttachment(Message $message)
@@ -57,7 +64,7 @@ class Reader
             return $result->getAttachments();
         }
 
-        $result->move($this->connection->getMailbox("REJECTED"));
+        $result->move($this->rejectFolder);
 
         return self::NO_EMAIL_FOUND;
     }
