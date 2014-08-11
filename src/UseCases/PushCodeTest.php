@@ -27,7 +27,6 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
-        $this->pushGitDriver = $container->get('grace.push.gitdriver');
     }
 
     /**
@@ -39,8 +38,6 @@ class PushCodeTest extends BaseTestCase
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
         $repoAndPatch = $this->unzipper->__invoke($repoAndZipAttachment);
-        $repoDriver = $this->pushGitDriver->createRepo($repoAndPatch);
-
         $repo = Repo::fromPatch($repoAndPatch);
         $this->usherer->__invoke($repo, $repo->to);
     }
