@@ -34,9 +34,8 @@ class PushCodeTest extends BaseTestCase
     public function it_goes_through_the_whole_push_flow()
     {
         $projectName = 'INBOX';
-        $message = $this->reader->__invoke($projectName);
-
-        // operations with container are done in services not here
+        $zipAttachment = $this->reader->__invoke($projectName);
+         // operations with container are done in services not here
         $this->container->gitClone($message->getSubject());
 
         $unzipResponse = GithubPush::unzippPach($messageResponse);

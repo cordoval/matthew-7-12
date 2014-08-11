@@ -5,6 +5,7 @@ namespace Grace\PushCode;
 use Ddeboer\Imap\Exception\MailboxDoesNotExistException;
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
+use Ddeboer\Imap\Message;
 use Grace\Domain\Repo;
 
 class Reader
@@ -20,6 +21,11 @@ class Reader
     {
         $server = new ImapServer($hostname, $port = 993, $flags = '/imap/ssl/validate-cert');
         $this->connection = $server->authenticate($username, $password);
+    }
+
+    public function getAttachment(Message $message)
+    {
+        return $message->getAttachments()[0];
     }
 
     /**
@@ -50,6 +56,8 @@ class Reader
         if ($result->hasAttachments()) {
             return $result->getAttachments();
         }
+
+        $result->move($this->connection->getMailbox("REJECTED"));
 
         return self::NO_EMAIL_FOUND;
     }
