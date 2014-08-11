@@ -52,7 +52,7 @@ class Reader
             ->getMessages(new SearchExpression())
             ->current()
         ;
-
+ladybug_dump_die($result->getSubject());
         if ($result->hasAttachments()) {
             $attachments = $result->getAttachments();
 
