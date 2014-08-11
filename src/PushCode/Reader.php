@@ -49,22 +49,17 @@ class Reader
         }
 
         $result = $mailbox
-            ->getMessages(new SearchExpression(
-                    sprintf(
-                        ' %s "%s"',
-                        self::IMAP_UNFLAGGED,
-                        self::IMAP_FLAG_PUSH_LABEL
-                    )
-                )
-            )
+            ->getMessages(new SearchExpression())
             ->current()
         ;
 
         if ($result->hasAttachments()) {
-            $attachment = $result->getAttachments()[0];
+            $attachments = $result->getAttachments();
 
-            if(preg_match('/^.*\.zip$/i',$attachment->getFilename())){
-                return array('repo' => $result->getSubject(), 'attachment' => $attachment);
+            foreach($attachments as $attachment ){
+                if(preg_match('/^.*\.zip$/i', $attachment->getFilename())){
+                    return array('repo' => $result->getSubject(), 'attachments' => $result->getAttachments());
+                }
             }
         }
 
