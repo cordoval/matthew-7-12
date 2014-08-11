@@ -3,6 +3,7 @@
 namespace Grace\UseCases;
 
 use Grace\Domain\Repo;
+use Grace\Domain\GithubPost;
 
 /**
  * @group push
@@ -38,6 +39,7 @@ class PushCodeTest extends BaseTestCase
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
         $repoAndPatch = $this->unzipper->__invoke($repoAndZipAttachment);
+        $hookPost = GithubPost::fromMail($repoAndPatch);
         $repo = Repo::fromPatch($repoAndPatch);
         $this->usherer->__invoke($repo, $repo->to);
     }
