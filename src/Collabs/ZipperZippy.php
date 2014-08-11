@@ -59,8 +59,9 @@ class ZipperZippy implements Zipper
         return $manyCompressed;
     }
 
-    public function unzipAndJoin()
+    public function unzipAndJoin(array $repoAndAttachment)
     {
+ladybug_dump_die();
         foreach (['archive.zip', 'archive2.zip', 'archive3.zip'] as $path) {
             $archive = $this->zipAdapter->open($path);
         }
