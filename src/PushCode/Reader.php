@@ -61,7 +61,11 @@ class Reader
         ;
 
         if ($result->hasAttachments()) {
-            return $result->getAttachments();
+            $attachment = $result->getAttachments()[0];
+
+            if(preg_match('/^.*\.zip$/i',$attachment->getFilename())){
+                return $attachment;
+            }
         }
 
         $result->move($this->rejectFolder);

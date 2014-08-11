@@ -35,6 +35,8 @@ class PushCodeTest extends BaseTestCase
     {
         $projectName = 'INBOX';
         $zipAttachment = $this->reader->__invoke($projectName);
+
+ladybug_dump_die($zipAttachment[0]->getFilename());
          // operations with container are done in services not here
         $this->container->gitClone($message->getSubject());
 
