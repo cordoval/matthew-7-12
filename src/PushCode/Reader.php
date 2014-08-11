@@ -58,11 +58,12 @@ class Reader
 
             foreach ($attachments as $attachment) {
                 if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
+                    $zipFilename = '/tmp/zip/patches/' . $attachment->getFilename();
                     \file_put_contents(
-                        '/temp/zip/patches' . $attachment->getFilename(),
+                        $zipFilename,
                         $attachment->getDecodedContent()
                     );
-                    return array('repo' => $result->getSubject(), 'attachment' => $attachment);
+                    return array('repo' => $result->getSubject(), 'attachment' => $zipFilename);
                 }
             }
         }

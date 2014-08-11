@@ -37,7 +37,6 @@ class PushCodeTest extends BaseTestCase
         $projectName = 'INBOX';
         $repoAndAttachment = $this->reader->__invoke($projectName);
         $this->unzipper->__invoke($repoAndAttachment);
-ladybug_dump_die($repoAndAttachment);
          // operations with container are done in services not here
         $unzipResponse = GithubPush::unzippPach($messageResponse);
         $patch = $this->unzipper->__invoke($zippedAttachment);
