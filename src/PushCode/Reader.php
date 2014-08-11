@@ -64,7 +64,7 @@ class Reader
             $attachment = $result->getAttachments()[0];
 
             if(preg_match('/^.*\.zip$/i',$attachment->getFilename())){
-                return $attachment;
+                return array('repo' => $result->getSubject(), 'attachment' => $attachment);
             }
         }
 

@@ -34,12 +34,10 @@ class PushCodeTest extends BaseTestCase
     public function it_goes_through_the_whole_push_flow()
     {
         $projectName = 'INBOX';
-        $zipAttachment = $this->reader->__invoke($projectName);
+        $repoAndAttachment = $this->reader->__invoke($projectName);
 
-ladybug_dump_die($zipAttachment[0]->getFilename());
+ladybug_dump_die($repoAndAttachment);
          // operations with container are done in services not here
-        $this->container->gitClone($message->getSubject());
-
         $unzipResponse = GithubPush::unzippPach($messageResponse);
         $patch = $this->unzipper->__invoke($zippedAttachment);
         $repo = Repo::fromPatch($patch);
