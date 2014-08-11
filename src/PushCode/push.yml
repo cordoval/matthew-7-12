@@ -14,3 +14,5 @@ services:
             - @grace.reader
         tags:
             -  { name: console.command }
+    grace.git.driver
+        class: Grace\PushCode\GitDriver
