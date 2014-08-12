@@ -3,7 +3,6 @@
 namespace Grace\UseCases;
 
 use Grace\Domain\Repo;
-use Grace\Domain\GithubPost;
 
 /**
  * @group push
