@@ -30,7 +30,11 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
+<<<<<<< HEAD
         $this->githubapi = $container->get('grace.githubapi');
+=======
+        $this->githubapi = $container->get('grace.github_client');
+>>>>>>> b11ef452068ce253537341a04a3bac961fa6187f
         $this->buildsPath = $container->getParameter('builds_base_path');
         $this->githubUser = $container->getParameter('github_username');
     }
@@ -41,6 +45,7 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
+<<<<<<< HEAD
 
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
@@ -49,6 +54,16 @@ class PushCodeTest extends BaseTestCase
         $this->githubapi->fork($this->githubUser, $hookInput->getName());
         $repo = Repo::fromHook($hookInput);
         $this->usherer->__invoke($repo,$patch);
+=======
+ladybug_dump_die($this->githubapi->fork('matthew-7-12', 'testRepo'));
+        $projectName = 'INBOX';
+        $repoAndZipAttachment = $this->reader->__invoke($projectName);
+        $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
+        $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
+        $repo = Repo::fromHook($hookInput);
+        $this->usherer->__invoke($repo);
+
+>>>>>>> b11ef452068ce253537341a04a3bac961fa6187f
         $this->container->destroy($repo);
     }
 }
