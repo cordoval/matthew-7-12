@@ -29,7 +29,7 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
-        $this->githubapi = $container->get('grace.githubapi');
+        $this->githubapi = $container->get('grace.github_client');
         $this->buildsPath = $container->getParameter('builds_base_path');
     }
 
