@@ -21,7 +21,7 @@ class Container
 
     public function gitClone(Repo $repo)
     {
-        $this->fs->mkdir($this->basePath.$repo->getCwd());
+        $this->fs->mkdir($this->basePath.'/'.$repo->getCwd());
 
         $this->helper->run(
             sprintf(
@@ -30,7 +30,7 @@ class Container
                 $repo->getHookPost()->getVendor(),
                 $repo->getHookPost()->getName()
             ),
-            $this->basePath.$repo->getCwd()
+            $this->basePath.'/'.$repo->getCwd()
         );
 
         $repo->wasCloned();

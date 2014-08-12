@@ -10,6 +10,7 @@ services:
             - %grace.reader.imap_username%
             - %grace.reader.imap_password%
             - %grace.reader.imap_rejected_folder%
+            - %builds_base_path%
     grace.command.reader:
         class: Grace\PushCode\ReaderCommand
         arguments:

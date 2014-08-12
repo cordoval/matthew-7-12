@@ -2,6 +2,7 @@
 
 namespace Grace\UseCases;
 
+use Grace\Domain\GithubInput;
 use Grace\Domain\Repo;
 
 /**
@@ -28,6 +29,7 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
+        $this->githubapi = $container->get('grace.githubapi');
         $this->buildsPath = $container->getParameter('builds_base_path');
     }
 
@@ -37,11 +39,14 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
+ladybug_dump_die($this->githubapi->fork('matthew-7-12', 'testRepo'));
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
         $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
-        $repo = Repo::fromHook($repoAndZipAttachment, $patch);
+        $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
+        $repo = Repo::fromHook($hookInput);
         $this->usherer->__invoke($repo);
+
         $this->container->destroy($repo);
     }
 }
