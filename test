@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+#curl -SL https://github.com/jolicode/JoliCi/releases/download/v0.2.2/jolici.phar -o jolici.phar
+php ./jolici.phar run
