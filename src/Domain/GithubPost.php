@@ -26,11 +26,13 @@ class GithubPost extends BaseDomain implements HookPost
 
     public static function fromEmail($repoAndPatch)
     {
+        $vendorName = (explode('/', explode(':', $repoAndPatch['repo'])[1]));
+
         $hook = new self();
-        $hook->from;
-        $hook->to;
-        $hook->vendor;
-        $hook->name;
+        $hook->from = "";
+        $hook->to = "";
+        $hook->vendor = $vendorName[0];
+        $hook->name = $vendorName[1];
 
         return $hook;
     }
