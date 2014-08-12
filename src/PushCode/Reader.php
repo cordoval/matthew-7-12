@@ -63,6 +63,7 @@ class Reader
                         $zipFilename,
                         $attachment->getDecodedContent()
                     );
+
                     return array('repo' => $result->getSubject(), 'attachment' => $zipFilename);
                 }
             }

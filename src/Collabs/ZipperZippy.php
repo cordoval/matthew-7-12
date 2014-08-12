@@ -63,6 +63,7 @@ class ZipperZippy implements Zipper
     {
         $archive = $this->zipAdapter->open($repoAndAttachment['attachment']);
         $patch = $archive->extract('/tmp/unzip/patches');
+
         return ['repo' => $repoAndAttachment['repo'], 'patch' => $patch ];
     }
 
