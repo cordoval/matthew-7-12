@@ -41,6 +41,6 @@ class PushCodeTest extends BaseTestCase
         $repoAndPatch = $this->unzipper->__invoke($repoAndZipAttachment);
         $hookPost = GithubPost::fromEmail($repoAndPatch);
         $repo = Repo::fromHook($hookPost);
-        $this->usherer->__invoke($repo, $repo->to);
+        $this->usherer->__invoke($repo);
     }
 }

@@ -1,6 +1,8 @@
 services:
     grace.usherer:
         class: Grace\PushCode\Usherer
+        arguments:
+            - @grace.container
     grace.reader:
         class: Grace\PushCode\Reader
         arguments:
