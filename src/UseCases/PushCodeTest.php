@@ -29,6 +29,7 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
+        $this->githubapi = $container->get('grace.githubapi');
         $this->buildsPath = $container->getParameter('builds_base_path');
     }
 
@@ -44,7 +45,7 @@ class PushCodeTest extends BaseTestCase
         $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
         $repo = Repo::fromHook($hookInput);
         $this->usherer->__invoke($repo);
-ladybug_dump_die($repo);
+
         $this->container->destroy($repo);
     }
 }
