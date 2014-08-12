@@ -30,7 +30,7 @@ class Container
                 $repo->getHookPost()->getVendor(),
                 $repo->getHookPost()->getName()
             ),
-            $this->basePath.$repo->getCwd()
+            $this->basePath.'/'.$repo->getCwd()
         );
 
         $repo->wasCloned();
