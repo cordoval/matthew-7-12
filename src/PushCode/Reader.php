@@ -62,9 +62,10 @@ class Reader
 
             foreach ($attachments as $attachment) {
                 if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
-                    $this->fs->mkdir($this->buildPath.'/'.uniqid('emailpatch_'));
-                    $zipFilename = $this->buildPath.$attachment->getFilename();
+                    $unzipDir = $this->buildPath.'/'.uniqid('emailpatch_');
+                    $this->fs->mkdir($unzipDir);
 
+                    $zipFilename = $unzipDir.'/'.$attachment->getFilename();
                     file_put_contents(
                         $zipFilename,
                         $attachment->getDecodedContent()
