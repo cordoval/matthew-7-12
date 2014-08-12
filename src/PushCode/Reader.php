@@ -6,6 +6,7 @@ use Ddeboer\Imap\Exception\MailboxDoesNotExistException;
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 use Ddeboer\Imap\Message;
+use Grace\Collabs\FileSystemSymfony;
 
 class Reader
 {
@@ -16,11 +17,15 @@ class Reader
     /** @var \Ddeboer\Imap\Connection */
     protected $connection;
     protected $rejectFolder;
+    protected $buildPath;
+    protected $fs;
 
-    public function __construct($hostname, $username, $password, $rejectFolder)
+    public function __construct($hostname, $username, $password, $rejectFolder, $buildPath)
     {
         $server = new ImapServer($hostname, $port = 993, $flags = '/imap/ssl/validate-cert');
         $this->connection = $server->authenticate($username, $password);
+        $this->buildPath = $buildPath;
+        $this->fs = new FileSystemSymfony();
 
         try {
             $this->rejectFolder = $this->connection->getMailbox($rejectFolder);
@@ -57,7 +62,10 @@ class Reader
 
             foreach ($attachments as $attachment) {
                 if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
-                    $zipFilename = '/tmp/zip/patches/'.$attachment->getFilename();
+                    $unzipDir = $this->buildPath.'/'.uniqid('emailpatch_');
+                    $this->fs->mkdir($unzipDir);
+
+                    $zipFilename = $unzipDir.'/'.$attachment->getFilename();
                     file_put_contents(
                         $zipFilename,
                         $attachment->getDecodedContent()
