@@ -6,7 +6,6 @@ use Ddeboer\Imap\Exception\MailboxDoesNotExistException;
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 use Ddeboer\Imap\Message;
-use Grace\Domain\Repo;
 
 class Reader
 {
@@ -58,13 +57,13 @@ class Reader
 
             foreach ($attachments as $attachment) {
                 if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
-                    $zipFilename = '/tmp/zip/patches/' . $attachment->getFilename();
-                    \file_put_contents(
+                    $zipFilename = '/tmp/zip/patches/'.$attachment->getFilename();
+                    file_put_contents(
                         $zipFilename,
                         $attachment->getDecodedContent()
                     );
 
-                    return array('repo' => $result->getSubject(), 'attachment' => $zipFilename);
+                    return ['repo' => $result->getSubject(), 'attachment' => $zipFilename];
                 }
             }
         }
