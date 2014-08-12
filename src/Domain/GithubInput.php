@@ -6,13 +6,15 @@ class GithubInput extends BaseDomain implements HookPost
 {
     protected $vendor;
     protected $name;
+    protected $from;
 
-    public static function fromEmailSubject($emailSubject)
+    public static function fromEmailSubject($githubUser, $emailSubject)
     {
-        $vendorName = (explode('/', explode(':', $emailSubject)[1]));
+        $fromName = (explode('/', explode(':', $emailSubject)[1]));
         $hook = new self();
-        $hook->vendor = $vendorName[0];
-        $hook->name = explode('.',$vendorName[1])[0];
+        $hook->vendor = $githubUser;
+        $hook->from = $fromName[0];
+        $hook->name = explode('.',$fromName[1])[0];
 
         return $hook;
     }

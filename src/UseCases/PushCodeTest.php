@@ -18,6 +18,7 @@ class PushCodeTest extends BaseTestCase
     protected $client;
     protected $pushGitDriver;
     protected $buildsPath;
+    protected $githubUser;
 
     public function setUp()
     {
@@ -31,6 +32,7 @@ class PushCodeTest extends BaseTestCase
         $this->usherer = $container->get('grace.usherer');
         $this->githubapi = $container->get('grace.githubapi');
         $this->buildsPath = $container->getParameter('builds_base_path');
+        $this->githubUser = $container->getParameter('github_username');
     }
 
     /**
@@ -39,14 +41,14 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
-ladybug_dump_die($this->githubapi->fork('matthew-7-12', 'testRepo'));
+
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
         $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
-        $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
+        $hookInput = GithubInput::fromEmailSubject($this->githubUser, $repoAndZipAttachment['repo']);
+        $this->githubapi->fork($this->githubUser, $hookInput->getName());
         $repo = Repo::fromHook($hookInput);
-        $this->usherer->__invoke($repo);
-
+        $this->usherer->__invoke($repo,$patch);
         $this->container->destroy($repo);
     }
 }
