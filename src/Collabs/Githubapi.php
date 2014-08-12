@@ -18,4 +18,4 @@ class Githubapi
     {
         return $this->client->api('repo')->forks()->create($vendor, $repo);
     }
-} 
+}
