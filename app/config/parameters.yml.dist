@@ -24,3 +24,4 @@ parameters:
     grace.reader.imap_hostname: imap.gmail.com
     grace.reader.imap_username: project@gmail.com
     grace.reader.imap_password: password
+    grace.reader.imap_rejected_folder: REJECTED

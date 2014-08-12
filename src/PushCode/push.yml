@@ -1,12 +1,15 @@
 services:
     grace.usherer:
         class: Grace\PushCode\Usherer
+        arguments:
+            - @grace.container
     grace.reader:
         class: Grace\PushCode\Reader
         arguments:
             - %grace.reader.imap_hostname%
             - %grace.reader.imap_username%
             - %grace.reader.imap_password%
+            - %grace.reader.imap_rejected_folder%
     grace.command.reader:
         class: Grace\PushCode\ReaderCommand
         arguments:

@@ -5,7 +5,7 @@ namespace Grace\PushCode;
 use Ddeboer\Imap\Exception\MailboxDoesNotExistException;
 use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
-use Grace\Domain\Repo;
+use Ddeboer\Imap\Message;
 
 class Reader
 {
@@ -15,11 +15,23 @@ class Reader
 
     /** @var \Ddeboer\Imap\Connection */
     protected $connection;
+    protected $rejectFolder;
 
-    public function __construct($hostname, $username, $password)
+    public function __construct($hostname, $username, $password, $rejectFolder)
     {
         $server = new ImapServer($hostname, $port = 993, $flags = '/imap/ssl/validate-cert');
         $this->connection = $server->authenticate($username, $password);
+
+        try {
+            $this->rejectFolder = $this->connection->getMailbox($rejectFolder);
+        } catch (MailboxDoesNotExistException $exception) {
+            $this->rejectFolder = $this->connection->createMailbox($rejectFolder);
+        }
+    }
+
+    public function getAttachment(Message $message)
+    {
+        return $message->getAttachments()[0];
     }
 
     /**
@@ -36,20 +48,27 @@ class Reader
         }
 
         $result = $mailbox
-            ->getMessages(new SearchExpression(
-                    sprintf(
-                        ' %s "%s"',
-                        self::IMAP_UNFLAGGED,
-                        self::IMAP_FLAG_PUSH_LABEL
-                    )
-                )
-            )
+            ->getMessages(new SearchExpression())
             ->current()
         ;
 
         if ($result->hasAttachments()) {
-            return $result->getAttachments();
+            $attachments = $result->getAttachments();
+
+            foreach ($attachments as $attachment) {
+                if (preg_match('/^.*\.zip$/i', $attachment->getFilename())) {
+                    $zipFilename = '/tmp/zip/patches/'.$attachment->getFilename();
+                    file_put_contents(
+                        $zipFilename,
+                        $attachment->getDecodedContent()
+                    );
+
+                    return ['repo' => $result->getSubject(), 'attachment' => $zipFilename];
+                }
+            }
         }
+
+        $result->move($this->rejectFolder);
 
         return self::NO_EMAIL_FOUND;
     }

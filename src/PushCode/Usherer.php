@@ -2,10 +2,15 @@
 
 namespace Grace\PushCode;
 
+use Grace\Collabs\ContainerAwareTrait;
+use Grace\Domain\Repo;
+
 class Usherer
 {
-    public function __invoke($patchedBranch)
-    {
+    use ContainerAwareTrait;
 
+    public function __invoke(Repo $repo)
+    {
+        $this->container->gitClone($repo);
     }
 }

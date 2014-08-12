@@ -15,6 +15,8 @@ class PushCodeTest extends BaseTestCase
     protected $usherer;
     protected $container;
     protected $client;
+    protected $pushGitDriver;
+    protected $buildsPath;
 
     public function setUp()
     {
@@ -26,22 +28,20 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
+        $this->buildsPath = $container->getParameter('builds_base_path');
     }
 
     /**
      * @test
+     * @group now
      */
     public function it_goes_through_the_whole_push_flow()
     {
-        $projectName = 'cordoval/matthew-7-12';
-        $message = $this->reader->__invoke($projectName);
-
-        // operations with container are done in services not here
-        $this->container->gitClone($message->getSubject());
-
-        $unzipResponse = GithubPush::unzippPach($messageResponse);
-        $patch = $this->unzipper->__invoke($zippedAttachment);
-        $repo = Repo::fromPatch($patch);
-        $this->usherer->__invoke($repo, $repo->to);
+        $projectName = 'INBOX';
+        $repoAndZipAttachment = $this->reader->__invoke($projectName);
+        $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
+        $repo = Repo::fromHook($repoAndZipAttachment, $patch);
+        $this->usherer->__invoke($repo);
+        $this->container->destroy($repo);
     }
 }
