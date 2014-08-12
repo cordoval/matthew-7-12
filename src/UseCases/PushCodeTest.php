@@ -39,14 +39,11 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
-ladybug_dump_die($this->githubapi->fork('matthew-7-12', 'testRepo'));
         $projectName = 'INBOX';
-        $repoAndZipAttachment = $this->reader->__invoke($projectName);
-        $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
-        $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
-        $repo = Repo::fromHook($hookInput);
-        $this->usherer->__invoke($repo);
-
-        $this->container->destroy($repo);
+        $mailInput = $this->reader->__invoke($projectName);
+        $patchPath = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
+        $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
+        $this->usherer->__invoke($mailInput->getRepoName(), $patchPath);
+        $this->githubapi->pullRequest($mailInput->getVendor(), $mailInput->getRepoName());
     }
 }
