@@ -6,7 +6,7 @@ import yaml
 import getpass
 
 repo = 'git@github.com:cordoval/matthew-7-12.git'
-env.install_path = '/var/www/matthew-7-12'
+env.install_path = '/var/www/vhosts/matthew.gushphp.org'
 # Local defaults
 env.run = local
 env.hosts = ['localhost']
@@ -76,9 +76,7 @@ def install():
     run('mkdir -p %s' % env.install_path)
     run('git clone %s %s' % (repo, env.install_path))
     with cd(env.install_path):
-        run('cp app/config/parameters.yml.%s app/config/parameters.yml' % env.install_params)
         run('composer install --prefer-dist')
-        run('php console doctrine:mongodb:schema:create')
         run('php console doctrine:database:create')
         run('php console doctrine:schema:create')
 
