@@ -17,6 +17,14 @@ class GithubInput extends BaseDomain implements HookPost
         return $hook;
     }
 
+    public function getFrom()
+    {
+    }
+
+    public function getTo()
+    {
+    }
+
     public function getVendor()
     {
         return $this->vendor;
