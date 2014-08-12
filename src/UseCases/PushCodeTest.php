@@ -40,8 +40,9 @@ class PushCodeTest extends BaseTestCase
     {
         $projectName = 'INBOX';
         $repoAndZipAttachment = $this->reader->__invoke($projectName);
-ladybug_dump_die($repoAndZipAttachment);
         $patch = $this->unzipper->__invoke($repoAndZipAttachment['attachment'], $this->buildsPath);
+        $hookInput = GithubInput::fromEmailSubject($repoAndZipAttachment['repo']);
+ladybug_dump_die($repoAndZipAttachment, $patch);
         $repo = Repo::fromHook($repoAndZipAttachment, $patch);
         $this->usherer->__invoke($repo);
         $this->container->destroy($repo);
