@@ -5,6 +5,11 @@ services:
             - @grace.helper
             - @grace.filesystem
             - %builds_base_path%
+    github.api
+        class: Grace\Collabs
+        arguments:
+            - %github_username%
+            - %github_password%
     grace.helper:
         class: Grace\Collabs\Helper
     grace.filesystem:

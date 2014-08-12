@@ -25,3 +25,6 @@ parameters:
     grace.reader.imap_username: project@gmail.com
     grace.reader.imap_password: password
     grace.reader.imap_rejected_folder: REJECTED
+
+    github_username: githubusername
+    github_password: githubpassword
