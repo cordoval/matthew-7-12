@@ -59,11 +59,11 @@ class ZipperZippy implements Zipper
         return $manyCompressed;
     }
 
-    public function unzip($attachment)
+    public function unzip($attachment, $buildsPath)
     {
         $archive = $this->zipAdapter->open($attachment);
 
-        return $archive->extract('/tmp/unzip/patches');
+        return $archive->extract($buildsPath.'/'.uniqid('patch_'));
     }
 
     public static function pullCallback(array $args)
@@ -75,12 +75,12 @@ class ZipperZippy implements Zipper
         )->zipAndBreak($args);
     }
 
-    public static function pushCallback(array $attachment)
+    public static function pushCallback($attachment, $buildsPath)
     {
         return (new self(
             new FileSystemSymfony(),
             new Helper()
         )
-        )->unzip($attachment);
+        )->unzip($attachment, $buildsPath);
     }
 }

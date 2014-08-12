@@ -5,5 +5,5 @@ namespace Grace\Collabs;
 interface Zipper
 {
     public function zipAndBreak(array $patches);
-    public function unzip($attachment);
+    public function unzip($attachment, $buildsPath);
 }
