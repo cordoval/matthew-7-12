@@ -12,6 +12,5 @@ class Usherer
     public function __invoke(Repo $repo)
     {
         $this->container->gitClone($repo);
-ladybug_dump_die();
     }
 }

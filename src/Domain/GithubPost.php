@@ -32,7 +32,7 @@ class GithubPost extends BaseDomain implements HookPost
         $hook->from = "";
         $hook->to = "";
         $hook->vendor = $vendorName[0];
-        $hook->name = $vendorName[1];
+        $hook->name = explode('.',$vendorName[1])[0];
 
         return $hook;
     }
