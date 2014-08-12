@@ -2,7 +2,7 @@
 
 namespace Grace\Domain;
 
-class GithubInput extends BaseDomain implements HookInput
+class GithubInput extends BaseDomain implements HookPost
 {
     protected $vendor;
     protected $name;
