@@ -69,7 +69,7 @@ class ZipperZippy implements Zipper
             $this->fs->mkdir($unzipDirectory);
         }
 
-        return $archive->extract($buildsPath.'/'.uniqid('patch_'));
+        return $archive->extract($unzipDirectory);
     }
 
     public static function pullCallback(array $args)
