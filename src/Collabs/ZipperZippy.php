@@ -66,7 +66,7 @@ class ZipperZippy implements Zipper
         $unzipDirectory = $buildsPath.'/'.uniqid('patch_');
 
         if(!file_exists($unzipDirectory)) {
-            $this->fs->mkdir($this->basePath);
+            $this->fs->mkdir($unzipDirectory);
         }
 
         return $archive->extract($buildsPath.'/'.uniqid('patch_'));
