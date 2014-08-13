@@ -97,7 +97,8 @@ class Container
     {
         $this->helper->run(
             sprintf(
-                'git am %s/*.patch',
+                '
+                git am %s/*.patch',
                 $patchPath
             ),
             $repoPath
