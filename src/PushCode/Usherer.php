@@ -24,11 +24,11 @@ class Usherer
     public function __invoke($repoName, $patchPath)
     {
 
-        $this->container->gitClonePush($this->githubUsername, $repoName);
+        $repoPath = $this->container->gitClonePush($this->githubUsername, $repoName);
 /*
         $this->container->patch($mailInput->getRepoName(), $patch);
         $this->container->pull ();
     */
-ladybug_dump_class_die("fin");
+ladybug_dump_class_die($repoPath, $patchPath);
     }
 }
