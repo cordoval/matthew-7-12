@@ -76,9 +76,10 @@ class Container
         $this->fs->remove($this->basePath.$repo->getCwd());
     }
 
-    public function gitClonePush($vendor, $name, $dir = '/tmp', $baseurl='github.com')
+    public function gitClonePush($vendor, $name, $baseurl = 'github.com')
     {
-//        $this->fs->mkdir($this->basePath.$repo->getCwd());
+        $repoPath = $this->basePath.uniqid($vendor.'_'.$name);
+        $this->fs->mkdir($repoPath);
 
         $this->helper->run(
             sprintf(
@@ -86,10 +87,10 @@ class Container
                 $baseurl,
                 $vendor,
                 $name
-            ),""
-//            $this->basePath.$repo->getCwd()
+            ),
+            $repoPath
         );
 
-//        $repo->wasCloned();
+        return $repoPath;
     }
 }

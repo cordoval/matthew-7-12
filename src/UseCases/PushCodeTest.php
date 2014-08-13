@@ -45,8 +45,6 @@ class PushCodeTest extends BaseTestCase
         $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
         $this->usherer->__invoke($mailInput->getRepoName(), $patchPath);
 ladybug_dump_die($patchPath);
-
-
         $this->gitHubConsole->pushorigin($repo);
         $this->githubapi->pullRequest($repo);
         $this->usherer->__invoke($repo);

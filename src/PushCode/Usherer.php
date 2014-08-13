@@ -8,6 +8,7 @@ use Grace\Domain\Repo;
 
 class Usherer
 {
+    protected $githubUsername;
 
     use ContainerAwareTrait {
         ContainerAwareTrait::__construct as private __containerConstruct;
@@ -16,12 +17,15 @@ class Usherer
     public function __construct($container, $githubUsername)
     {
         $this->__containerConstruct($container);
+
+        $this->githubUsername = $githubUsername;
     }
 
     public function __invoke($repoName, $patchPath)
     {
-    /*
-        $this->container->gitClonePush($vendor, $name, $dir, $baseurl);
+
+        $this->container->gitClonePush($this->githubUsername, $repoName);
+/*
         $this->container->patch($mailInput->getRepoName(), $patch);
         $this->container->pull ();
     */
