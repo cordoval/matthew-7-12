@@ -2,10 +2,10 @@ welcome:
     path: /
     methods: [GET,POST]
     defaults:
-        _controller: grace.welcome
+        _controller: grace.welcome:__invoke
 
 pull:
     path: /pull
     methods: [POST]
     defaults:
-        _controller: grace.pull_endpoint
+        _controller: grace.pull_endpoint:__invoke
