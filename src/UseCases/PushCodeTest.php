@@ -32,7 +32,6 @@ class PushCodeTest extends BaseTestCase
 
     /**
      * @test
-     * @group now
      */
     public function it_goes_through_the_whole_push_flow()
     {

@@ -10,8 +10,6 @@ use Grace\Collabs\FileSystemSymfony;
 
 class Reader
 {
-    const IMAP_UNFLAGGED = 'UNFLAGGED';
-    const IMAP_FLAG_PUSH_LABEL = 'PUSHED';
     const NO_EMAIL_FOUND = false;
 
     /** @var \Ddeboer\Imap\Connection */
