@@ -22,3 +22,7 @@ bldr:
             description: merge flow for matthew
             tasks:
                 - gushMerge
+        rebase:
+            description: rebase flow for matthew
+            tasks:
+                - gushRebase
