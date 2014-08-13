@@ -9,8 +9,13 @@ class Usherer
 {
     use ContainerAwareTrait;
 
-    public function __invoke(Repo $repo)
+    public function __invoke($vendor, $name, $dir, $baseurl)
     {
-        $this->container->gitClone($repo);
+    /*
+        $this->container->gitClonePush($vendor, $name, $dir, $baseurl);
+        $this->container->patch($mailInput->getRepoName(), $patch);
+        $this->container->pull ();
+    */
+ladybug_dump_class_die();
     }
 }

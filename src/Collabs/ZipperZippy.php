@@ -69,7 +69,9 @@ class ZipperZippy implements Zipper
             $this->fs->mkdir($unzipDirectory);
         }
 
-        return $archive->extract($unzipDirectory);
+        $archive->extract($unzipDirectory);
+
+        return $unzipDirectory;
     }
 
     public static function pullCallback(array $args)

@@ -42,9 +42,11 @@ class PushCodeTest extends BaseTestCase
         $projectName = 'INBOX';
         $mailInput = $this->reader->__invoke($projectName);
         $patch = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
+ladybug_dump_die($patch);
+        $this->usherer->__invoke($mailInput->getRepoName(), $patch);
+
         $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
-        $repo = $this->gitConsole->clone($mailInput->getRepoName(), $patch);
-        $repo = $this->gitConsole->patch($repo, $patch);
+
         $this->gitHubConsole->pushorigin($repo);
         $this->githubapi->pullRequest($repo);
         $this->usherer->__invoke($repo);

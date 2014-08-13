@@ -3,8 +3,6 @@ services:
         class: Grace\PushCode\Usherer
         arguments:
             - @grace.container
-    grace.gitconsole:
-        class: Grace\PushCode\
     grace.reader:
         class: Grace\PushCode\Reader
         arguments:
