@@ -9,9 +9,10 @@ class GithubConsole {
 
     use ContainerAwareTrait;
 
-    public function cloneAndPach()
+    public function cloneAndPatch()
     {
         $this->container->gitClonePush();
+        $this->container->gitPatch();
     }
 
 } 

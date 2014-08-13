@@ -75,4 +75,21 @@ class Container
     {
         $this->fs->remove($this->basePath.$repo->getCwd());
     }
+
+    public function gitClonePush($baseurl, $vendor, $name, $dir)
+    {
+        $this->fs->mkdir($this->basePath.$repo->getCwd());
+
+        $this->helper->run(
+            sprintf(
+                'git clone git@%s:%s/%s.git .',
+                $baseurl,
+                $vendor,
+                $name
+            ),
+            $this->basePath.$repo->getCwd()
+        );
+
+        $repo->wasCloned();
+    }
 }

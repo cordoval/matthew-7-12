@@ -43,9 +43,9 @@ class PushCodeTest extends BaseTestCase
         $mailInput = $this->reader->__invoke($projectName);
         $patch = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
         $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
-        $repo = Repo::fromHook($hookInput);
+        $repo = $this->gitHubConsole->cloneAndPatch($mailInput->getVendor(), $mailInput->getRepoName(), $patch);
+        $this->gitHubConsole->pushorigin($repo);
         $this->usherer->__invoke($repo);
-
         $this->container->destroy($repo);
     }
 }
