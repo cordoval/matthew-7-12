@@ -17,11 +17,3 @@ services:
         class: Grace\Endpoints\Pull
         arguments:
             - @grace.pull_flow
-    grace.push_flow:
-        class: Grace\PushCode\Flow
-        arguments:
-            - @grace.usherer
-    grace.push_endpoint:
-        class: Grace\Endpoints\Push
-        arguments:
-            - @grace.push_flow

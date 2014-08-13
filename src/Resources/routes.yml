@@ -3,8 +3,3 @@ pull:
     methods: [POST]
     defaults:
         _controller: grace.pull_endpoint:pull
-push:
-    path: /push
-    methods: [POST]
-    defaults:
-        _controller: grace.push_endpoint:push
