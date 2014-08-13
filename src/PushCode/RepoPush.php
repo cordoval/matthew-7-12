@@ -45,5 +45,4 @@ class RepoPush
     {
         return $this->cwd;
     }
-
 }
