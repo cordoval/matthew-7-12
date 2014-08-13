@@ -75,4 +75,53 @@ class Container
     {
         $this->fs->remove($this->basePath.$repo->getCwd());
     }
+
+    public function gitClonePush($vendor, $name, $baseurl = 'github.com')
+    {
+        $repoPath = $this->basePath.uniqid($vendor.'_'.$name);
+        $this->fs->mkdir($repoPath);
+
+        $this->helper->run(
+            sprintf(
+                'git clone git@%s:%s/%s.git .',
+                $baseurl,
+                $vendor,
+                $name
+            ),
+            $repoPath
+        );
+
+        return $repoPath;
+    }
+    public function gitApplyPatchPush($repoPath, $patchPath)
+    {
+        if ($handle = opendir($patchPath)) {
+            while (false !== ($patchFile = readdir($handle))) {
+                if ($patchFile != '.' && $patchFile != '..' && $patchFile != false) {
+                    $this->helper->run(
+                        sprintf(
+                            'git am %s/%s',
+                            $patchPath,
+                            $patchFile
+                        ),
+                        $repoPath
+                    );
+                }
+            }
+            closedir($handle);
+        }
+        return true;
+    }
+
+    public function gitPushPush($repoPath)
+    {
+        $this->helper->run(
+            sprintf(
+                'git push origin master'
+            ),
+            $repoPath
+        );
+
+        return $repoPath;
+    }
 }

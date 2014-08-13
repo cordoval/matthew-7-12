@@ -3,6 +3,7 @@ services:
         class: Grace\PushCode\Usherer
         arguments:
             - @grace.container
+            - %grace.github_username%
     grace.reader:
         class: Grace\PushCode\Reader
         arguments:
