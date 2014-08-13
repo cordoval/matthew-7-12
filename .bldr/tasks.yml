@@ -108,4 +108,4 @@ bldr:
                 -
                     type: gush:branch:rebase
                     base_branch: master
-                    symlinked: true
+
