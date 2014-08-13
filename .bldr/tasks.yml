@@ -102,3 +102,10 @@ bldr:
                     type: gush:pull-request:merge
                     base_branch: master
                     symlinked: true
+        gushRebase:
+            description: rebase flow
+            calls:
+                -
+                    type: gush:branch:rebase
+                    base_branch: master
+                    symlinked: true
