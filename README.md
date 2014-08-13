@@ -1,9 +1,9 @@
 Matthew 7:12
 ============
 
-Matthew is a server app that takes notices new changes in a repository and email subscribed users patches via email
-notifications. These patches are zipped and are split so no patch per email is larger than a threshold say 2 MB.
-Matthew is also a server app that receives contributions, so not only it sends them but Matthew is able to read an
+The app takes notice of new changes in a repository and emails subscribed users
+notifications with patches attached to them. These patches are zipped and split so no email is bigger than 2 MB.
+Matthew also receives contributions, so not only it sends them but Matthew is able to read an
 email account per project to check whether it has been emailed a patch. Each patch that Matthew reads is converted into
 a Pull Request to a given branch in a given repo.
 The circle of contribution then is pushing code via email from contributors and creating PRs and notifying these users

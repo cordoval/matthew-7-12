@@ -82,7 +82,6 @@ def deploy():
     if not exists(env.install_path):
         install()
 
-    #tag_prod()
     update()
 
 def prodlike():
@@ -96,7 +95,6 @@ def test_prod_local():
         local('composer install -o')
         local('php console --env=prod cache:clear')
         local('php console --env=prod cache:warm')
-        #local('php console doctrine:migrations --no-interaction')
         local('rm -rf app/cache/*')
         local('rm -rf app/logs/*')
         local('php console --env=prod cache:clear')
