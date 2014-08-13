@@ -95,15 +95,21 @@ class Container
     }
     public function gitApplyPatchPush($repoPath, $patchPath)
     {
-        $this->helper->run(
-            sprintf(
-                '
-                git am %s/*.patch',
-                $patchPath
-            ),
-            $repoPath
-        );
-
+        if ($handle = opendir($patchPath)) {
+            while (false !== ($patchFile = readdir($handle))) {
+                if ($patchFile != '.' && $patchFile != '..' && $patchFile != false) {
+                    $this->helper->run(
+                        sprintf(
+                            'git am %s/%s',
+                            $patchPath,
+                            $patchFile
+                        ),
+                        $repoPath
+                    );
+                }
+            }
+            closedir($handle);
+        }
         return true;
     }
 }
