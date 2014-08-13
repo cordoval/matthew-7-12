@@ -21,4 +21,4 @@ bldr:
         gush:
             description: dummy profile for running tasks Gush related
             tasks:
-                - gushTake
+                - gushMerge
