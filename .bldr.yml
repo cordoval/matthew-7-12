@@ -1,9 +1,6 @@
 imports:
-    - { resource: app/.bldr/profiles.yml }
-    - { resource: app/.bldr/tasks.yml }
-
-gush:
-    config: .gush.yml
+    - { resource: .bldr/profiles.yml }
+    - { resource: .bldr/tasks.yml }
 
 bldr:
     name: cordoval/matthew-7-12
