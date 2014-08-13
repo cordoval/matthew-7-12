@@ -18,7 +18,7 @@ class RepoPush
         $this->name = $name;
         $this->dir = $dir;
         $this->cloned = false;
-        $this->cwd = uniqid('container_folder_');
+        $this->cwd = '/';
     }
 
     public function getBaseUrl()
@@ -34,6 +34,11 @@ class RepoPush
     public function wasCloned()
     {
         $this->cloned = true;
+    }
+
+    public function setCwd()
+    {
+        $this->cwd = uniqid('container_folder_');
     }
 
     public function getCwd()
