@@ -24,3 +24,10 @@ To use bldr:
 ```bash
 ./dev tdd
 ```
+
+Configuration:
+
+```bash
+// webhook should send push events to this url:
+http://matthew.gushphp.org/pull
+```

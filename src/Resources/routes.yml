@@ -1,5 +1,11 @@
+welcome:
+    path: /
+    methods: [GET,POST]
+    defaults:
+        _controller: grace.welcome:__invoke
+
 pull:
     path: /pull
     methods: [POST]
     defaults:
-        _controller: grace.pull_endpoint:pull
+        _controller: grace.pull_endpoint:__invoke
