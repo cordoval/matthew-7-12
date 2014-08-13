@@ -10,6 +10,6 @@
 /app/deps
 *.phar
 *.lock
-/app/.bldr/vendor
+/.bldr/vendor
 /builds
 /app/spool
