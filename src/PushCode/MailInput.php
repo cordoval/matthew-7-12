@@ -16,7 +16,6 @@ class MailInput
         $vendorRepo = (explode('/', explode(':', $subject)[1]));
         $this->vendor = $vendorRepo[0];
         $this->reponame = explode('.',$vendorRepo[1])[0];
-
     }
 
     public function getAttachment()
