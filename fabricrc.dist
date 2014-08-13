@@ -1,4 +1,0 @@
-dropbox_path = /Users/cordoval/Dropbox/matthew
-local_database_name = matthew
-db_database_user = cordoval
-path_db_to_backups = /var/www/backups

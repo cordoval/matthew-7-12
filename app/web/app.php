@@ -2,6 +2,6 @@
 
 use Grace\WebApplication;
 
-require_once __DIR__.'/../../deps/autoload.php';
+require_once __DIR__.'/../../app/deps/autoload.php';
 
 (new WebApplication())->run();

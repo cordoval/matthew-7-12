@@ -1,6 +1,6 @@
 imports:
-    - { resource: .bldr/profiles.yml }
-    - { resource: .bldr/tasks.yml }
+    - { resource: app/.bldr/profiles.yml }
+    - { resource: app/.bldr/tasks.yml }
 
 gush:
     config: .gush.yml

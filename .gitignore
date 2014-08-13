@@ -7,9 +7,9 @@
 /app/config/parameters.yml
 /app/web/bundles
 /build
-/deps
+/app/deps
 *.phar
 *.lock
-.bldr/vendor
+/app/.bldr/vendor
 /builds
 /app/spool

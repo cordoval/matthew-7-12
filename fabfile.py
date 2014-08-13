@@ -69,8 +69,6 @@ def update():
         sudo('rm -rf app/cache/*')
         sudo('rm -rf app/logs/*')
         run('php console cache:clear --env=prod')
-#        tag = run('git tag -l prod/* | sort | tail -n1')
-#        run('git checkout ' + tag)
 
 def install():
     run('mkdir -p %s' % env.install_path)

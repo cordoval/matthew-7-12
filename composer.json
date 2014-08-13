@@ -41,6 +41,6 @@
         }
     },
     "config": {
-        "vendor-dir": "./deps"
+        "vendor-dir": "./app/deps"
     }
 }

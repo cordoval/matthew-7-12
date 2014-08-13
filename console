@@ -3,7 +3,7 @@
 
 set_time_limit(0);
 
-require_once __DIR__.'/deps/autoload.php';
+require_once __DIR__.'/app/deps/autoload.php';
 
 use Aequasi\Environment\SymfonyEnvironment;
 use Grace\AppKernel;
