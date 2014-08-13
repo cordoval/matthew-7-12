@@ -95,10 +95,10 @@ bldr:
                         - php-cs-fixer.phar
                         - fix
                         - .
-        gushTake:
-            description: takes an issue
+        gushMerge:
+            description: merge flow
             calls:
                 -
-                    type: gush:issue:take
-                    id: $ISSUE_ID$
-                    wip: false
+                    type: gush:pull-request:merge
+                    base_branch: master
+                    symlinked: true
