@@ -63,13 +63,15 @@ class ZipperZippy implements Zipper
     {
         $archive = $this->zipAdapter->open($attachment);
 
-        $unzipDirectory = $buildsPath.'/'.uniqid('patch_');
+        $unzipDirectory = $buildsPath.uniqid('patch_');
 
         if (!file_exists($unzipDirectory)) {
             $this->fs->mkdir($unzipDirectory);
         }
 
-        return $archive->extract($unzipDirectory);
+        $archive->extract($unzipDirectory);
+
+        return $unzipDirectory;
     }
 
     public static function pullCallback(array $args)

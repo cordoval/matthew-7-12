@@ -3,14 +3,26 @@
 namespace Grace\PushCode;
 
 use Grace\Collabs\ContainerAwareTrait;
-use Grace\Domain\Repo;
 
 class Usherer
 {
-    use ContainerAwareTrait;
+    protected $githubUsername;
 
-    public function __invoke(Repo $repo)
+    use ContainerAwareTrait {
+        ContainerAwareTrait::__construct as private __containerConstruct;
+    }
+
+    public function __construct($container, $githubUsername)
     {
-        $this->container->gitClone($repo);
+        $this->__containerConstruct($container);
+
+        $this->githubUsername = $githubUsername;
+    }
+
+    public function __invoke($repoName, $patchPath)
+    {
+        $repoPath = $this->container->gitClonePush($this->githubUsername, $repoName);
+        $this->container->gitApplyPatchPush($repoPath, $patchPath);
+        $this->container->gitPushPush($repoPath);
     }
 }

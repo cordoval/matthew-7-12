@@ -71,7 +71,7 @@ class Reader
                         $attachment->getDecodedContent()
                     );
 
-                    return ['repo' => $result->getSubject(), 'attachment' => $zipFilename];
+                    return new MailInput($result->getSubject(), $zipFilename);
                 }
             }
         }
