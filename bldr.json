@@ -3,6 +3,7 @@
         "bldr-io/gush-block": "dev-master@dev"
     },
     "config": {
-        "vendor-dir": "app/.bldr/vendor"
+        "vendor-dir": "app/.bldr/vendor",
+        "block-loader": "app/.bldr/blocks.yml"
     }
 }
