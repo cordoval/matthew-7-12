@@ -112,4 +112,16 @@ class Container
         }
         return true;
     }
+
+    public function gitPushPush($repoPath)
+    {
+        $this->helper->run(
+            sprintf(
+                'git push origin master'
+            ),
+            $repoPath
+        );
+
+        return $repoPath;
+    }
 }
