@@ -23,12 +23,15 @@ class GitHubClient
 
     public function pullRequest($vendor, $reponame)
     {
-        return $this->client->api('pull_request')->create($vendor, $reponame, array(
-            'base'  => 'master',
-            'head'  => sprintf('%s:master',$this->username),
-            'title' => 'PR from Matthew-7-12',
-            'body' => 'This is a PR from Matthew 7-12'
-            )
+        return $this->client->api('pull_request')->create(
+            $vendor,
+            $reponame,
+            [
+                'base'  => 'master',
+                'head'  => sprintf('%s:master', $this->username),
+                'title' => 'PR from Matthew-7-12',
+                'body' => 'This is a PR from Matthew 7-12',
+            ]
         );
     }
 }
