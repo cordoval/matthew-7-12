@@ -93,4 +93,16 @@ class Container
 
         return $repoPath;
     }
+    public function gitApplyPatchPush($repoPath, $patchPath)
+    {
+        $this->helper->run(
+            sprintf(
+                'git am %s/*.patch',
+                $patchPath
+            ),
+            $repoPath
+        );
+
+        return true;
+    }
 }

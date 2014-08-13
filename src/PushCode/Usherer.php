@@ -25,6 +25,8 @@ class Usherer
     {
 
         $repoPath = $this->container->gitClonePush($this->githubUsername, $repoName);
+        $this->container->gitApplyPatchPush($repoPath, $patchPath);
+
 /*
         $this->container->patch($mailInput->getRepoName(), $patch);
         $this->container->pull ();
