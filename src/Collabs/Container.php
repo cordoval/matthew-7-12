@@ -110,6 +110,7 @@ class Container
             }
             closedir($handle);
         }
+
         return true;
     }
 

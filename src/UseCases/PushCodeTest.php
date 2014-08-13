@@ -2,9 +2,6 @@
 
 namespace Grace\UseCases;
 
-use Grace\Domain\GithubInput;
-use Grace\Domain\Repo;
-
 /**
  * @group push
  */

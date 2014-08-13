@@ -2,7 +2,6 @@
 
 namespace Grace\PushCode;
 
-
 class MailInput
 {
     protected $attachment;
@@ -34,4 +33,4 @@ class MailInput
     {
         return $this->reponame;
     }
-} 
+}

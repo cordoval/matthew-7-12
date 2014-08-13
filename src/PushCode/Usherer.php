@@ -4,7 +4,6 @@ namespace Grace\PushCode;
 
 use Grace\Collabs\ContainerAwareTrait;
 use Grace\Collabs\Container;
-use Grace\Domain\Repo;
 
 class Usherer
 {
