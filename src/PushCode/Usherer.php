@@ -3,7 +3,6 @@
 namespace Grace\PushCode;
 
 use Grace\Collabs\ContainerAwareTrait;
-use Grace\Collabs\Container;
 
 class Usherer
 {
@@ -22,14 +21,8 @@ class Usherer
 
     public function __invoke($repoName, $patchPath)
     {
-
         $repoPath = $this->container->gitClonePush($this->githubUsername, $repoName);
         $this->container->gitApplyPatchPush($repoPath, $patchPath);
         $this->container->gitPushPush($repoPath);
-/*
-        $this->container->patch($mailInput->getRepoName(), $patch);
-        $this->container->pull ();
-    */
-ladybug_dump_class_die($repoPath, $patchPath);
     }
 }

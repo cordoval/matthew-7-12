@@ -93,6 +93,7 @@ class Container
 
         return $repoPath;
     }
+
     public function gitApplyPatchPush($repoPath, $patchPath)
     {
         if ($handle = opendir($patchPath)) {
