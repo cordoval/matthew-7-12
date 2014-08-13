@@ -18,7 +18,7 @@ bldr:
             description: fix cs for once
             tasks:
                 - runFixer
-        gush:
-            description: dummy profile for running tasks Gush related
+        merge:
+            description: merge flow for matthew
             tasks:
                 - gushMerge
