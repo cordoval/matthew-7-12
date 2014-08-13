@@ -7,6 +7,7 @@ use Ddeboer\Imap\Server as ImapServer;
 use Ddeboer\Imap\SearchExpression;
 use Ddeboer\Imap\Message;
 use Grace\Collabs\FileSystemSymfony;
+use Grace\PushCode\MailInput;
 
 class Reader
 {
@@ -71,7 +72,7 @@ class Reader
                         $attachment->getDecodedContent()
                     );
 
-                    return ['repo' => $result->getSubject(), 'attachment' => $zipFilename];
+                    return new MailInput($result->getSubject(), $zipFilename);
                 }
             }
         }
