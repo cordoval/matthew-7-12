@@ -16,8 +16,19 @@ class GitHubClient
         $this->client->authenticate($username, $password, Client::AUTH_HTTP_PASSWORD);
     }
 
-    public function fork($vendor, $repo)
+    public function fork($vendor, $reponame)
     {
-        return $this->client->api('repo')->forks()->create($vendor, $repo);
+        return $this->client->api('repo')->forks()->create($vendor, $reponame);
+    }
+
+    public function pullRequest($vendor, $reponame)
+    {
+        return $this->client->api('pull_request')->create($vendor, $reponame, array(
+            'base'  => 'master',
+            'head'  => sprintf('%s:master',$this->username),
+            'title' => 'PR from Matthew-7-12',
+            'body' => 'This is a PR from Matthew 7-12'
+            )
+        );
     }
 }

@@ -44,10 +44,6 @@ class PushCodeTest extends BaseTestCase
         $patchPath = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
         $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
         $this->usherer->__invoke($mailInput->getRepoName(), $patchPath);
-ladybug_dump_die('fin');
-        $this->gitHubConsole->pushorigin($repo);
-        $this->githubapi->pullRequest($repo);
-        $this->usherer->__invoke($repo);
-        $this->container->destroy($repo);
+        $this->githubapi->pullRequest($mailInput->getVendor(), $mailInput->getRepoName());
     }
 }
