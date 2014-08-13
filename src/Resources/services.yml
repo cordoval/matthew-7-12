@@ -4,6 +4,12 @@ imports:
     - { resource: ../Collabs/collabs.yml }
 
 services:
+    grace.welcome:
+        class: Grace\Endpoints\Welcome
+    grace.pull_endpoint:
+        class: Grace\Endpoints\Pull
+        arguments:
+            - @grace.pull_flow
     grace.pull_flow:
         class: Grace\PullCode\Flow
         arguments:
@@ -13,7 +19,3 @@ services:
             - @grace.subscriber
             - @grace.mailer
             - @grace.container
-    grace.pull_endpoint:
-        class: Grace\Endpoints\Pull
-        arguments:
-            - @grace.pull_flow

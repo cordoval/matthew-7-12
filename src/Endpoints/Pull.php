@@ -15,7 +15,7 @@ class Pull
         $this->flow = $flow;
     }
 
-    public function pull(Request $request)
+    public function __invoke(Request $request)
     {
         $this->flow->pull($request);
 
