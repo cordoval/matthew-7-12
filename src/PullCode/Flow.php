@@ -6,6 +6,7 @@ use Grace\Collabs\Collab;
 use Grace\Collabs\Container;
 use Grace\Domain\GithubPost;
 use Grace\Domain\Repo;
+use Symfony\Component\HttpFoundation\Request;
 
 class Flow
 {
@@ -15,6 +16,8 @@ class Flow
     protected $subscriber;
     protected $mailer;
     protected $container;
+    protected $from;
+    protected $baseMailer;
 
     public function __construct(
         Puller $puller,
@@ -22,7 +25,9 @@ class Flow
         Collab $zipper,
         Subscriber $subscriber,
         Collab $mailer,
-        Container $container
+        Container $container,
+        $from,
+        $baseMailer
     ) {
         $this->puller = $puller;
         $this->differ = $differ;
@@ -30,16 +35,18 @@ class Flow
         $this->subscriber = $subscriber;
         $this->mailer = $mailer;
         $this->container = $container;
+        $this->from = $from;
+        $this->baseMailer = $baseMailer;
     }
 
-    public function pull($request)
+    public function pull(Request $request)
     {
         $hookPost = GithubPost::fromRequest($request);
         $repo = $this->puller->__invoke(Repo::fromHook($hookPost));
         $patches = $this->differ->__invoke($repo);
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
-        $this->mailer->__invoke($list, $manyCompressed);
+        $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
         $this->container->destroy($repo);
     }
 }

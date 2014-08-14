@@ -17,8 +17,8 @@ class Pull
 
     public function __invoke(Request $request)
     {
-        $this->flow->pull($request);
+        $result = $this->flow->pull($request);
 
-        return new Response('received', Response::HTTP_OK);
+        return new Response($result, Response::HTTP_OK);
     }
 }

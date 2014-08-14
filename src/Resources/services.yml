@@ -19,3 +19,5 @@ services:
             - @grace.subscriber
             - @grace.mailer
             - @grace.container
+            - %grace.from%
+            - @swiftmailer.mailer

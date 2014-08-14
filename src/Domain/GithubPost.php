@@ -13,7 +13,7 @@ class GithubPost extends BaseDomain implements HookPost
 
     public static function fromRequest(Request $request)
     {
-        $content = (array) $request->getContent();
+        $content = json_decode($request->getContent(), true);
 
         $hook = new self();
         $hook->from = $content['before'];
