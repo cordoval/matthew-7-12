@@ -56,7 +56,7 @@ bldr:
                     failOnError: true
                     executable: php
                     arguments:
-                        - deps/bin/phpunit
+                        - app/deps/bin/phpunit
                         #- --exclude-group=travis
                         #- --coverage-text=php://stdout
         testLocal:
@@ -66,7 +66,7 @@ bldr:
                     type: exec
                     executable: php
                     arguments:
-                        - deps/bin/phpunit
+                        - app/deps/bin/phpunit
                         - --stop-on-failure
                         - --group=now
         watch:
@@ -95,6 +95,15 @@ bldr:
                         - php-cs-fixer.phar
                         - fix
                         - .
+        sendMail:
+            description: send email stored in pool
+            calls:
+                -
+                    type: exec
+                    executable: php
+                    arguments:
+                        - console
+                        - swiftmailer:spool:send
         gushMerge:
             description: merge flow
             calls:

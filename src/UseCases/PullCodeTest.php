@@ -32,7 +32,7 @@ class PullCodeTest extends BaseTestCase
         $this->subscriber = $container->get('grace.subscriber');
         $this->mailer = $container->get('grace.mailer');
         $this->zipper = $container->get('grace.zipper');
-        $this->from = $container->getParameter('from');
+        $this->from = $container->getParameter('grace.from');
         $this->baseMailer = $container->get('swiftmailer.mailer');
         $this->container = $container->get('grace.container');
     }
@@ -49,7 +49,6 @@ class PullCodeTest extends BaseTestCase
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
-        $this->container->destroy($repo);
     }
 
     public function getRequestExamples()
@@ -61,6 +60,6 @@ class PullCodeTest extends BaseTestCase
 
     private function getRequest($content)
     {
-        return new Request([], [], [], [], [], [], json_decode($content, true));
+        return new Request([], [], [], [], [], [], $content);
     }
 }

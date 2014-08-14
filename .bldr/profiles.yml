@@ -26,3 +26,7 @@ bldr:
             description: rebase flow for matthew
             tasks:
                 - gushRebase
+        send:
+            description: send email from pool
+            tasks:
+                - sendMail
