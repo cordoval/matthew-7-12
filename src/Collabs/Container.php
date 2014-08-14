@@ -94,7 +94,7 @@ class Container
         return $repoPath;
     }
 
-    public function gitApplyPatchPush($repoPath, $patchPath)
+    public function gitApplyPatch($repoPath, $patchPath)
     {
         if ($handle = opendir($patchPath)) {
             while (false !== ($patchFile = readdir($handle))) {
@@ -112,11 +112,6 @@ class Container
             closedir($handle);
         }
 
-        return true;
-    }
-
-    public function gitPushPush($repoPath)
-    {
         $this->helper->run(
             sprintf(
                 'git push origin master'
@@ -124,6 +119,6 @@ class Container
             $repoPath
         );
 
-        return $repoPath;
+        return true;
     }
 }
