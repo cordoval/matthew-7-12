@@ -21,12 +21,12 @@ class MailerSwift implements Mailer
     public function create(array $list, $zipFile)
     {
         return \Swift_Message::newInstance()
-            ->setSubject('Outgoing email')
+            ->setSubject('Repo update')
             ->setFrom($this->from)
             ->setTo($list)
             ->attach(\Swift_Attachment::fromPath($zipFile))
             ->setBody(
-                'Attached are the code updates'
+                'Matthew 7:12'
             )
         ;
     }
