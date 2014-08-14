@@ -2,27 +2,28 @@
 
 namespace Grace\PushCode;
 
-use Grace\Collabs\ContainerAwareTrait;
+use Grace\Collabs\Container;
+use Grace\Collabs\GitHubClient;
+use Grace\Domain\Repo;
 
 class Usherer
 {
-    protected $githubUsername;
+    protected $container;
+    protected $client;
 
-    use ContainerAwareTrait {
-        ContainerAwareTrait::__construct as private __containerConstruct;
+    public function __construct(
+        Container $container,
+        GitHubClient $client
+    ) {
+        $this->container = $container;
+        $this->client = $client;
     }
 
-    public function __construct($container, $githubUsername)
+    public function __invoke(Repo $repo, $patchPath)
     {
-        $this->__containerConstruct($container);
-
-        $this->githubUsername = $githubUsername;
-    }
-
-    public function __invoke($repoName, $patchPath)
-    {
-        $repoPath = $this->container->gitClonePush($this->githubUsername, $repoName);
-        $this->container->gitApplyPatchPush($repoPath, $patchPath);
-        $this->container->gitPushPush($repoPath);
+        $repoPath = $this->container->gitClonePush($repo);
+        $this->container->gitApplyPatch($repoPath, $patchPath);
+        $this->client->fork($repo);
+        $this->client->pullRequest($repo);
     }
 }

@@ -26,7 +26,6 @@ class PushCodeTest extends BaseTestCase
         $this->container = $container->get('grace.container');
         $this->unzipper = $container->get('grace.unzipper');
         $this->usherer = $container->get('grace.usherer');
-        $this->githubapi = $container->get('grace.github_client');
         $this->buildsPath = $container->getParameter('builds_base_path');
     }
 
@@ -35,11 +34,8 @@ class PushCodeTest extends BaseTestCase
      */
     public function it_goes_through_the_whole_push_flow()
     {
-        $projectName = 'INBOX';
-        $mailInput = $this->reader->__invoke($projectName);
+        $mailInput = $this->reader->__invoke($projectName = 'INBOX');
         $patchPath = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
-        $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
-        $this->usherer->__invoke($mailInput->getRepoName(), $patchPath);
-        $this->githubapi->pullRequest($mailInput->getVendor(), $mailInput->getRepoName());
+        $this->usherer->__invoke($mailInput, $patchPath);
     }
 }

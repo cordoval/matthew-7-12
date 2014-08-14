@@ -40,6 +40,11 @@ EOF
         $projectName = 'cordoval/matthew-7-12';
         $messageOrFalse = $this->reader->__invoke($projectName);
 
-        ladybug_dump_die($message);
+        $projectName = 'INBOX';
+        $mailInput = $this->reader->__invoke($projectName);
+        $patchPath = $this->unzipper->__invoke($mailInput->getAttachment(), $this->buildsPath);
+        $this->githubapi->fork($mailInput->getVendor(), $mailInput->getRepoName());
+        $this->usherer->__invoke($mailInput->getRepoName(), $patchPath);
+        $this->githubapi->pullRequest($mailInput->getVendor(), $mailInput->getRepoName());
     }
 }
