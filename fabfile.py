@@ -57,10 +57,10 @@ def update():
         run('git remote prune origin')
         run('git remote update')
         sudo('rm -rf composer.lock')
-        sudo('rm -rf deps')
+        sudo('rm -rf app/deps')
         run('git pull -u origin master')
         sudo('rm -rf composer.lock')
-        run('rm -f deps/composer/autoload_namespaces.php')
+        run('rm -f app/deps/composer/autoload_namespaces.php')
         sudo('rm -rf app/cache/*')
         sudo('rm -rf app/logs/*')
         run('composer install -o')
@@ -89,7 +89,7 @@ def prodlike():
 
 def test_prod_local():
     with cd(env.install_path):
-        local('rm -f deps/composer/autoload_namespaces.php')
+        local('rm -f app/deps/composer/autoload_namespaces.php')
         local('rm -rf app/cache/*')
         local('rm -rf app/logs/*')
         local('composer install -o')
@@ -102,7 +102,7 @@ def test_prod_local():
 
 def run_tests():
     with cd(env.install_path):
-        run('php deps/bin/phpunit')
+        run('php app/deps/bin/phpunit')
 
 def run_cache_clear():
     with cd(env.install_path):
