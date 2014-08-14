@@ -13,3 +13,4 @@
 /.bldr/vendor
 /builds
 /app/spool
+*.pyc
