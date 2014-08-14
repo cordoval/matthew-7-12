@@ -31,3 +31,8 @@ Configuration:
 // webhook should send push events to this url:
 http://matthew.gushphp.org/pull
 ```
+
+```bash
+// plug crontab -e
+1/* * * * * php console swiftmailer:spool:send
+```

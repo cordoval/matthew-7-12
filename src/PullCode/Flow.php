@@ -47,5 +47,10 @@ class Flow
         $manyCompressed = $this->zipper->__invoke($patches);
         $list = $this->subscriber->__invoke($repo);
         $this->mailer->__invoke($list, $manyCompressed, $this->from, $this->baseMailer);
+        // persist repo
+        // pass the id instead of this 'ok'
+        // and grab the repo back in a listener
+
+        return 'ok';
     }
 }
