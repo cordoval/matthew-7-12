@@ -92,6 +92,7 @@ class AppKernel extends Kernel
             [new FixValidatorDefinitionPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, true],
             [new RegisterListenersPass(Dispatchers::READ, Dispatchers::READ_LISTENER, Dispatchers::READ_SUBSCRIBER), PassConfig::TYPE_BEFORE_REMOVING, false],
             [new RegisterListenersPass(Dispatchers::WRITE, Dispatchers::WRITE_LISTENER, Dispatchers::WRITE_SUBSCRIBER), PassConfig::TYPE_BEFORE_REMOVING, false],
+            [new DecorateRegisterListenerPass(), PassConfig::TYPE_BEFORE_REMOVING, false],
         ];
     }
 
