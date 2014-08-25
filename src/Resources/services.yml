@@ -21,3 +21,8 @@ services:
             - @grace.container
             - %grace.from%
             - @swiftmailer.mailer
+    grace.some_domain_event_subscriber:
+        class: Grace\ExampleSubscriber
+        tags:
+            -
+                name: Grace\Dispatchers::READ_SUBSCRIBER
