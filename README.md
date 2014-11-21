@@ -1,6 +1,8 @@
 Matthew 7:12
 ============
 
+<img src="https://cloud.githubusercontent.com/assets/1138453/5146736/347e534e-71b8-11e4-9a3d-df0b5856777e.png" alt="Matthew logo"  width="90px"/>
+
 The app takes notice of new changes in a repository and emails subscribed users
 notifications with patches attached to them. These patches are zipped and split so no email is bigger than 2 MB.
 Matthew also receives contributions, so not only it sends them but Matthew is able to read an
