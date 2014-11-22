@@ -18,6 +18,7 @@ use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -81,6 +82,20 @@ class AppKernel extends Kernel
         return $commands;
     }
 
+    public function registerCompilers()
+    {
+        $configuration = new Configuration();
+        $configuration->setEvaluateExpressions(true);
+
+        return [
+            [new ValidateServiceDefinitionsPass($configuration), PassConfig::TYPE_AFTER_REMOVING, true],
+            [new FixValidatorDefinitionPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, true],
+            [new RegisterListenersPass(Dispatchers::READ, Dispatchers::READ_LISTENER, Dispatchers::READ_SUBSCRIBER), PassConfig::TYPE_BEFORE_REMOVING, false],
+            [new RegisterListenersPass(Dispatchers::WRITE, Dispatchers::WRITE_LISTENER, Dispatchers::WRITE_SUBSCRIBER), PassConfig::TYPE_BEFORE_REMOVING, false],
+            [new DecorateRegisterListenerPass(), PassConfig::TYPE_BEFORE_REMOVING, false],
+        ];
+    }
+
     protected function prepareContainer(ContainerBuilder $container)
     {
         $extensions = array();
@@ -98,23 +113,21 @@ class AppKernel extends Kernel
             $bundle->build($container);
         }
 
-        $this->buildBundleless($container);
+        $this->hookCompilers($container);
 
         // ensure these extensions are implicitly loaded
         $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
     }
 
-    private function buildBundleless(ContainerBuilder $container)
+    private function hookCompilers(ContainerBuilder $container)
     {
-        if ($container->getParameter('kernel.debug')) {
-            $container->addCompilerPass(new FixValidatorDefinitionPass());
-
-            $configuration = new Configuration();
-            $configuration->setEvaluateExpressions(true);
-            $container->addCompilerPass(
-                new ValidateServiceDefinitionsPass($configuration),
-                PassConfig::TYPE_AFTER_REMOVING
-            );
+        foreach ($this->registerCompilers() as $compilerRow) {
+            $instance = $compilerRow[0];
+            $type = $compilerRow[1];
+            $debug = $compilerRow[2];
+            if (!$debug || $container->getParameter('kernel.debug')) {
+                $container->addCompilerPass($instance, $type);
+            }
         }
     }
 }
